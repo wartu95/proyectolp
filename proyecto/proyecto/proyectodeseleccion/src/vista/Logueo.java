@@ -7,13 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Logueo extends JFrame {
+public class Logueo extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JLabel lblUsuario;
@@ -74,6 +77,7 @@ public class Logueo extends JFrame {
 		contentPane.add(txtClave);
 		
 		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(this);
 		btnAceptar.setBounds(35, 211, 89, 23);
 		contentPane.add(btnAceptar);
 		
@@ -94,4 +98,45 @@ public class Logueo extends JFrame {
 		lblNewLabel.setBounds(0, 0, 455, 277);
 		contentPane.add(lblNewLabel);
 	}
+	
+
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAceptar) {
+			actionPerformedBtnAceptar(e);
+		}
+	}
+	protected void actionPerformedBtnAceptar(ActionEvent e) {
+		
+		validarAcceso();
+		
+	}
+	// METODOS DE ENTRADA Y SALIDA
+	public String leerUsuario() {
+		
+		String res = txtUsuario.getText();
+		
+		return res;
+		
+	}
+	
+	public String leerPassword() {
+		
+		String res = txtClave.getText();
+		
+		return res;
+	}
+	//METODOS VOID
+	public void validarAcceso() {
+		
+		if (leerUsuario().equals("klisman")&& leerPassword().equals("123")) {
+			FrmPrincipal ventana = new FrmPrincipal();
+			ventana.setVisible(true);
+			this.dispose();
+		}else {
+			JOptionPane.showMessageDialog(this, "CONTRASEÑA INCORRECTA Y KLISMAN ES GAY", "ATENCION" , 0);
+		}
+		
+	}
+	
 }
