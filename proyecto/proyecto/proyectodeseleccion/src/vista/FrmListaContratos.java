@@ -32,7 +32,7 @@ import mantenimiento.AdminDAO;
 import mantenimiento.GestionContratoDAO;
 import mantenimiento.ObjetoContratoDAO;
 import mantenimiento.ParticipanteDAO;
-import mantenimiento.TipoContratoDAO;
+import mantenimiento.GestionTipoContratoDAO;
 import utils.Tool;
 
 import javax.swing.border.TitledBorder;
@@ -42,7 +42,7 @@ import javax.swing.JScrollPane;
 public class FrmListaContratos extends JInternalFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private TipoContratoDAO tipContDao;
+	private GestionTipoContratoDAO tipContDao;
 	private ObjetoContratoDAO objContDao;
 	private GestionContratoDAO contDao;
 	private ParticipanteDAO partDao;
