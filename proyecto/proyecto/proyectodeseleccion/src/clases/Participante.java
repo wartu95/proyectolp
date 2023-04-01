@@ -6,7 +6,7 @@ public class Participante {
 	private String Apellido;
 	private String Nombre;
 	private String Dni;
-	private int Telefono;
+	private String Telefono;
 	private String Correo;
 	
 	
@@ -18,7 +18,7 @@ public class Participante {
 
 
 
-	public Participante(int idParticipante, String apellido, String nombre, String dni, int telefono, String correo) {
+	public Participante(int idParticipante, String apellido, String nombre, String dni, String telefono, String correo) {
 		super();
 		this.idParticipante = idParticipante;
 		Apellido = apellido;
@@ -78,13 +78,13 @@ public class Participante {
 
 
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return Telefono;
 	}
 
 
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		Telefono = telefono;
 	}
 
