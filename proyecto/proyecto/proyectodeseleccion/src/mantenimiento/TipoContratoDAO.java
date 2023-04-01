@@ -19,7 +19,6 @@ public class TipoContratoDAO {
 			
 			Connection con =null;
 			PreparedStatement pstm = null;
-			
 			ResultSet res = null;
 			
 			try {
@@ -27,7 +26,7 @@ public class TipoContratoDAO {
 				con = MySQLConexion8.getConexion();
 				
 				String sql = "select * from tb_tipoContrato"; 
-							
+			
 				pstm = con.prepareStatement(sql);
 				
 				res = pstm.executeQuery();

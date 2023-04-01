@@ -29,7 +29,7 @@ import clases.ObjContrato;
 import clases.Participante;
 import clases.TipoContrato;
 import mantenimiento.AdminDAO;
-import mantenimiento.ContratoDAO;
+import mantenimiento.GestionContratoDAO;
 import mantenimiento.ObjetoContratoDAO;
 import mantenimiento.ParticipanteDAO;
 import mantenimiento.TipoContratoDAO;
@@ -42,13 +42,8 @@ import javax.swing.JScrollPane;
 public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JLabel lblEntidad;
-	private JTextField txtEntidad;
-	private JLabel lblRuc;
-	private JTextField txtRuc;
 	private JTextField txtIDcontrato;
 	private JLabel lblObjetoContrato;
-	private JComboBox<Object> cboObjeto;
 	private JButton btnRegistrar;
 	private JButton btnModificar;
 	private JLabel lblFecha;
@@ -60,21 +55,29 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private JLabel lblTipoContrato;
 	private JComboBox<Object> cboTipo;
 	private JLabel lblNroPedido;
-	private JPanel panel;
 	private JPanel panel2;
 	private JButton btnNuevo;
 	private JTextField txtDescripcion;
 	private TipoContratoDAO tipContDao;
 	private ObjetoContratoDAO objContDao;
-	private ContratoDAO contDao;
+	private GestionContratoDAO contDao;
 	private ParticipanteDAO partDao;
 	private AdminDAO adminDao;
-	private JScrollPane scrollPane;
 	
 	
 	//instanciar un objeto para modelar la tabla
 	DefaultTableModel model= new DefaultTableModel();
-	private ContratoDAO conDAO;
+	private GestionContratoDAO conDAO;
+	private JTextField textField;
+	private JLabel lblResolucin;
+	private JLabel lblIdParticipante;
+	private JTextField textField_1;
+	private JButton btnNuevo_1;
+	private JLabel lblNombreCompleto;
+	private JTextField textField_2;
+	private JScrollPane scrollPane;
+	private JLabel lblDni;
+	private JTextField textField_3;
 
 	
 	/**
@@ -100,9 +103,9 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
-		setTitle("Registrar Tipo de Contrato");
+		setTitle("Mantenimiento de Contrato");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 706, 459);
+		setBounds(100, 100, 706, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -110,49 +113,17 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(10, 205, 104, 20);
+		btnRegistrar.setBounds(466, 288, 104, 20);
 		contentPane.add(btnRegistrar);
 
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(125, 205, 104, 20);
+		btnModificar.setBounds(580, 288, 104, 20);
 		contentPane.add(btnModificar);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 236, 674, 173);
-		contentPane.add(scrollPane);
-
-		tbContrato = new JTable();
-		tbContrato.setFillsViewportHeight(true);
-		scrollPane.setViewportView(tbContrato);
-
-		panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "ENTIDAD", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 176, 112);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
-		lblEntidad = new JLabel("Entidad Solicitante :");
-		lblEntidad.setBounds(10, 22, 127, 14);
-		panel.add(lblEntidad);
-
-		txtEntidad = new JTextField();
-		txtEntidad.setBounds(10, 36, 128, 20);
-		panel.add(txtEntidad);
-		txtEntidad.setColumns(10);
-
-		lblRuc = new JLabel("RUC :");
-		lblRuc.setBounds(10, 66, 46, 14);
-		panel.add(lblRuc);
-
-		txtRuc = new JTextField();
-		txtRuc.setBounds(10, 79, 127, 20);
-		panel.add(txtRuc);
-		txtRuc.setColumns(10);
 
 		panel2 = new JPanel();
 		panel2.setBorder(new TitledBorder(null, "CONTRATO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel2.setBounds(186, 11, 498, 183);
+		panel2.setBounds(10, 11, 674, 267);
 		contentPane.add(panel2);
 		panel2.setLayout(null);
 
@@ -161,20 +132,16 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		panel2.add(txtIDcontrato);
 		txtIDcontrato.setColumns(10);
 
-		lblObjetoContrato = new JLabel("Objeto de contrato:");
+		lblObjetoContrato = new JLabel("Participante  :");
 		lblObjetoContrato.setBounds(10, 76, 96, 14);
 		panel2.add(lblObjetoContrato);
 
-		cboObjeto = new JComboBox();
-		cboObjeto.setBounds(10, 92, 146, 22);
-		panel2.add(cboObjeto);
-
 		lblTipoContrato = new JLabel("Tipo de Contrato:");
-		lblTipoContrato.setBounds(10, 130, 113, 14);
+		lblTipoContrato.setBounds(10, 159, 113, 14);
 		panel2.add(lblTipoContrato);
 
 		cboTipo = new JComboBox();
-		cboTipo.setBounds(10, 150, 146, 22);
+		cboTipo.setBounds(10, 179, 146, 22);
 		panel2.add(cboTipo);
 
 		lblFecha = new JLabel("Fecha Inicio :");
@@ -190,16 +157,16 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		dcFecha.setBounds(215, 46, 122, 20);
 		panel2.add(dcFecha);
 
-		lblDescrip = new JLabel("Descripcion de Tipo de Contrato :");
-		lblDescrip.setBounds(216, 76, 226, 14);
+		lblDescrip = new JLabel("Descripcion de Contrato :");
+		lblDescrip.setBounds(216, 169, 226, 14);
 		panel2.add(lblDescrip);
 
 		lblEstado = new JLabel("Estado :");
-		lblEstado.setBounds(355, 21, 46, 14);
+		lblEstado.setBounds(462, 21, 46, 14);
 		panel2.add(lblEstado);
 
 		txtEstado = new JTextField();
-		txtEstado.setBounds(356, 46, 86, 20);
+		txtEstado.setBounds(463, 46, 86, 20);
 		panel2.add(txtEstado);
 		txtEstado.setColumns(10);
 
@@ -208,9 +175,50 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		panel2.add(lblNroPedido);
 
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(216, 93, 272, 79);
+		txtDescripcion.setBounds(216, 193, 447, 64);
 		panel2.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(559, 46, 86, 20);
+		panel2.add(textField);
+		
+		lblResolucin = new JLabel("Resoluci\u00F3n  :");
+		lblResolucin.setBounds(559, 21, 72, 14);
+		panel2.add(lblResolucin);
+		
+		lblIdParticipante = new JLabel("ID Participante  :");
+		lblIdParticipante.setBounds(10, 100, 90, 15);
+		panel2.add(lblIdParticipante);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(10, 125, 128, 20);
+		panel2.add(textField_1);
+		
+		btnNuevo_1 = new JButton("");
+		btnNuevo_1.addActionListener(this);
+		btnNuevo_1.setBounds(161, 122, 46, 23);
+		panel2.add(btnNuevo_1);
+		
+		lblNombreCompleto = new JLabel("Nombre Completo  :");
+		lblNombreCompleto.setBounds(228, 100, 113, 15);
+		panel2.add(lblNombreCompleto);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(228, 125, 226, 20);
+		panel2.add(textField_2);
+		
+		lblDni = new JLabel("DNI  :");
+		lblDni.setBounds(482, 100, 113, 15);
+		panel2.add(lblDni);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(480, 125, 105, 20);
+		panel2.add(textField_3);
 
 		
 		model.addColumn("ID CONTRATO");
@@ -221,14 +229,22 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		model.addColumn("DESCRIPCION");
 		model.addColumn("FECHA");
 		model.addColumn("ESTADO");
+				
+				scrollPane = new JScrollPane();
+				scrollPane.setBounds(10, 312, 672, 165);
+				contentPane.add(scrollPane);
 		
-		//asociar 
-		tbContrato.setModel(model);
+				tbContrato = new JTable();
+				scrollPane.setViewportView(tbContrato);
+				tbContrato.setFillsViewportHeight(true);
+				
+				//asociar 
+				tbContrato.setModel(model);
 
 		
 		partDao = new ParticipanteDAO();
 		adminDao = new AdminDAO();
-		conDAO = new ContratoDAO();
+		conDAO = new GestionContratoDAO();
 		
 		
 		arranque();
@@ -246,10 +262,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	}
 
 	private void limpiar() {
-		txtEntidad.setEditable(false);
-		txtRuc.setEditable(false);
-		txtEntidad.setText("MINISTERIO PUBLICO");
-		txtRuc.setText("20131389218");
 		dcFecha.setDate(new Date());
 		txtDescripcion.setText("");
 		txtEstado.setText("REGISTRADO");
@@ -258,9 +270,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	private void cargarObjetoContrato() {
 ArrayList<ObjContrato> list = ObjetoContratoDAO.listarObjContrato();
-		
-		cboObjeto.removeAllItems();
-		cboObjeto.addItem("SELECCIONE..");
 		
 		for (ObjContrato objCont : list) {
 			
@@ -305,6 +314,9 @@ ArrayList<ObjContrato> list = ObjetoContratoDAO.listarObjContrato();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNuevo_1) {
+			actionPerformedBtnNuevo_1(e);
+		}
 		if (e.getSource() == btnModificar) {
 			actionPerformedBtnModificar(e);
 		}
@@ -530,5 +542,7 @@ ArrayList<ObjContrato> list = ObjetoContratoDAO.listarObjContrato();
 			}
 		}
 
+	}
+	protected void actionPerformedBtnNuevo_1(ActionEvent e) {
 	}
 }

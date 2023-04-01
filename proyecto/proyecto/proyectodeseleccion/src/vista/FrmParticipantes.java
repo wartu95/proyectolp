@@ -31,7 +31,7 @@ import clases.Admin;
 import clases.Contrato;
 import clases.Participante;
 import mantenimiento.AdminDAO;
-import mantenimiento.ContratoDAO;
+import mantenimiento.GestionContratoDAO;
 import mantenimiento.ParticipanteDAO;
 
 import javax.swing.JScrollPane;
@@ -76,7 +76,7 @@ public class FrmParticipantes extends JInternalFrame implements ActionListener {
 	private AdminDAO admDao;
 	private JTextField txtContrato;
 	private JTextField txtIdParticipante;
-	private ContratoDAO contDao;
+	private GestionContratoDAO contDao;
 	private DefaultTableModel modelo;
 
 	/**

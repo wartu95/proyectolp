@@ -7,23 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import clases.*;
+import interfaces.ContratoInterfaceDAO;
 import utils.MySQLConexion8;
 
-public class ContratoDAO {
+public class GestionContratoDAO implements ContratoInterfaceDAO{
 
 public int registrarPedido(Contrato cont) {
 		
 		int res = 0;
-		
 		Connection con =null;
 		PreparedStatement pstm = null;
 		
 		try {
 			
 			con = MySQLConexion8.getConexion();
-			
 			String sql = "insert into tb_contrato values (?,?,?,?,?,?,?,?)";
-			
 			pstm = con.prepareStatement(sql);
 			
 			pstm.setString(1,cont.getCodigo());
@@ -334,6 +332,44 @@ public int registrarPedido(Contrato cont) {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public int registrar(Contrato cont) {
+
+		int res = 0;
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			String sql = "insert into tb_contrato values (?,?,?,?,?,?,?,?)";
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1,cont.getIdContrato());
+			pstm.setInt(2,cont.getTiPoContrato());
+			pstm.setInt(3,cont.getIdParticipante());
+			pstm.setString(4,cont.getFecha());
+			pstm.setString(5,cont.getDescripcion());
+			pstm.setString(6,cont.getResulucion());
+			pstm.setString(7,cont.getEstado());
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
 	}
 
 	
