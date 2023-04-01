@@ -220,7 +220,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		btnBuscarParticipante = new JButton("");
 		btnBuscarParticipante.addActionListener(this);
 		btnBuscarParticipante.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/query.png")));
-		btnBuscarParticipante.setBounds(152, 115, 46, 39);
+		btnBuscarParticipante.setBounds(152, 115, 66, 41);
 		panel2.add(btnBuscarParticipante);
 
 		scrollPane = new JScrollPane();
