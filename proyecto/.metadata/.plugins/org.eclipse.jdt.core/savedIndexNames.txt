@@ -1,6 +1,0 @@
-INDEX VERSION 1.131+D:\CICLO 3 - 2023\LENGUAJE DE PROGRAMACION I\PROYECTO\proyecto\.metadata\.plugins\org.eclipse.jdt.core
-1865797976.index
-2649248280.index
-2930698214.index
-398294225.index
-1179679736.index
