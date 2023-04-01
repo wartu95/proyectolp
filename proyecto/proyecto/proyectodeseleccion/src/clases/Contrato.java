@@ -2,71 +2,97 @@ package clases;
 
 public class Contrato {
 
-	private String idContrato;
-	private int tiPoContrato;
-	private int idParticipante;
+	private String codigo;
+	private String entidad;
+	private String ruc;
+	private int tipo;
+	private int objeto;
+	private String descripcion;
 	private String  fecha;
-	private String Descripcion;
-	private String Resulucion;
-	private String Estado;
-	// INCIALIZAMOS ENTRADAS
-	public Contrato() {
-		
-	}
-	public Contrato(String idContrato, int tiPoContrato, int idParticipante, String fecha, String descripcion,
-			String resulucion, String estado) {
+	private String estado;
 	
-		this.idContrato = idContrato;
-		this.tiPoContrato = tiPoContrato;
-		this.idParticipante = idParticipante;
+
+	public Contrato(String codigo, String entidad, String ruc, int tipo, int objeto, String descripcion,
+			String fecha, String estado) {
+		super();
+		this.codigo = codigo;
+		this.entidad = entidad;
+		this.ruc = ruc;
+		this.tipo = tipo;
+		this.objeto = objeto;
+		this.descripcion = descripcion;
 		this.fecha = fecha;
-		this.Descripcion = descripcion;
-		this.Resulucion = resulucion;
-		this.Estado = estado;
+		this.estado = estado;
 	}
-	public String getIdContrato() {
-		return idContrato;
+
+	public Contrato() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public void setIdContrato(String idContrato) {
-		this.idContrato = idContrato;
+
+	public String getCodigo() {
+		return codigo;
 	}
-	public int getTiPoContrato() {
-		return tiPoContrato;
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
-	public void setTiPoContrato(int tiPoContrato) {
-		this.tiPoContrato = tiPoContrato;
+
+	public String getEntidad() {
+		return entidad;
 	}
-	public int getIdParticipante() {
-		return idParticipante;
+
+	public void setEntidad(String entidad) {
+		this.entidad = entidad;
 	}
-	public void setIdParticipante(int idParticipante) {
-		this.idParticipante = idParticipante;
+
+	public String getRuc() {
+		return ruc;
 	}
+
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
+	}
+
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getObjeto() {
+		return objeto;
+	}
+
+	public void setObjeto(int objeto) {
+		this.objeto = objeto;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public String getFecha() {
 		return fecha;
 	}
+
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	public String getDescripcion() {
-		return Descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
-	}
-	public String getResulucion() {
-		return Resulucion;
-	}
-	public void setResulucion(String resulucion) {
-		Resulucion = resulucion;
-	}
+
 	public String getEstado() {
-		return Estado;
+		return estado;
 	}
+
 	public void setEstado(String estado) {
-		Estado = estado;
+		this.estado = estado;
 	}
-	
 	
 	
 }

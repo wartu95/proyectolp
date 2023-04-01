@@ -29,7 +29,7 @@ import clases.ObjContrato;
 import clases.Participante;
 import clases.TipoContrato;
 import mantenimiento.AdminDAO;
-import mantenimiento.GestionContratoDAO;
+import mantenimiento.ContratoDAO;
 import mantenimiento.ObjetoContratoDAO;
 import mantenimiento.ParticipanteDAO;
 import mantenimiento.TipoContratoDAO;
@@ -44,14 +44,14 @@ public class FrmListaContratos extends JInternalFrame implements ActionListener 
 	private JPanel contentPane;
 	private TipoContratoDAO tipContDao;
 	private ObjetoContratoDAO objContDao;
-	private GestionContratoDAO contDao;
+	private ContratoDAO contDao;
 	private ParticipanteDAO partDao;
 	private AdminDAO adminDao;
 	
 	
 	//instanciar un objeto para modelar la tabla
 	DefaultTableModel model= new DefaultTableModel();
-	private GestionContratoDAO conDAO;
+	private ContratoDAO conDAO;
 	private JTable tbContratos;
 
 	
@@ -103,7 +103,7 @@ public class FrmListaContratos extends JInternalFrame implements ActionListener 
 		
 		partDao = new ParticipanteDAO();
 		adminDao = new AdminDAO();
-		conDAO = new GestionContratoDAO();
+		conDAO = new ContratoDAO();
 		
 		
 		arranque();

@@ -1,30 +1,30 @@
 package clases;
 
 public class TipoContrato {
-   // 
+
 	private int idTipoContrato;
-	private String descripTipo;
-	//
-	public TipoContrato() {
+	private String desTipoContrato;
+
+	public TipoContrato(int idTipoContrato, String desTipoContrato) {
 		
-	}
-	public TipoContrato(int idTipoContrato, String descripTipo) {
-		super();
 		this.idTipoContrato = idTipoContrato;
-		this.descripTipo = descripTipo;
+		this.desTipoContrato = desTipoContrato;
 	}
-	//get / set
+
 	public int getIdTipoContrato() {
 		return idTipoContrato;
 	}
+
 	public void setIdTipoContrato(int idTipoContrato) {
 		this.idTipoContrato = idTipoContrato;
 	}
-	public String getDescripTipo() {
-		return descripTipo;
+
+	public String getDesTipoContrato() {
+		return desTipoContrato;
 	}
-	public void setDescripTipo(String descripTipo) {
-		this.descripTipo = descripTipo;
+
+	public void setDesTipoContrato(String desTipoContrato) {
+		this.desTipoContrato = desTipoContrato;
 	}
-	
+
 }
