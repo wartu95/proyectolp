@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 public class frmfinal extends JFrame {
 
 	private JPanel contentPane;
+	//base de datos
 
 	/**
 	 * Launch the application.
