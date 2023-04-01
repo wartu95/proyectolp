@@ -17,7 +17,7 @@ public class MySQLConexion8 {
 			// datos para establecer la conexion a la bd
 			// driver:protocoloDrivers://ubicacion&puerto de conexion/nombreBD?datos de
 			// actualizacion
-			String url = "jdbc:mysql://localhost:3306/proyectobuenapro?serverTimezone=UTC";
+			String url = "jdbc:mysql://localhost:3306/proyectosuperintencia?serverTimezone=UTC";
 			String usr = "root";// usuario
 			String psw = "mysql";// contraseña
 
