@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class FrmPruebgit extends JFrame {
+public class frmprueba extends JFrame {
 
 	private JPanel contentPane;
 
@@ -17,7 +17,7 @@ public class FrmPruebgit extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmPruebgit frame = new FrmPruebgit();
+					frmprueba frame = new frmprueba();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +29,7 @@ public class FrmPruebgit extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmPruebgit() {
+	public frmprueba() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
