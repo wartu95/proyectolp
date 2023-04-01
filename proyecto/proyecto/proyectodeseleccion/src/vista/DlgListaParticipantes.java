@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -20,24 +19,33 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
+
+import clases.Participante;
+import mantenimiento.ParticipanteDAO;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JTextArea;
 
-public class DlgListaParcipantes extends JDialog implements ActionListener {
+public class DlgListaParticipantes extends JDialog implements ActionListener {
 	//insntanciar de la clase table
 	DefaultTableModel model= new DefaultTableModel();
+	//
+	Participante Part = new Participante();
+	//
+	ParticipanteDAO gPart = new ParticipanteDAO();
 	
 	
 	private JTable tbParticipantes;
 	private JScrollPane scrollPane;
-
+	
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			DlgListaParcipantes dialog = new DlgListaParcipantes();
+			DlgListaParticipantes dialog = new DlgListaParticipantes();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -48,7 +56,7 @@ public class DlgListaParcipantes extends JDialog implements ActionListener {
 	/**
 	 * Create the dialog.
 	 */
-	public DlgListaParcipantes() {
+	public DlgListaParticipantes() {
 		setBounds(100, 100, 626, 335);
 		getContentPane().setLayout(null);
 		
@@ -61,6 +69,8 @@ public class DlgListaParcipantes extends JDialog implements ActionListener {
 		
 		model.addColumn("id_Participante");
 		model.addColumn("Nombre completo");
+		
+		tbParticipantes.setModel(model);
 		
 		
 	}
