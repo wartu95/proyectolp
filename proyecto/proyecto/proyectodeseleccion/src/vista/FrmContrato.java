@@ -106,11 +106,16 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public FrmContrato() {
+		
+		
+		
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
+		
+		
 		setTitle("Mantenimiento de Contrato");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setBounds(100, 100, 706, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -146,7 +151,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		lblTipoContrato.setBounds(10, 159, 113, 14);
 		panel2.add(lblTipoContrato);
 
-		cboTipo = new JComboBox();
+		cboTipo = new JComboBox<Object>();
 		cboTipo.setBounds(10, 179, 188, 22);
 		panel2.add(cboTipo);
 
