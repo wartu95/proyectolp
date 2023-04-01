@@ -6,9 +6,8 @@ import clases.Participante;
 
 public interface ParticipanteInterfaceDAO {
 	
+	//REGISTRAR PARTICIPANTE
 	int registrar(Participante p);
-	
-	//REGISTRAR USUARIO
 	
 	//eliminar Participante
 	public int eliminar(int idParticipante);
@@ -21,6 +20,9 @@ public interface ParticipanteInterfaceDAO {
 	
 	//listar a los Participante
 	public ArrayList<Participante> ListarParticipante();
+	
+	//buscarxtipo
+	public Participante  buscarxIdParticipante(int idParticipante);
 	
 
 }

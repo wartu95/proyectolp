@@ -20,7 +20,7 @@ public class Logueo extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JLabel lblUsuario;
-	private JLabel lblContraseña;
+	private JLabel lblContraseÃ±a;
 	private JTextField txtUsuario;
 	private JPasswordField txtClave;
 	private JButton btnAceptar;
@@ -62,10 +62,10 @@ public class Logueo extends JFrame implements ActionListener {
 		lblUsuario.setBounds(33, 102, 76, 17);
 		contentPane.add(lblUsuario);
 		
-		lblContraseña = new JLabel("Constrase\u00F1a :");
-		lblContraseña.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblContraseña.setBounds(35, 156, 102, 14);
-		contentPane.add(lblContraseña);
+		lblContraseÃ±a = new JLabel("Constrase\u00F1a :");
+		lblContraseÃ±a.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblContraseÃ±a.setBounds(35, 156, 102, 14);
+		contentPane.add(lblContraseÃ±a);
 		
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(143, 99, 101, 20);
@@ -134,7 +134,7 @@ public class Logueo extends JFrame implements ActionListener {
 			ventana.setVisible(true);
 			this.dispose();
 		}else {
-			JOptionPane.showMessageDialog(this, "CONTRASEÑA INCORRECTA Y KLISMAN ES GAY", "ATENCION" , 0);
+			JOptionPane.showMessageDialog(this, "CONTRASEï¿½A INCORRECTA Y KLISMAN ES GAY", "ATENCION" , 0);
 		}
 		
 	}

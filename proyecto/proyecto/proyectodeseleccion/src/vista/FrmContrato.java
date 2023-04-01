@@ -23,7 +23,6 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import com.toedter.calendar.JDateChooser;
 
-import Validaciones.Regex;
 import clases.Contrato;
 import clases.Participante;
 import clases.TipoContrato;
@@ -32,6 +31,7 @@ import mantenimiento.GestionContratoDAO;
 import mantenimiento.ObjetoContratoDAO;
 import mantenimiento.ParticipanteDAO;
 import mantenimiento.GestionTipoContratoDAO;
+import utils.Validaciones;
 import utils.Tool;
 
 import javax.swing.border.TitledBorder;
@@ -526,7 +526,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		if (txtIDcontrato.getText().trim().length() == 0) {
 			Tool.mensajeError(this, "Campo del id pedido esta vacio !");
 			txtIDcontrato.requestFocus();
-		} else if (txtIDcontrato.getText().trim().matches(Regex.ID_CONTRATO)) {
+		} else if (txtIDcontrato.getText().trim().matches(Validaciones.ID_CONTRATO)) {
 			res = txtIDcontrato.getText().trim();
 		} else {
 			Tool.mensajeError(this, "ID pedido invalido. Ejemp (CD002)");
