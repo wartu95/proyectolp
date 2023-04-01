@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import clases.TipoContrato;
+import interfaces.TipoContratoInterfaseDAO;
 import utils.MySQLConexion8;
 
-public class TipoContratoDAO {
+public class GestionTipoContratoDAO implements TipoContratoInterfaseDAO{
 
 	//LISTAR TIPO DE PEDIDO EN UN OBJETO CLASE
 	
@@ -19,32 +20,29 @@ public class TipoContratoDAO {
 			
 			Connection con =null;
 			PreparedStatement pstm = null;
-			
 			ResultSet res = null;
 			
 			try {
 				
 				con = MySQLConexion8.getConexion();
 				
-				String sql = "select * from tb_tipoContrato"; 
-							
-				pstm = con.prepareStatement(sql);
-				
+				String sql = "select * from tb_tipocontrato"; 			
+				pstm = con.prepareStatement(sql);				
 				res = pstm.executeQuery();
 				
 				while (res.next()) {
-					TipoContrato tipPed = new TipoContrato(
+					TipoContrato tipCon = new TipoContrato(
 							res.getInt(1),
 							res.getString(2)
 							
 							);
 					
-					list.add(tipPed);
+					list.add(tipCon);
 				}
 				
 				
 			}catch(Exception e) {
-				System.out.println("Error en la instruccion" + e.getMessage());
+				System.out.println("Error en la listar los tipos de contratos" + e.getMessage());
 			}finally {
 				try {
 					if (con!=null)con.close();

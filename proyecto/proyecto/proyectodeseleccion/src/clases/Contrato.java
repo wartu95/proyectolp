@@ -2,97 +2,71 @@ package clases;
 
 public class Contrato {
 
-	private String codigo;
-	private String entidad;
-	private String ruc;
-	private int tipo;
-	private int objeto;
-	private String descripcion;
+	private String idContrato;
+	private int tiPoContrato;
+	private int idParticipante;
 	private String  fecha;
-	private String estado;
-	
-
-	public Contrato(String codigo, String entidad, String ruc, int tipo, int objeto, String descripcion,
-			String fecha, String estado) {
-		super();
-		this.codigo = codigo;
-		this.entidad = entidad;
-		this.ruc = ruc;
-		this.tipo = tipo;
-		this.objeto = objeto;
-		this.descripcion = descripcion;
-		this.fecha = fecha;
-		this.estado = estado;
-	}
-
+	private String Descripcion;
+	private String Resulucion;
+	private String Estado;
+	// INCIALIZAMOS ENTRADAS
 	public Contrato() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
-
-	public String getCodigo() {
-		return codigo;
+	public Contrato(String idContrato, int tiPoContrato, int idParticipante, String fecha, String descripcion,
+			String resulucion, String estado) {
+	
+		this.idContrato = idContrato;
+		this.tiPoContrato = tiPoContrato;
+		this.idParticipante = idParticipante;
+		this.fecha = fecha;
+		this.Descripcion = descripcion;
+		this.Resulucion = resulucion;
+		this.Estado = estado;
 	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public String getIdContrato() {
+		return idContrato;
 	}
-
-	public String getEntidad() {
-		return entidad;
+	public void setIdContrato(String idContrato) {
+		this.idContrato = idContrato;
 	}
-
-	public void setEntidad(String entidad) {
-		this.entidad = entidad;
+	public int getTiPoContrato() {
+		return tiPoContrato;
 	}
-
-	public String getRuc() {
-		return ruc;
+	public void setTiPoContrato(int tiPoContrato) {
+		this.tiPoContrato = tiPoContrato;
 	}
-
-	public void setRuc(String ruc) {
-		this.ruc = ruc;
+	public int getIdParticipante() {
+		return idParticipante;
 	}
-
-	public int getTipo() {
-		return tipo;
+	public void setIdParticipante(int idParticipante) {
+		this.idParticipante = idParticipante;
 	}
-
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
-	}
-
-	public int getObjeto() {
-		return objeto;
-	}
-
-	public void setObjeto(int objeto) {
-		this.objeto = objeto;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 	public String getFecha() {
 		return fecha;
 	}
-
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-
+	public String getDescripcion() {
+		return Descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+	public String getResulucion() {
+		return Resulucion;
+	}
+	public void setResulucion(String resulucion) {
+		Resulucion = resulucion;
+	}
 	public String getEstado() {
-		return estado;
+		return Estado;
 	}
-
 	public void setEstado(String estado) {
-		this.estado = estado;
+		Estado = estado;
 	}
+	
 	
 	
 }

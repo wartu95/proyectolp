@@ -2,100 +2,105 @@ package clases;
 
 public class Participante {
 
-	private String idContrato;
-	private String idParticipante;
-	private String apellido;
-	private String nombre;
+	private int idParticipante;
+	private String Apellido;
+	private String Nombre;
 	private String Dni;
-	private int telefono;
-	private String direccion;
-	private String  correo;
-	private String  fecha;
-	private String estado;
+	private int Telefono;
+	private String Correo;
+	
+	
 	
 	public Participante() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Participante(String idContrato, String idParticipante, String apellido, String nombre,String Dni, int telefono,
-			String direccion, String correo, String fecha, String estado) {
+
+
+
+	public Participante(int idParticipante, String apellido, String nombre, String dni, int telefono, String correo) {
 		super();
-		this.idContrato = idContrato;
 		this.idParticipante = idParticipante;
-		this.apellido = apellido;
-		this.nombre = nombre;
-		this.Dni = Dni;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.correo = correo;
-		this.fecha = fecha;
-		this.estado = estado;
+		Apellido = apellido;
+		Nombre = nombre;
+		Dni = dni;
+		Telefono = telefono;
+		Correo = correo;
 	}
-	
-	public String getIdContrato() {
-		return idContrato;
-	}
-	public void setIdContrato(String idContrato) {
-		this.idContrato = idContrato;
-	}
-	
-	public String getIdParticipante() {
+
+
+
+	public int getIdParticipante() {
 		return idParticipante;
 	}
-	public void setIdParticipante(String idParticipante) {
+
+
+
+	public void setIdParticipante(int idParticipante) {
 		this.idParticipante = idParticipante;
 	}
+
+
+
 	public String getApellido() {
-		return apellido;
+		return Apellido;
 	}
+
+
+
 	public void setApellido(String apellido) {
-		this.apellido = apellido;
+		Apellido = apellido;
 	}
+
+
+
 	public String getNombre() {
-		return nombre;
+		return Nombre;
 	}
+
+
+
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		Nombre = nombre;
 	}
-	public int getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(int telefono) {
-		this.telefono = telefono;
-	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-	public String getFecha() {
-		return fecha;
-	}
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+
+
+
 	public String getDni() {
 		return Dni;
 	}
+
+
+
 	public void setDni(String dni) {
-		this.Dni = dni;
+		Dni = dni;
 	}
 
+
+
+	public int getTelefono() {
+		return Telefono;
+	}
+
+
+
+	public void setTelefono(int telefono) {
+		Telefono = telefono;
+	}
+
+
+
+	public String getCorreo() {
+		return Correo;
+	}
+
+
+
+	public void setCorreo(String correo) {
+		Correo = correo;
+	}
 	
-	}
-
-
+	
+	
+}
 	

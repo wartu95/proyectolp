@@ -29,10 +29,10 @@ import clases.ObjContrato;
 import clases.Participante;
 import clases.TipoContrato;
 import mantenimiento.AdminDAO;
-import mantenimiento.ContratoDAO;
+import mantenimiento.GestionContratoDAO;
 import mantenimiento.ObjetoContratoDAO;
 import mantenimiento.ParticipanteDAO;
-import mantenimiento.TipoContratoDAO;
+import mantenimiento.GestionTipoContratoDAO;
 import utils.Tool;
 
 import javax.swing.border.TitledBorder;
@@ -44,16 +44,16 @@ public class FrmListaContratosPendientes extends JInternalFrame implements Actio
 	private JPanel contentPane;
 	private JButton btnRegistrar;
 	private JButton btnModificar;
-	private TipoContratoDAO tipContDao;
+	private GestionTipoContratoDAO tipContDao;
 	private ObjetoContratoDAO objContDao;
-	private ContratoDAO contDao;
+	private GestionContratoDAO contDao;
 	private ParticipanteDAO partDao;
 	private AdminDAO adminDao;
 	
 	
 	//instanciar un objeto para modelar la tabla
 	DefaultTableModel model= new DefaultTableModel();
-	private ContratoDAO conDAO;
+	private GestionContratoDAO conDAO;
 	private JButton btnObservacion;
 	private JTable tbContratosPendientes;
 
@@ -120,7 +120,7 @@ public class FrmListaContratosPendientes extends JInternalFrame implements Actio
 		
 		partDao = new ParticipanteDAO();
 		adminDao = new AdminDAO();
-		conDAO = new ContratoDAO();
+		conDAO = new GestionContratoDAO();
 		
 		
 		arranque();
