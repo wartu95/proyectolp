@@ -38,6 +38,7 @@ import utils.Tool;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 
 public class FrmContrato extends JInternalFrame implements ActionListener {
 
@@ -56,7 +57,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private JComboBox<Object> cboTipo;
 	private JLabel lblNroPedido;
 	private JPanel panel2;
-	private JButton btnNuevo;
 	private JTextField txtDescripcion;
 	private TipoContratoDAO tipContDao;
 	private ObjetoContratoDAO objContDao;
@@ -68,16 +68,16 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	//instanciar un objeto para modelar la tabla
 	DefaultTableModel model= new DefaultTableModel();
 	private GestionContratoDAO conDAO;
-	private JTextField textField;
+	private JTextField txtResolucion;
 	private JLabel lblResolucin;
 	private JLabel lblIdParticipante;
-	private JTextField textField_1;
-	private JButton btnNuevo_1;
+	private JTextField txtParticipante;
+	private JButton btnBuscarParticipante;
 	private JLabel lblNombreCompleto;
-	private JTextField textField_2;
+	private JTextField txtNombresCompletos;
 	private JScrollPane scrollPane;
 	private JLabel lblDni;
-	private JTextField textField_3;
+	private JTextField txtDni;
 
 	
 	/**
@@ -148,11 +148,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		lblFecha.setBounds(216, 21, 86, 14);
 		panel2.add(lblFecha);
 
-		btnNuevo = new JButton("");
-		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(148, 46, 46, 23);
-		panel2.add(btnNuevo);
-
 		dcFecha = new JDateChooser();
 		dcFecha.setBounds(215, 46, 122, 20);
 		panel2.add(dcFecha);
@@ -179,10 +174,10 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		panel2.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(559, 46, 86, 20);
-		panel2.add(textField);
+		txtResolucion = new JTextField();
+		txtResolucion.setColumns(10);
+		txtResolucion.setBounds(559, 46, 86, 20);
+		panel2.add(txtResolucion);
 		
 		lblResolucin = new JLabel("Resoluci\u00F3n  :");
 		lblResolucin.setBounds(559, 21, 72, 14);
@@ -192,33 +187,34 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		lblIdParticipante.setBounds(10, 100, 90, 15);
 		panel2.add(lblIdParticipante);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(10, 125, 128, 20);
-		panel2.add(textField_1);
+		txtParticipante = new JTextField();
+		txtParticipante.setColumns(10);
+		txtParticipante.setBounds(10, 125, 128, 20);
+		panel2.add(txtParticipante);
 		
-		btnNuevo_1 = new JButton("");
-		btnNuevo_1.addActionListener(this);
-		btnNuevo_1.setBounds(161, 122, 46, 23);
-		panel2.add(btnNuevo_1);
+		btnBuscarParticipante = new JButton("");
+		btnBuscarParticipante.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/query.png")));
+		btnBuscarParticipante.addActionListener(this);
+		btnBuscarParticipante.setBounds(158, 112, 40, 33);
+		panel2.add(btnBuscarParticipante);
 		
 		lblNombreCompleto = new JLabel("Nombre Completo  :");
 		lblNombreCompleto.setBounds(228, 100, 113, 15);
 		panel2.add(lblNombreCompleto);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(228, 125, 226, 20);
-		panel2.add(textField_2);
+		txtNombresCompletos = new JTextField();
+		txtNombresCompletos.setColumns(10);
+		txtNombresCompletos.setBounds(228, 125, 226, 20);
+		panel2.add(txtNombresCompletos);
 		
 		lblDni = new JLabel("DNI  :");
 		lblDni.setBounds(482, 100, 113, 15);
 		panel2.add(lblDni);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(480, 125, 105, 20);
-		panel2.add(textField_3);
+		txtDni = new JTextField();
+		txtDni.setColumns(10);
+		txtDni.setBounds(480, 125, 105, 20);
+		panel2.add(txtDni);
 
 		
 		model.addColumn("ID CONTRATO");
@@ -314,14 +310,11 @@ ArrayList<ObjContrato> list = ObjetoContratoDAO.listarObjContrato();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNuevo_1) {
+		if (e.getSource() == btnBuscarParticipante) {
 			actionPerformedBtnNuevo_1(e);
 		}
 		if (e.getSource() == btnModificar) {
 			actionPerformedBtnModificar(e);
-		}
-		if (e.getSource() == btnNuevo) {
-			actionPerformedBtnNuevo(e);
 		}
 		if (e.getSource() == btnRegistrar) {
 			actionPerformedBtnRegistrar(e);
@@ -508,10 +501,6 @@ ArrayList<ObjContrato> list = ObjetoContratoDAO.listarObjContrato();
 		}
 
 		return res;
-	}
-
-	protected void actionPerformedBtnNuevo(ActionEvent e) {
-		arranque();
 	}
 
 	protected void actionPerformedBtnModificar(ActionEvent e) {
