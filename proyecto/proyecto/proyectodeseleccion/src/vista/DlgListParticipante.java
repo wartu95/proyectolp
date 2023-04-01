@@ -22,7 +22,6 @@ import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
 
 import clases.Participante;
-import entidad.ReporteTipoUsuario;
 import mantenimiento.ParticipanteDAO;
 import utils.Tool;
 

@@ -173,7 +173,7 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 			con = MySQLConexion8.getConexion();
 			// paso -->> establecer la instruccion SQL -- este caso es una consulta a
 			// tb_usuarios
-			String sql = "select * from tb_paciente;";
+			String sql = "select * from tb_participante;";
 			// paso3 --> Enviar la instruccion sql al objeto ""pstm"
 			pstm = con.prepareStatement(sql);
 			// paso4 --> parametros
