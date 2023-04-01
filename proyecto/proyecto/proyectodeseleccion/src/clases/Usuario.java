@@ -3,7 +3,7 @@ package clases;
 public class Usuario {
 // 
 	private String idUsuario;
-	private String Contraseña;
+	private String ContraseÃ±a;
 	private String Nombre;
 	private String Apellido;
 	private int idCargo;
@@ -12,10 +12,10 @@ public class Usuario {
 	public Usuario() {
 	
 	}
-	public Usuario(String idUsuario, String contraseña, String nombre, String apellido, int idCargo, int idPerfil) {
+	public Usuario(String idUsuario, String contraseï¿½a, String nombre, String apellido, int idCargo, int idPerfil){
 		super();
 		this.idUsuario = idUsuario;
-		this.Contraseña = contraseña;
+		this.ContraseÃ±a = contraseÃ±a;
 		this.Nombre = nombre;
 		this.Apellido = apellido;
 		this.idCargo = idCargo;
@@ -28,11 +28,11 @@ public class Usuario {
 	public void setIdUsuario(String idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public String getContraseña() {
-		return Contraseña;
+	public String getContraseÃ±a() {
+		return ContraseÃ±a;
 	}
-	public void setContraseña(String contraseña) {
-		Contraseña = contraseña;
+	public void setContraseÃ±a(String contraseÃ±a) {
+		ContraseÃ±a = contraseÃ±a;
 	}
 	public String getNombre() {
 		return Nombre;

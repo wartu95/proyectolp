@@ -12,6 +12,8 @@ import utils.MySQLConexion8;
 
 public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 
+
+
 	@Override
 	public int registrar(Participante p) {
 		// declaracion de variables
@@ -215,6 +217,62 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 
 		return lista;
 
+	}
+
+	public Participante buscarXIdParticipante(int idParticipante) {
+
+		Participante part = null;
+
+		Connection con = null;
+		PreparedStatement pstm = null;
+
+		ResultSet res = null;
+
+		try {
+
+			con = MySQLConexion8.getConexion();
+
+			String sql = "select * from tb_participante" + " where codigo_parti = ?";
+
+			pstm = con.prepareStatement(sql);
+
+			pstm.setInt(1, idParticipante);
+
+			res = pstm.executeQuery();
+
+			while (res.next()) {
+				part = new Participante(res.getInt(1), 
+						res.getString(2), res.getString(3),
+						res.getString(4),
+						res.getString(5),
+						res.getString(6)
+				);
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+				if (pstm != null)
+					pstm.close();
+				if (res != null)
+					res.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+
+		return part;
+
+	}
+
+	@Override
+	public Participante buscarxIdParticipante(int idParticipante) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

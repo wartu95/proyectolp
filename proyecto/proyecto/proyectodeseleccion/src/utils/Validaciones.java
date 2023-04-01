@@ -1,6 +1,6 @@
-package Validaciones;
+package utils;
 
-public class Regex {
+public class Validaciones {
 
 	//USUARIO
 	
@@ -18,19 +18,16 @@ public class Regex {
 		//PARTICIPANTE
 		
 		public static String ID_PARTICIPANTE="[P][A]\\d{3}";
-		public static String ENTIDAD_PARTICIPANTE =".{3,20}";
-		public static String RUC_PARTICIPANTE = "\\d{11}";
-		
-		public static String TELEFONO_PARTICIPANTE = "\\d{7,9}";
-		public static String CORREO_PARTICIPANTE = ".+@(hotmail|outlook|gmail).com";
+		public static String APELLIDO_PAR="[a-zA-Z\\ï¿½\\s]{2,20}";
+		public static String NOMBRE_PAR="[a-zA-Z\\s]{2,20}";
+		public static String DNI_PAR = "\\d{8}";
+		public static String TELEFONO_PAR = "\\d{7,9}";
+		public static String CORREO_PAR = ".+@(hotmail|outlook|gmail).com";
 		
 		
 		//MIEMBO ADMINISTRATIVO
 		
 		public static String ID_ADMI = "[M][C]\\d{3}";
-		public static String NOMBRE_ADMI="[a-zA-Z\\s]{2,20}";
-		public static String APELLIDO_ADMI="[a-zA-Z\\ñ\\s]{2,20}";
-		public static String DNI_ADMI = "\\d{8}";
 		public static String FUNCION_ADMI ="[a-zA-Z\\s]{2,20}";
 		public static String DEPENDENCIA_ADMI ="[a-zA-Z\\s]{2,20}";
 		
@@ -39,7 +36,7 @@ public class Regex {
 		
 		public static String ID_OBSER = "[A][P]\\d{3}";
 		public static String DESCRIPCION_APE=".{2,450}";
-		public static String ESTADO_APE="[a-zA-Z\\ñ\\s]{2,20}";
+		public static String ESTADO_APE="[a-zA-Z\\ï¿½\\s]{2,20}";
 		
 		//TEXTO
 		public static String TEXTO = ".{2,450}";
