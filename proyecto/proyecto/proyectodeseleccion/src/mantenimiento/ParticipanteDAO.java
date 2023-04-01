@@ -218,8 +218,8 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 		return lista;
 
 	}
-
-	public Participante buscarXIdParticipante(int idParticipante) {
+	@Override
+	public Participante  buscarxIdParticipante(int idParticipante) {
 
 		Participante part = null;
 
@@ -247,7 +247,6 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 						res.getString(5),
 						res.getString(6)
 				);
-
 			}
 
 		} catch (Exception e) {
@@ -266,13 +265,6 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 		}
 
 		return part;
-
-	}
-
-	@Override
-	public Participante buscarxIdParticipante(int idParticipante) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

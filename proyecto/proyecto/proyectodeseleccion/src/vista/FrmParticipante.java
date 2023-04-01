@@ -244,8 +244,12 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 	}
 
 	private void limpiar() {
-		// TODO Auto-generated method stub
-
+		txtIdParticipante.setEditable(false);
+		txtApellidos.setText("");
+		txtNombres.setText("");
+		txtDNI.setText("");
+		txtTelefono.setText("");
+		txtCorreo.setText("");
 	}
 
 	private void correlativo() {
@@ -257,9 +261,9 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 		if (list.size() == 0) {
 			txtIdParticipante.setText("PA001");
 		} else {
-			String idParticipante = list.get(list.size() - 1).getIdParticipante();
+			int idParticipante = list.get(list.size() - 1).getIdParticipante();
 
-			int n = Integer.parseInt(idParticipante.substring(3)) + 1;
+			int n = (idParticipante) + 1;
 
 			txtIdParticipante.setText("");
 			txtIdParticipante.setText("PA" + ft.format("%03d", n));
@@ -549,13 +553,13 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
-		Participante part = Pact.buscarXIdParticipante(txtIdParticipante.getText().trim());
+		Participante part = Pact.buscarxIdParticipante(Integer.parseInt(txtIdParticipante.getText().trim()));
 
 		if (part == null) {
 			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
 		} else {
 
-			txtIdParticipante.setText(Pact.IdParticipante().toString());
+			txtIdParticipante.setText(part.getIdParticipante()+"");
 			txtApellidos.setText(part.getApellido());
 			txtNombres.setText(part.getApellido());
 			txtDNI.setText(part.getDni());
