@@ -1,0 +1,332 @@
+package mantenimiento;
+
+public class ContratoDAO {
+
+public int registrarPedido(Pedido ped) {
+		
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "insert into tb_pedido values (?,?,?,?,?,?,?,?)";
+			
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1,ped.getCodigo());
+			pstm.setString(2,ped.getEntidad());
+			pstm.setString(3,ped.getRuc());
+			pstm.setInt(4,ped.getTipo());
+			pstm.setInt(5,ped.getObjeto());
+			pstm.setString(6,ped.getDescripcion());
+			pstm.setString(7,ped.getFecha());
+			pstm.setString(8,ped.getEstado());
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+		
+		
+	}
+	
+	public int actualizarPedido(Pedido ped) {
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql;
+			sql = "update tb_pedido set "
+					+ "entidad_ped = ?, ruc_ped= ?, id_tipoPedido = ?, id_objetoPedido = ?, descripcion_ped = ?, fecha_ped=?,estado_ped=?"
+					+ "where id_ped = ?";
+			
+			pstm = con.prepareStatement(sql);
+			
+			
+			pstm.setString(1,ped.getEntidad());
+			pstm.setString (2,ped.getRuc());
+			pstm.setInt(3,ped.getTipo());
+			pstm.setInt(4,ped.getObjeto());
+			pstm.setString(5,ped.getDescripcion());
+			pstm.setString(6,ped.getFecha());
+			pstm.setString(7,ped.getEstado());
+			
+			pstm.setString(8,ped.getCodigo());
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+	}
+
+	public int eliminarPedido(int idPedido) {
+		int res = 0;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "delete from tb_pedido where id_ped = ?"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, idPedido);
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+	}
+	
+	public ArrayList<Pedido> listarPedido(){
+		ArrayList <Pedido> list = new ArrayList<Pedido>();
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "select * from tb_pedido"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				Pedido ped = new Pedido(
+						res.getString(1),
+						res.getString(2),
+						res.getString(3),
+						res.getInt(4),
+						res.getInt(5),
+						res.getString(6),
+						res.getString(7),
+						res.getString(8)
+						
+						);
+				
+				list.add(ped);
+			}
+			
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+				if (res !=null)res.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return list;	
+	}
+	
+	//BUSQUEDA 
+	
+	public Pedido buscarXIdPedido(String idPedido) {
+		
+		Pedido ped = null;
+		
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql = "select * from tb_pedido"
+					+ " where id_ped = ?"; 
+						
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString (1,idPedido);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				ped = new Pedido(
+						res.getString(1),
+						res.getString(2),
+						res.getString(3),
+						res.getInt(4),
+						res.getInt(5),
+						res.getString(6),
+						res.getString(7),
+						res.getString(8)
+						
+						);
+				
+			}
+			
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+				if (res !=null)res.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		
+		return ped;
+		
+	}
+
+	public ArrayList <Pedido> listarPedidoConParticipantes (){
+		
+		ArrayList<Pedido> list= new ArrayList<Pedido>();
+		
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql= "select ped.* from tb_pedido ped "
+					+ "inner join  tb_participante parti on ped.id_ped = parti.id_ped "
+					+ "where ped.id_ped = parti.id_ped group by id_ped";
+			
+			pstm = con.prepareStatement(sql);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				Pedido ped = new Pedido(
+						res.getString(1),
+						res.getString(2),
+						res.getString(3),
+						res.getInt(4),
+						res.getInt(5),
+						res.getString(6),
+						res.getString(7),
+						res.getString(8)
+						);
+				
+				list.add(ped);
+			}
+			
+		}catch (Exception e){
+			System.out.println("ERROR EN LA INSTRUCCION DEL BD" +  e.getMessage());
+		}finally {
+			try {
+				if(con!=null) con.close();
+				if(pstm!=null) pstm.close();
+				if(res!=null) res.close();
+			}catch (SQLException e2) {
+				System.out.println("ERROR AL CERRAR LA CONEXION DE BD" +  e2.getMessage());
+			}
+		}
+		return list;
+		
+	}
+	
+	public ArrayList<Object[]> reportePedido() {
+		ArrayList<Object[]> list= new ArrayList<Object[]>();
+		
+		Connection con = null;
+		PreparedStatement pstm = null;
+		
+		ResultSet res = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			
+			String sql= "select ped.id_ped, tiped.des_tipoPedido, obped.des_objetoPedido, ped.estado_ped from tb_pedido ped inner join tb_tipoPedido tiped on ped.id_tipoPedido = tiped.id_tipoPedido"
+					+ " inner join tb_objetoPedido obped on ped.id_objetoPedido = obped.id_objetoPedido ";
+			
+			pstm = con.prepareStatement(sql);
+			
+			res = pstm.executeQuery();
+			
+			while (res.next()) {
+				Object[] ped = {
+					res.getString(1),
+					res.getString(2),
+					res.getString(3),
+					res.getString(4),
+				};
+				
+				list.add(ped);
+			}
+			
+		}catch (Exception e){
+			System.out.println("ERROR EN LA INSTRUCCION DEL BD" +  e.getMessage());
+		}finally {
+			try {
+				if(con!=null) con.close();
+				if(pstm!=null) pstm.close();
+				if(res!=null) res.close();
+			}catch (SQLException e2) {
+				System.out.println("ERROR AL CERRAR LA CONEXION DE BD" +  e2.getMessage());
+			}
+		}
+		return list;
+	}
+
+	
+
+}

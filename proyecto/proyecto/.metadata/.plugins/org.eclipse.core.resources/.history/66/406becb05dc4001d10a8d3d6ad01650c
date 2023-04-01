@@ -1,0 +1,487 @@
+package vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import com.toedter.calendar.JDateChooser;
+
+import clases.Contrato;
+
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+public class FrmContrato extends JInternalFrame implements ActionListener  {
+
+	private JPanel contentPane;
+	private JLabel lblEntidad;
+	private JTextField txtEntidad;
+	private JLabel lblRuc;
+	private JTextField txtRuc;
+	private JTextField txtIdregistro;
+	private JLabel lblObjetoContrato;
+	private JComboBox<Object> cboObjeto;
+	private JButton btnRegistrar;
+	private JButton btnModificar;
+	private JLabel lblFecha;
+	private JTextField txtEstado;
+	private JLabel lblDescrip;
+	private JLabel lblEstado;
+	private JTable tblRegistro;
+	private JDateChooser dcFecha;
+	private JLabel lblTipoContrato;
+	private JComboBox<Object> cboTipo;
+	private JLabel lblNroPedido;
+	private JPanel panel;
+	private JPanel panel2;
+	private JButton btnNuevo;
+	private DefaultTableModel model;
+	private JTextField txtDescripcion;
+	
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmContrato frame = new FrmContrato();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmContrato() {
+		setClosable(true);
+		setMaximizable(true);
+		setIconifiable(true);
+		setTitle("Registrar Tipo de Contrato");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 706, 459);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		btnRegistrar = new JButton("REGISTRAR");
+		btnRegistrar.addActionListener(this);
+		btnRegistrar.setBounds(10, 205, 104, 20);
+		contentPane.add(btnRegistrar);
+
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.addActionListener(this);
+		btnModificar.setBounds(125, 205, 104, 20);
+		contentPane.add(btnModificar);
+
+		tblRegistro = new JTable();
+		tblRegistro.setBounds(10, 236, 674, 173);
+		contentPane.add(tblRegistro);
+
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "ENTIDAD", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 176, 112);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		lblEntidad = new JLabel("Entidad Solicitante :");
+		lblEntidad.setBounds(10, 22, 127, 14);
+		panel.add(lblEntidad);
+
+		txtEntidad = new JTextField();
+		txtEntidad.setBounds(10, 36, 128, 20);
+		panel.add(txtEntidad);
+		txtEntidad.setColumns(10);
+
+		lblRuc = new JLabel("RUC :");
+		lblRuc.setBounds(10, 66, 46, 14);
+		panel.add(lblRuc);
+
+		txtRuc = new JTextField();
+		txtRuc.setBounds(10, 79, 127, 20);
+		panel.add(txtRuc);
+		txtRuc.setColumns(10);
+
+		panel2 = new JPanel();
+		panel2.setBorder(new TitledBorder(null, "CONTRATO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel2.setBounds(186, 11, 498, 183);
+		contentPane.add(panel2);
+		panel2.setLayout(null);
+
+		txtIdregistro = new JTextField();
+		txtIdregistro.setBounds(10, 46, 128, 20);
+		panel2.add(txtIdregistro);
+		txtIdregistro.setColumns(10);
+
+		lblObjetoContrato = new JLabel("Objeto de contrato:");
+		lblObjetoContrato.setBounds(10, 76, 96, 14);
+		panel2.add(lblObjetoContrato);
+
+		cboObjeto = new JComboBox();
+		cboObjeto.setBounds(10, 92, 146, 22);
+		panel2.add(cboObjeto);
+
+		lblTipoContrato = new JLabel("Tipo de Contrato:");
+		lblTipoContrato.setBounds(10, 130, 113, 14);
+		panel2.add(lblTipoContrato);
+
+		cboTipo = new JComboBox();
+		cboTipo.setBounds(10, 150, 146, 22);
+		panel2.add(cboTipo);
+
+		lblFecha = new JLabel("Fecha Inicio :");
+		lblFecha.setBounds(216, 21, 86, 14);
+		panel2.add(lblFecha);
+
+		btnNuevo = new JButton("");
+		btnNuevo.addActionListener(this);
+		btnNuevo.setBounds(148, 46, 46, 23);
+		panel2.add(btnNuevo);
+
+		dcFecha = new JDateChooser();
+		dcFecha.setBounds(215, 46, 122, 20);
+		panel2.add(dcFecha);
+
+		lblDescrip = new JLabel("Descripcion de Tipo de Contrato :");
+		lblDescrip.setBounds(216, 76, 226, 14);
+		panel2.add(lblDescrip);
+
+		lblEstado = new JLabel("Estado :");
+		lblEstado.setBounds(355, 21, 46, 14);
+		panel2.add(lblEstado);
+
+		txtEstado = new JTextField();
+		txtEstado.setBounds(356, 46, 86, 20);
+		panel2.add(txtEstado);
+		txtEstado.setColumns(10);
+
+		lblNroPedido = new JLabel("ID Contrato:");
+		lblNroPedido.setBounds(10, 21, 72, 14);
+		panel2.add(lblNroPedido);
+
+		txtDescripcion = new JTextField();
+		txtDescripcion.setBounds(216, 93, 272, 79);
+		panel2.add(txtDescripcion);
+		txtDescripcion.setColumns(10);
+
+		model = new DefaultTableModel();
+		model.addColumn("ID CONTRATO");
+		model.addColumn("ENTIDAD");
+		model.addColumn("TIPO");
+		model.addColumn("OBJETO");
+		model.addColumn("DESCRIPCION");
+		model.addColumn("FECHA");
+		model.addColumn("ESTADO");
+
+		arranque();
+
+	}
+
+	private void arranque() {
+		estado();
+		cargarTipoContrato();
+		cargarObjContrato();
+		correlativo();
+		cargarTabla();
+		limpiar();
+
+	}
+
+	private void cargarTabla() {
+		ArrayList<Contrato> list = contDao.listarContrato();
+
+		model.setRowCount(0);
+
+		for (Contrato p : list) {
+
+			Object[] ped = { p.getCodigo(), p.getEntidad(), p.getTipo(), p.getObjeto(), p.getDescripcion(),
+					p.getFecha(), p.getEstado() };
+
+			model.addRow(ped);
+
+		}
+
+	}
+
+	private void limpiar() {
+		txtEntidad.setEditable(false);
+		txtRuc.setEditable(false);
+		txtEntidad.setText("MINISTERIO PUBLICO");
+		txtRuc.setText("20131370301");
+		dcFecha.setDate(new Date());
+		txtDescripcion.setText("");
+		txtEstado.setText("REGISTRADO");
+
+	}
+
+	private void cargarObjContrato() {
+		ArrayList<ObjContrato> list = objContDao.listarObjetoPedido();
+
+		cboObjeto.removeAllItems();
+		cboObjeto.addItem("SELECCIONE..");
+
+		for (ObjContrato objPed : list) {
+
+			cboObjeto.addItem(objPed.getIdObjetoContrato() + ". " + objPed.getDesObjetoContrato());
+
+		}
+
+	}
+
+	private void correlativo() {
+
+		@SuppressWarnings("resource")
+		Formatter ft = new Formatter();
+
+		ArrayList<Contrato> list = contDao.listarPedido();
+
+		if (list.size() == 0) {
+			txtIdCodigo.setText("PD001");
+		} else {
+			String idPedido = list.get(list.size() - 1).getCodigo();
+
+			int correlativo = Integer.parseInt(idPedido.substring(2)) + 1;
+
+			txtIdPedido.setText("PD" + ft.format("%03d", correlativo));
+
+		}
+
+	}
+
+	private void cargarTipoContrato() {
+		ArrayList<TipoPedido> list = tipPedDao.listarTipoPedido();
+
+		cboTipo.removeAllItems();
+		cboTipo.addItem("SELECCIONE..");
+
+		for (TipoPedido tipPed : list) {
+
+			cboTipo.addItem(tipPed.getIdTipoPedido() + ". " + tipPed.getDesTipoPedido());
+
+		}
+
+	}
+
+	private void estado() {
+		ArrayList<Participante> listPart = partDao.listarParticipante();
+		ArrayList<Pedido> listPed = pedDao.listarPedido();
+
+		for (Participante part : listPart) {
+
+			for (Pedido ped : listPed) {
+				if (part.getCodPedido().equals(ped.getCodigo())) {
+					ped.setEstado("EN PROCESO");
+					pedDao.actualizarPedido(ped);
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnModificar) {
+			actionPerformedBtnModificar(e);
+		}
+		if (e.getSource() == btnNuevo) {
+			actionPerformedBtnNuevo(e);
+		}
+		if (e.getSource() == btnRegistrar) {
+			actionPerformedBtnRegistrar(e);
+		}
+
+	}
+
+	protected void actionPerformedBtnRegistrar(ActionEvent e) {
+		String idPedido = leerIdContrato();
+		String entidad = leerEntidad();
+		String ruc = leerRuc();
+		int idTipoPedido = leerTipo();
+		int idObjetoPedido = leerObjeto();
+		String descripcion = leerDescripcion();
+		String fecha = leerFecha();
+		String estado = leerEstado();
+
+		if (idPedido == null || entidad == null || ruc == null || idTipoPedido == -1 || idObjetoPedido == -1
+				|| descripcion == null || fecha == null || estado == null) {
+			return;
+		} else {
+			Pedido ped = new Pedido(idPedido, entidad, ruc, idTipoPedido, idObjetoPedido, descripcion, fecha, estado);
+
+			int ok = pedDao.registrarPedido(ped);
+
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de registro");
+			} else {
+				Tool.mensajeExito(this, "Pedido registrado!");
+				correlativo();
+				cargarTabla();
+			}
+		}
+	}
+
+	private String leerEstado() {
+		String res = null;
+
+		if (txtEstado.getText().trim().length() == 0) {
+			Tool.mensajeError(this, "El campo estado esta vacïo !");
+			txtEstado.requestFocus();
+		} else {
+			res = txtEstado.getText().toString();
+		}
+
+		return res;
+	}
+
+	private String leerFecha() {
+		String res = null;
+
+		if (dcFecha.getDate() == null) {
+			Tool.mensajeError(this, "El campo fecha esta vacio !");
+			dcFecha.requestFocus();
+		} else {
+			res = Tool.sdf.format(dcFecha.getDate()).toString();
+		}
+
+		return res;
+	}
+
+	private String leerDescripcion() {
+		String res = null;
+
+		if (txtDescripcion.getText().trim().length() == 0) {
+			Tool.mensajeError(this, "El registro necesita un descripcion");
+			txtDescripcion.requestFocus();
+		} else {
+			res = txtDescripcion.getText().trim();
+		}
+		return res;
+	}
+
+	private int leerObjeto() {
+		int res = -1;
+
+		if (cboObjeto.getSelectedIndex() == 0) {
+			Tool.mensajeError(this, "Elige un objeto de contratacion");
+		} else {
+			res = cboObjeto.getSelectedIndex();
+		}
+
+		return res;
+	}
+
+	private int leerTipo() {
+		int res = -1;
+
+		if (cboTipo.getSelectedIndex() == 0) {
+			Tool.mensajeError(this, "Elige un tipo de pedido");
+		} else {
+			res = cboTipo.getSelectedIndex();
+		}
+
+		return res;
+	}
+
+	private String leerRuc() {
+		String res = null;
+
+		if (txtRuc.getText().trim().length() == 0) {
+			Tool.mensajeError(this, "Campo del RUC esta vacio !");
+			txtRuc.requestFocus();
+		} else if (txtRuc.getText().trim().matches(Reguex.RUC_PEDIDO)) {
+			res = txtRuc.getText();
+		} else {
+			Tool.mensajeError(this, "Ruc invïalido. Ejemp (XXXXXXXXXXX, 11 digitos)");
+			txtRuc.requestFocus();
+		}
+
+		return res;
+	}
+
+	private String leerEntidad() {
+		String res = null;
+
+		if (txtEntidad.getText().trim().length() == 0) {
+			Tool.mensajeError(this, "Campo entidad esta vacio !");
+			txtEntidad.requestFocus();
+		} else if (txtEntidad.getText().trim().matches(Reguex.ENTIDAD_PEDIDO)) {
+			res = txtEntidad.getText().trim();
+		} else {
+			Tool.mensajeError(this, "Entidad invalida. Cantidad de caracteres (3 y 20)");
+			txtEntidad.requestFocus();
+		}
+
+		return res;
+	}
+
+	private String leerIdContrato() {
+		String res = null;
+
+		if (txtIdContrato.getText().trim().length() == 0) {
+			Tool.mensajeError(this, "Campo del id pedido esta vacio !");
+			txtIdPedido.requestFocus();
+		} else if (txtIdPedido.getText().trim().matches(Reguex.ID_PEDIDO)) {
+			res = txtIdPedido.getText().trim();
+		} else {
+			Tool.mensajeError(this, "ID pedido invalido. Ejemp (PD002)");
+			txtIdPedido.requestFocus();
+		}
+
+		return res;
+	}
+
+	protected void actionPerformedBtnNuevo(ActionEvent e) {
+		arranque();
+	}
+
+	protected void actionPerformedBtnModificar(ActionEvent e) {
+		String idPedido = leerIdPedido();
+		String entidad = leerEntidad();
+		String ruc = leerRuc();
+		int idTipoPedido = leerTipo();
+		int idObjetoPedido = leerObjeto();
+		String descripcion = leerDescripcion();
+		String fecha = leerFecha();
+		String estado = leerEstado();
+
+		if (idPedido == null || entidad == null || ruc == null || idTipoPedido == -1 || idObjetoPedido == -1
+				|| descripcion == null || fecha == null || estado == null) {
+			return;
+		} else {
+
+			Pedido ped = new Pedido(idPedido, entidad, ruc, idTipoPedido, idObjetoPedido, descripcion, fecha, estado);
+
+			int ok = pedDao.actualizarPedido(ped);
+
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error de update");
+			} else {
+				Tool.mensajeExito(this, "Pedido actualizado!");
+				cargarTabla();
+			}
+		}
+
+	}
+}

@@ -1,0 +1,48 @@
+package mantenimiento;
+
+public class Contrato {
+
+	public int registrarContrato(Contrato cont) {
+
+		int res = 0;
+
+		Connection con = null;
+		PreparedStatement pstm = null;
+
+		try {
+
+			con = MySQLConexion8.getConexion();
+
+			String sql = "insert into tb_pedido values (?,?,?,?,?,?,?,?)";
+
+			pstm = con.prepareStatement(sql);
+
+			pstm.setString(1, ped.getCodigo());
+			pstm.setString(2, ped.getEntidad());
+			pstm.setString(3, ped.getRuc());
+			pstm.setInt(4, ped.getTipo());
+			pstm.setInt(5, ped.getObjeto());
+			pstm.setString(6, ped.getDescripcion());
+			pstm.setString(7, ped.getFecha());
+			pstm.setString(8, ped.getEstado());
+
+			res = pstm.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		} finally {
+			try {
+				if (con != null)
+					con.close();
+				if (pstm != null)
+					pstm.close();
+			} catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+
+		return res;
+
+	}
+
+}

@@ -1,0 +1,17 @@
+package Validaciones;
+
+public class Regex {
+
+	
+		
+		//DATOS PACIENTE
+		
+		public static String NOMBRE_PAC="[a-zA-Z\\s]{2,20}";
+		public static String APELLIDO_PAC="[a-zA-Z\\ñ\\s]{2,20}";
+		public static String DNI_PAC = "\\d{8}";
+		public static String CODIGO = "\\d{1}";
+		public static String EDAD = "\\d{2}";
+		
+		
+	
+}

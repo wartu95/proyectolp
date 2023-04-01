@@ -1,0 +1,172 @@
+package vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.border.TitledBorder;
+
+public class FrmRegTipoCont extends JInternalFrame {
+
+	private JPanel contentPane;
+	private JLabel lblNewLabel_1;
+	private JTextField txtEntidad;
+	private JLabel lblNewLabel_2;
+	private JTextField txtRuc;
+	private JTextField txtIdregistro;
+	private JLabel lblNewLabel_4;
+	private JComboBox cboObjeto;
+	private JButton btnNuevo;
+	private JButton btnModificar;
+	private JLabel lblNewLabel_6;
+	private JTextField textField_3;
+	private JLabel lblNewLabel_7;
+	private JTextArea txtS;
+	private JLabel lblNewLabel_8;
+	private JTable tblRegistro;
+	private JDateChooser dcFecha;
+	private JLabel lblNewLabel;
+	private JComboBox cboTipo;
+	private JLabel lblNroPedido;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JButton btnNewButton;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmRegTipoCont frame = new FrmRegTipoCont();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmRegTipoCont() {
+		setTitle("Registrar Tipo de Contrato");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 706, 459);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		btnNuevo = new JButton("REGISTRAR");
+		btnNuevo.setBounds(10, 205, 104, 20);
+		contentPane.add(btnNuevo);
+		
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setBounds(125, 205, 104, 20);
+		contentPane.add(btnModificar);
+		
+		tblRegistro = new JTable();
+		tblRegistro.setBounds(10, 236, 674, 173);
+		contentPane.add(tblRegistro);
+		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "ENTIDAD", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 176, 112);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		lblNewLabel_1 = new JLabel("Entidad Solicitante :");
+		lblNewLabel_1.setBounds(10, 22, 127, 14);
+		panel.add(lblNewLabel_1);
+		
+		txtEntidad = new JTextField();
+		txtEntidad.setBounds(10, 36, 128, 20);
+		panel.add(txtEntidad);
+		txtEntidad.setColumns(10);
+		
+		lblNewLabel_2 = new JLabel("RUC :");
+		lblNewLabel_2.setBounds(10, 66, 46, 14);
+		panel.add(lblNewLabel_2);
+		
+		txtRuc = new JTextField();
+		txtRuc.setBounds(10, 79, 127, 20);
+		panel.add(txtRuc);
+		txtRuc.setColumns(10);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "CONTRATO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(186, 11, 498, 183);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		txtIdregistro = new JTextField();
+		txtIdregistro.setBounds(10, 46, 128, 20);
+		panel_1.add(txtIdregistro);
+		txtIdregistro.setColumns(10);
+		
+		txtS = new JTextArea();
+		txtS.setBounds(216, 91, 268, 73);
+		panel_1.add(txtS);
+		
+		lblNewLabel_4 = new JLabel("Objeto de contrato:");
+		lblNewLabel_4.setBounds(10, 76, 96, 14);
+		panel_1.add(lblNewLabel_4);
+		
+		cboObjeto = new JComboBox();
+		cboObjeto.setBounds(10, 92, 146, 22);
+		panel_1.add(cboObjeto);
+		
+		lblNewLabel = new JLabel("Tipo de Contrato:");
+		lblNewLabel.setBounds(10, 130, 113, 14);
+		panel_1.add(lblNewLabel);
+		
+		cboTipo = new JComboBox();
+		cboTipo.setBounds(10, 150, 146, 22);
+		panel_1.add(cboTipo);
+		
+		lblNewLabel_6 = new JLabel("Fecha Inicio :");
+		lblNewLabel_6.setBounds(216, 21, 86, 14);
+		panel_1.add(lblNewLabel_6);
+		
+		btnNewButton = new JButton("");
+		btnNewButton.setBounds(148, 46, 46, 23);
+		panel_1.add(btnNewButton);
+		
+		dcFecha = new JDateChooser();
+		dcFecha.setBounds(215, 46, 122, 20);
+		panel_1.add(dcFecha);
+		
+		lblNewLabel_7 = new JLabel("Descripcion de Tipo de Contrato :");
+		lblNewLabel_7.setBounds(216, 76, 226, 14);
+		panel_1.add(lblNewLabel_7);
+		
+		lblNewLabel_8 = new JLabel("Estado :");
+		lblNewLabel_8.setBounds(355, 21, 46, 14);
+		panel_1.add(lblNewLabel_8);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(356, 46, 86, 20);
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		lblNroPedido = new JLabel("ID Contrato:");
+		lblNroPedido.setBounds(10, 21, 72, 14);
+		panel_1.add(lblNroPedido);
+	}
+}

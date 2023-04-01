@@ -1,0 +1,12 @@
+package clases;
+
+public class Administrativa {
+	 //INCIALIZAMOS ENTRADAS 
+	   private String codPedido;
+	   private String codMiembro;
+	   private String nombMiembro;
+	   private String apeMiembro;
+	   private String dni;
+	   private String funcion;
+	   private String Dependencia;
+}

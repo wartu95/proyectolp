@@ -1,0 +1,209 @@
+package vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+public class FrmRegTipoCont extends JInternalFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JLabel lblNewLabel_1;
+	private JTextField txtEntidad;
+	private JLabel lblNewLabel_2;
+	private JTextField txtRuc;
+	private JTextField txtIdregistro;
+	private JLabel lblObjetoContrato;
+	private JComboBox<Object> cboObjeto;
+	private JButton btnRegistrar;
+	private JButton btnModificar;
+	private JLabel lblFecha;
+	private JTextField txtEstado;
+	private JLabel lblDescrip;
+	private JTextArea txtS;
+	private JLabel lblEstado;
+	private JTable tblRegistro;
+	private JDateChooser dcFecha;
+	private JLabel lblTipoContrato;
+	private JComboBox<Object> cboTipo;
+	private JLabel lblNroPedido;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JButton btnLimpiar;
+	private DefaultTableModel model;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmRegTipoCont frame = new FrmRegTipoCont();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmRegTipoCont() {
+		setClosable(true);
+		setMaximizable(true);
+		setIconifiable(true);
+		setTitle("Registrar Tipo de Contrato");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 706, 459);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		btnRegistrar = new JButton("REGISTRAR");
+		btnRegistrar.addActionListener(this);
+		btnRegistrar.setBounds(10, 205, 104, 20);
+		contentPane.add(btnRegistrar);
+		
+
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setBounds(125, 205, 104, 20);
+		contentPane.add(btnModificar);
+
+		tblRegistro = new JTable();
+		tblRegistro.setBounds(10, 236, 674, 173);
+		contentPane.add(tblRegistro);
+
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "ENTIDAD", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 11, 176, 112);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		lblNewLabel_1 = new JLabel("Entidad Solicitante :");
+		lblNewLabel_1.setBounds(10, 22, 127, 14);
+		panel.add(lblNewLabel_1);
+
+		txtEntidad = new JTextField();
+		txtEntidad.setBounds(10, 36, 128, 20);
+		panel.add(txtEntidad);
+		txtEntidad.setColumns(10);
+
+		lblNewLabel_2 = new JLabel("RUC :");
+		lblNewLabel_2.setBounds(10, 66, 46, 14);
+		panel.add(lblNewLabel_2);
+
+		txtRuc = new JTextField();
+		txtRuc.setBounds(10, 79, 127, 20);
+		panel.add(txtRuc);
+		txtRuc.setColumns(10);
+
+		panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "CONTRATO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(186, 11, 498, 183);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+
+		txtIdregistro = new JTextField();
+		txtIdregistro.setBounds(10, 46, 128, 20);
+		panel_1.add(txtIdregistro);
+		txtIdregistro.setColumns(10);
+
+		txtS = new JTextArea();
+		txtS.setBounds(216, 91, 268, 73);
+		panel_1.add(txtS);
+
+		lblObjetoContrato = new JLabel("Objeto de contrato:");
+		lblObjetoContrato.setBounds(10, 76, 96, 14);
+		panel_1.add(lblObjetoContrato);
+
+		cboObjeto = new JComboBox();
+		cboObjeto.setBounds(10, 92, 146, 22);
+		panel_1.add(cboObjeto);
+
+		lblTipoContrato = new JLabel("Tipo de Contrato:");
+		lblTipoContrato.setBounds(10, 130, 113, 14);
+		panel_1.add(lblTipoContrato);
+
+		cboTipo = new JComboBox();
+		cboTipo.setBounds(10, 150, 146, 22);
+		panel_1.add(cboTipo);
+
+		lblFecha = new JLabel("Fecha Inicio :");
+		lblFecha.setBounds(216, 21, 86, 14);
+		panel_1.add(lblFecha);
+
+		btnLimpiar = new JButton("");
+		btnLimpiar.setBounds(148, 46, 46, 23);
+		panel_1.add(btnLimpiar);
+
+		dcFecha = new JDateChooser();
+		dcFecha.setBounds(215, 46, 122, 20);
+		panel_1.add(dcFecha);
+
+		lblDescrip = new JLabel("Descripcion de Tipo de Contrato :");
+		lblDescrip.setBounds(216, 76, 226, 14);
+		panel_1.add(lblDescrip);
+
+	
+
+		lblEstado = new JLabel("Estado :");
+		lblEstado.setBounds(355, 21, 46, 14);
+		panel_1.add(lblEstado);
+
+		txtEstado = new JTextField();
+		txtEstado.setBounds(356, 46, 86, 20);
+		panel_1.add(txtEstado);
+		txtEstado.setColumns(10);
+
+		lblNroPedido = new JLabel("ID Contrato:");
+		lblNroPedido.setBounds(10, 21, 72, 14);
+		panel_1.add(lblNroPedido);
+
+		model = new DefaultTableModel();
+		model.addColumn("ID PEDIDO");
+		model.addColumn("ENTIDAD");
+		model.addColumn("TIPO");
+		model.addColumn("OBJETO");
+		model.addColumn("DESCRIPCION");
+		model.addColumn("FECHA");
+		model.addColumn("ESTADO");
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnRegistrar) {
+			actionPerformedBtnRegistrar(e);
+		}
+		
+	}
+	protected void actionPerformedBtnRegistrar(ActionEvent e) {
+		registrarDatos();
+	}
+
+	private void registrarDatos() {
+		// TODO Auto-generated method stub
+		
+	}
+}
