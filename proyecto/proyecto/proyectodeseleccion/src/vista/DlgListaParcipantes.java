@@ -27,6 +27,8 @@ import javax.swing.JTextArea;
 public class DlgListaParcipantes extends JDialog implements ActionListener {
 	//insntanciar de la clase table
 	DefaultTableModel model= new DefaultTableModel();
+	
+	
 	private JTable tbParticipantes;
 	private JScrollPane scrollPane;
 
@@ -57,14 +59,13 @@ public class DlgListaParcipantes extends JDialog implements ActionListener {
 		tbParticipantes = new JTable();
 		scrollPane.setViewportView(tbParticipantes);
 		
+		model.addColumn("id_Participante");
+		model.addColumn("Nombre completo");
+		
+		
 	}
 
 	
-
-	private void mensajeError(String msj) {
-		JOptionPane.showMessageDialog(this,msj,"Error !!",0);
-		
-	}
 	public void actionPerformed(ActionEvent e) {
 	}
 }

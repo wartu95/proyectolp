@@ -141,7 +141,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	
 	}
 	protected void actionPerformedMniParticipante(ActionEvent e) {
-		FrmParticipantes participante = new FrmParticipantes();
+		FrmParticipante participante = new FrmParticipante();
 		participante.setVisible(true);
 		escritorio.add(participante);
 	}

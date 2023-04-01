@@ -261,8 +261,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private void arranque() {
 		estado();
 		cargarTipoContrato();
-		
-		correlativo();
 		cargarTabla();
 		limpiar();
 
@@ -322,7 +320,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
 		registrar();
-		correlativo();
 		cargarTabla();
 	}
 
@@ -466,22 +463,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	}
 
-	private void correlativo() {
-		/*
-		 * @SuppressWarnings("resource") Formatter ft = new Formatter();
-		 * 
-		 * ArrayList<Contrato> list = contDao.listarContrato();
-		 * 
-		 * if (list.size() == 0) { txtIDcontrato.setText("PD001"); } else { String
-		 * idPedido = list.get(list.size() - 1).getCodigo();
-		 * 
-		 * int correlativo = Integer.parseInt(idPedido.substring(2)) + 1;
-		 * 
-		 * txtIDcontrato.setText("PD" + ft.format("%03d", correlativo));
-		 * 
-		 * }
-		 */
-	}
+	
 
 	private String leerEstado() {
 		String res = null;
