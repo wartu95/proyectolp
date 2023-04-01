@@ -14,10 +14,46 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 
 
 	
+	@Override
+	public int registrar(Contrato cont) {
 
+		int res = 0;
+		Connection con =null;
+		PreparedStatement pstm = null;
+		
+		try {
+			
+			con = MySQLConexion8.getConexion();
+			String sql = "insert into tb_contrato values (?,?,?,?,?,?,?,?)";
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1,cont.getIdContrato());
+			pstm.setInt(2,cont.getTiPoContrato());
+			pstm.setInt(3,cont.getIdParticipante());
+			pstm.setString(4,cont.getFecha());
+			pstm.setString(5,cont.getDescripcion());
+			pstm.setString(6,cont.getResulucion());
+			pstm.setString(7,cont.getEstado());
+			
+			res = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("Error en la instruccion" + e.getMessage());
+		}finally {
+			try {
+				if (con!=null)con.close();
+				if (pstm!=null)pstm.close();
+			}catch (SQLException e) {
+				System.out.println("Error al cerrar la base de datos" + e.getMessage());
+			}
+		}
+		
+		
+		return res;
+	}
+	
 	public int actualizarContrato(Contrato cont) {
 		int res = 0;
-		
 		Connection con =null;
 		PreparedStatement pstm = null;
 		
@@ -27,21 +63,19 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			
 			String sql;
 			sql = "update tb_contrato set "
-					+ "entidad_con = ?, ruc_con= ?, id_tipoContrato = ?, id_objetoContrato = ?, descripcion_con = ?, fecha_con=?,estado_con=?"
-					+ "where id_con = ?";
+				  + "tipoContrato = ?, id_participante = ?, fecha=? , descripcion = ?,resolucion=?,estado=?"
+				  + "where id_con = ?";
 			
 			pstm = con.prepareStatement(sql);
 			
+			pstm.setInt(1,cont.getTiPoContrato());
+			pstm.setInt(2,cont.getIdParticipante());
+			pstm.setString(3,cont.getFecha());
+			pstm.setString(4,cont.getDescripcion());
+			pstm.setString(5,cont.getResulucion());
+			pstm.setString(6,cont.getEstado());
 			
-			pstm.setString(1,cont.getEntidad());
-			pstm.setString (2,cont.getRuc());
-			pstm.setInt(3,cont.getTipo());
-			pstm.setInt(4,cont.getObjeto());
-			pstm.setString(5,cont.getDescripcion());
-			pstm.setString(6,cont.getFecha());
-			pstm.setString(7,cont.getEstado());
-			
-			pstm.setString(8,cont.getCodigo());
+			pstm.setString(7,cont.getIdContrato());
 			
 			res = pstm.executeUpdate();
 			
@@ -60,7 +94,7 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		return res;
 	}
 
-	public int eliminarContrato(int idContrato) {
+	public int eliminarContrato(String idContrato) {
 		int res = 0;
 		
 		Connection con =null;
@@ -74,12 +108,12 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 						
 			pstm = con.prepareStatement(sql);
 			
-			pstm.setInt(1, idContrato);
+			pstm.setString(1, idContrato);
 			
 			res = pstm.executeUpdate();
 			
 		}catch(Exception e) {
-			System.out.println("Error en la instruccion" + e.getMessage());
+			System.out.println("Error en la instruccion al eliminar el contrato" + e.getMessage());
 		}finally {
 			try {
 				if (con!=null)con.close();
@@ -95,11 +129,10 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 	
 	public ArrayList<Contrato> listarContrato(){
 		ArrayList <Contrato> list = new ArrayList<Contrato>();
-		
 		Connection con =null;
 		PreparedStatement pstm = null;
-		
 		ResultSet res = null;
+		Contrato cont= null;
 		
 		try {
 			
@@ -112,24 +145,24 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			res = pstm.executeQuery();
 			
 			while (res.next()) {
-				Contrato ped = new Contrato(
-						res.getString(1),
-						res.getString(2),
-						res.getString(3),
-						res.getInt(4),
-						res.getInt(5),
-						res.getString(6),
-						res.getString(7),
-						res.getString(8)
+				cont = new Contrato();
 						
-						);
+						cont.setIdContrato(res.getString(1));
+						cont.setTiPoContrato(res.getInt(2));
+						cont.setIdParticipante(res.getInt(3));
+						cont.setFecha(res.getString(4));
+						cont.setDescripcion(res.getString(5));
+						cont.setResulucion(res.getString(6));
+                        cont.setEstado(res.getString(7));
+						
+						
 				
-				list.add(ped);
+				list.add(cont);
 			}
 			
 			
 		}catch(Exception e) {
-			System.out.println("Error en la instruccion" + e.getMessage());
+			System.out.println("Error en la instruccion de listar los contratos" + e.getMessage());
 		}finally {
 			try {
 				if (con!=null)con.close();
@@ -144,72 +177,14 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		return list;	
 	}
 	
-	//BUSQUEDA 
-	
-	public Contrato buscarXIdContrato(String idContrato) {
-		
-		Contrato cont = null;
-		
-		Connection con =null;
-		PreparedStatement pstm = null;
-		
-		ResultSet res = null;
-		
-		try {
-			
-			con = MySQLConexion8.getConexion();
-			
-			String sql = "select * from tb_contrato"
-					+ " where id_con = ?"; 
-						
-			pstm = con.prepareStatement(sql);
-			
-			pstm.setString (1,idContrato);
-			
-			res = pstm.executeQuery();
-			
-			while (res.next()) {
-				cont = new Contrato(
-						res.getString(1),
-						res.getString(2),
-						res.getString(3),
-						res.getInt(4),
-						res.getInt(5),
-						res.getString(6),
-						res.getString(7),
-						res.getString(8)
-						
-						);
-				
-			}
-			
-			
-		}catch(Exception e) {
-			System.out.println("Error en la instruccion" + e.getMessage());
-		}finally {
-			try {
-				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
-				if (res !=null)res.close();
-			}catch (SQLException e) {
-				System.out.println("Error al cerrar la base de datos" + e.getMessage());
-			}
-		}
-		
-		
-		
-		return cont;
-		
-	}
-
 	public ArrayList <Contrato> listarContratoConParticipantes (){
 		
 		ArrayList<Contrato> list= new ArrayList<Contrato>();
 		
 		Connection con = null;
 		PreparedStatement pstm = null;
-		
 		ResultSet res = null;
+		Contrato cont = null;
 		
 		try {
 			
@@ -224,16 +199,17 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			res = pstm.executeQuery();
 			
 			while (res.next()) {
-				Contrato cont = new Contrato(
-						res.getString(1),
-						res.getString(2),
-						res.getString(3),
-						res.getInt(4),
-						res.getInt(5),
-						res.getString(6),
-						res.getString(7),
-						res.getString(8)
-						);
+				cont = new Contrato();
+						
+						cont.setIdContrato(res.getString(1));
+						cont.setTiPoContrato(res.getInt(2));
+						cont.setIdParticipante(res.getInt(3));
+						cont.setFecha(res.getString(4));
+						cont.setDescripcion(res.getString(5));
+						cont.setResulucion(res.getString(6));
+                        cont.setEstado(res.getString(7));
+						
+						
 				
 				list.add(cont);
 			}
@@ -297,43 +273,7 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		return list;
 	}
 
-	@Override
-	public int registrar(Contrato cont) {
-
-		int res = 0;
-		Connection con =null;
-		PreparedStatement pstm = null;
-		
-		try {
-			
-			con = MySQLConexion8.getConexion();
-			String sql = "insert into tb_contrato values (?,?,?,?,?,?,?,?)";
-			pstm = con.prepareStatement(sql);
-			
-			pstm.setString(1,cont.getIdContrato());
-			pstm.setInt(2,cont.getTiPoContrato());
-			pstm.setInt(3,cont.getIdParticipante());
-			pstm.setString(4,cont.getFecha());
-			pstm.setString(5,cont.getDescripcion());
-			pstm.setString(6,cont.getResulucion());
-			pstm.setString(7,cont.getEstado());
-			
-			res = pstm.executeUpdate();
-			
-		}catch(Exception e) {
-			System.out.println("Error en la instruccion" + e.getMessage());
-		}finally {
-			try {
-				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
-			}catch (SQLException e) {
-				System.out.println("Error al cerrar la base de datos" + e.getMessage());
-			}
-		}
-		
-		
-		return res;
-	}
+	
 
 	
 

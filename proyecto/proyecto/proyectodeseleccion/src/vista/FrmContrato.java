@@ -38,6 +38,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class FrmContrato extends JInternalFrame implements ActionListener {
 
@@ -144,7 +145,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		panel2.add(lblTipoContrato);
 
 		cboTipo = new JComboBox();
-		cboTipo.setBounds(10, 179, 146, 22);
+		cboTipo.setBounds(10, 179, 188, 22);
 		panel2.add(cboTipo);
 
 		lblFecha = new JLabel("Fecha Inicio :");
@@ -173,6 +174,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		panel2.add(lblNroPedido);
 
 		txtDescripcion = new JTextField();
+		txtDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
 		txtDescripcion.setBounds(216, 193, 447, 64);
 		panel2.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
@@ -238,13 +240,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		tbContrato.setModel(model);
 
 		
-
+		cargarTipoContrato();
 	}
 
 	private void arranque() {
 		estado();
 		cargarTipoContrato();
-		cargarObjetoContrato();
+		
 		correlativo();
 		cargarTabla();
 		limpiar();
@@ -258,17 +260,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	}
 
-	private void cargarObjetoContrato() {
-		/*
-		 * ArrayList<ObjContrato> list = ObjetoContratoDAO.listarObjContrato();
-		 * 
-		 * for (ObjContrato objCont : list) {
-		 * 
-		 * cboObjeto.addItem(objCont.getIdObjContato() + ". " +
-		 * objCont.getDesObjContrato());}
-		 */
-
-	}
+	
 
 	private void cargarTipoContrato() {
 
@@ -315,7 +307,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
 		registrar();
-
 		correlativo();
 		cargarTabla();
 	}
@@ -381,18 +372,12 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	private String getdescrip() {
 		String desc = null;
+
 		if (txtDescripcion.getText().trim().length() == 0) {
-			Tool.mensajeError(this, "Ingrese la descripcion del contrato");
-			txtDescripcion.setText("");
+			Tool.mensajeError(this, "El contrato necesita una descripcion");
 			txtDescripcion.requestFocus();
-
-		} else if (txtDescripcion.getText().trim().matches(Regex.TEXTO)) {
-			desc = txtDescripcion.getText();
-
 		} else {
-			Tool.mensajeError(this, "El texto tiene caracteres incorrectos");
-			txtDescripcion.setText("");
-			txtDescripcion.requestFocus();
+			desc = txtDescripcion.getText().trim();
 		}
 		return desc;
 	}
@@ -417,8 +402,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	}
 
 	private int gettipCont() {
+		int res = -1;
 
-		return Integer.parseInt(cboTipo.getSelectedItem().toString());
+		
+		 if (cboTipo.getSelectedIndex() == 0) { Tool.mensajeError(this,"Elige un tipo de pedido"); 
+		 } else { res = cboTipo.getSelectedIndex(); }
+		 
+		return res;
+		//return Integer.parseInt(cboTipo.getSelectedItem().toString());
 	}
 
 	private String getidCont() {
@@ -514,52 +505,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		}
 		return res;
 	}
-
-	private int leerObjeto() {
-		int res = -1;
-		/*
-		 * if (cboObjeto.getSelectedIndex() == 0) { Tool.mensajeError(this,
-		 * "Elige un objeto de contratacion"); } else { res =
-		 * cboObjeto.getSelectedIndex(); }
-		 */
-		return res;
-	}
-
-	private int leerTipo() {
-		int res = -1;
-
-		/*
-		 * if (cboTipo.getSelectedIndex() == 0) { Tool.mensajeError(this,
-		 * "Elige un tipo de pedido"); } else { res = cboTipo.getSelectedIndex(); }
-		 */
-		return res;
-	}
-
-	private String leerRuc() {
-		String res = null;
-		/*
-		 * if (txtRuc.getText().trim().length() == 0) { Tool.mensajeError(this,
-		 * "Campo del RUC esta vacio !"); txtRuc.requestFocus(); } else if
-		 * (txtRuc.getText().trim().matches(Regex.RUC_PEDIDO)) { res = txtRuc.getText();
-		 * } else { Tool.mensajeError(this,
-		 * "Ruc inv�alido. Ejemp (XXXXXXXXXXX, 11 digitos)"); txtRuc.requestFocus(); }
-		 */
-		return res;
-	}
-
-	private String leerEntidad() {
-		String res = null;
-		/*
-		 * if (txtEntidad.getText().trim().length() == 0) { Tool.mensajeError(this,
-		 * "Campo entidad esta vacio !"); txtEntidad.requestFocus(); } else if
-		 * (txtEntidad.getText().trim().matches(Regex.ENTIDAD_CONTRATO)) { res =
-		 * txtEntidad.getText().trim(); } else { Tool.mensajeError(this,
-		 * "Entidad invalida. Cantidad de caracteres (3 y 20)");
-		 * txtEntidad.requestFocus(); }
-		 */
-		return res;
-	}
-
 	private String leerIdContrato() {
 		String res = null;
 

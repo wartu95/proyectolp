@@ -26,7 +26,7 @@ public class GestionTipoContratoDAO implements TipoContratoInterfaseDAO{
 				
 				con = MySQLConexion8.getConexion();
 				
-				String sql = "select * from tb_tipoContrato"; 			
+				String sql = "select * from tb_tipocontrato"; 			
 				pstm = con.prepareStatement(sql);				
 				res = pstm.executeQuery();
 				
