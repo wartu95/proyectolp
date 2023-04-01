@@ -42,6 +42,6 @@ public class Regex {
 		public static String ESTADO_APE="[a-zA-Z\\ñ\\s]{2,20}";
 		
 		//TEXTO
-		public static String TEXTO = ".";
+		public static String TEXTO = ".{2,450}";
 		
 }
