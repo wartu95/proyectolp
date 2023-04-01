@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 public class frmSueño extends JFrame {
 
 	private JPanel contentPane;
-
+//dormir
 	/**
 	 * Launch the application.
 	 */
