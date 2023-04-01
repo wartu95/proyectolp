@@ -27,7 +27,7 @@ import Validaciones.Regex;
 import clases.Contrato;
 import clases.Participante;
 import clases.TipoContrato;
-import mantenimiento.AdminDAO;
+
 import mantenimiento.GestionContratoDAO;
 import mantenimiento.ObjetoContratoDAO;
 import mantenimiento.ParticipanteDAO;
@@ -62,7 +62,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private ObjetoContratoDAO objContDao;
 	private GestionContratoDAO contDao;
 	private ParticipanteDAO partDao;
-	private AdminDAO adminDao;
+	
 
 	// instanciar un objeto para modelar la tabla
 	DefaultTableModel model = new DefaultTableModel();
