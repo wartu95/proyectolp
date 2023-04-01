@@ -77,12 +77,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private JLabel lblResolucin;
 	private JLabel lblIdParticipante;
 	private JTextField txtParticipante;
-	private JButton btnBuscarParticipante;
 	private JLabel lblNombreCompleto;
 	private JTextField txtNombresCompletos;
 	private JScrollPane scrollPane;
 	private JLabel lblDni;
 	private JTextField txtDni;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
+	private JButton btnBuscarParticipante;
 
 	/**
 	 * Launch the application.
@@ -117,12 +119,12 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(466, 288, 104, 20);
+		btnRegistrar.setBounds(226, 288, 104, 20);
 		contentPane.add(btnRegistrar);
 
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(580, 288, 104, 20);
+		btnModificar.setBounds(340, 288, 104, 20);
 		contentPane.add(btnModificar);
 
 		panel2 = new JPanel();
@@ -197,12 +199,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		txtParticipante.setBounds(10, 125, 128, 20);
 		panel2.add(txtParticipante);
 
-		btnBuscarParticipante = new JButton("");
-		btnBuscarParticipante.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/query.png")));
-		btnBuscarParticipante.addActionListener(this);
-		btnBuscarParticipante.setBounds(158, 112, 40, 33);
-		panel2.add(btnBuscarParticipante);
-
 		lblNombreCompleto = new JLabel("Nombre Completo  :");
 		lblNombreCompleto.setBounds(228, 100, 113, 15);
 		panel2.add(lblNombreCompleto);
@@ -220,6 +216,12 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		txtDni.setColumns(10);
 		txtDni.setBounds(480, 125, 105, 20);
 		panel2.add(txtDni);
+		
+		btnBuscarParticipante = new JButton("");
+		btnBuscarParticipante.addActionListener(this);
+		btnBuscarParticipante.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/query.png")));
+		btnBuscarParticipante.setBounds(152, 115, 46, 39);
+		panel2.add(btnBuscarParticipante);
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 312, 672, 165);
@@ -238,6 +240,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		model.addColumn("ESTADO");
 		// asociar
 		tbContrato.setModel(model);
+		
+		btnNewButton = new JButton("ELIMINAR");
+		btnNewButton.setBounds(451, 288, 104, 20);
+		contentPane.add(btnNewButton);
+		
+		btnNewButton_1 = new JButton("NUEVO");
+		btnNewButton_1.setBounds(562, 288, 110, 21);
+		contentPane.add(btnNewButton_1);
 
 		
 		cargarTipoContrato();
@@ -294,7 +304,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnBuscarParticipante) {
-			actionPerformedBtnNuevo_1(e);
+			actionPerformedBtnBuscarParticipante(e);
 		}
 		if (e.getSource() == btnModificar) {
 			actionPerformedBtnModificar(e);
@@ -541,7 +551,8 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		 * Tool.mensajeExito(this, "Pedido actualizado!"); cargarTabla(); } }
 		 */
 	}
-
-	protected void actionPerformedBtnNuevo_1(ActionEvent e) {
+	protected void actionPerformedBtnBuscarParticipante(ActionEvent e) {
+		DlgListaParcipantes dl = new DlgListaParcipantes();
+		dl.setVisible(true);
 	}
 }
