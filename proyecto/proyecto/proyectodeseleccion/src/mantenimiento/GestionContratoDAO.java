@@ -12,46 +12,9 @@ import utils.MySQLConexion8;
 
 public class GestionContratoDAO implements ContratoInterfaceDAO{
 
-public int registrarPedido(Contrato cont) {
-		
-		int res = 0;
-		Connection con =null;
-		PreparedStatement pstm = null;
-		
-		try {
-			
-			con = MySQLConexion8.getConexion();
-			String sql = "insert into tb_contrato values (?,?,?,?,?,?,?,?)";
-			pstm = con.prepareStatement(sql);
-			
-			pstm.setString(1,cont.getCodigo());
-			pstm.setString(2,cont.getEntidad());
-			pstm.setString(3,cont.getRuc());
-			pstm.setInt(4,cont.getTipo());
-			pstm.setInt(5,cont.getObjeto());
-			pstm.setString(6,cont.getDescripcion());
-			pstm.setString(7,cont.getFecha());
-			pstm.setString(8,cont.getEstado());
-			
-			res = pstm.executeUpdate();
-			
-		}catch(Exception e) {
-			System.out.println("Error en la instruccion" + e.getMessage());
-		}finally {
-			try {
-				if (con!=null)con.close();
-				if (pstm!=null)pstm.close();
-			}catch (SQLException e) {
-				System.out.println("Error al cerrar la base de datos" + e.getMessage());
-			}
-		}
-		
-		
-		return res;
-		
-		
-	}
+
 	
+
 	public int actualizarContrato(Contrato cont) {
 		int res = 0;
 		

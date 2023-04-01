@@ -41,6 +41,7 @@ public class Regex {
 		public static String DESCRIPCION_APE=".{2,450}";
 		public static String ESTADO_APE="[a-zA-Z\\ñ\\s]{2,20}";
 		
-		
+		//TEXTO
+		public static final String TEXTO = "^[A-Za-z]+$";
 		
 }
