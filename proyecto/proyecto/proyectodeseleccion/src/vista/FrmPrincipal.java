@@ -154,10 +154,8 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		escritorio.add(participante);
 
 	}
-	
 	//ARCHIVO
 	protected void actionPerformedMniSalir(ActionEvent e) {
 		System.exit(0);
 	}
-	
 }
