@@ -69,6 +69,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		menuBar.add(mnArchivo);
 		
 		mniUsuario = new JMenuItem("Gestion de usuarios");
+		mniUsuario.addActionListener(this);
 		mniUsuario.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/social-media.png")));
 		mnArchivo.add(mniUsuario);
 		
@@ -120,6 +121,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mniUsuario) {
+			actionPerformedMniUsuario(e);
+		}
 		if (e.getSource() == mniSalir) {
 			actionPerformedMniSalir(e);
 		}
@@ -154,5 +158,10 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	//ARCHIVO
 	protected void actionPerformedMniSalir(ActionEvent e) {
 		System.exit(0);
+	}
+	protected void actionPerformedMniUsuario(ActionEvent e) {
+		FrmUsuario u = new FrmUsuario();
+		u.setVisible(true);
+		escritorio.add(u);
 	}
 }
