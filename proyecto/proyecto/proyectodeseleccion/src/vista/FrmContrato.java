@@ -255,6 +255,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		// asociar
 		tbContrato.setModel(model);
 		
+		
 		btnNewButton = new JButton("ELIMINAR");
 		btnNewButton.setBounds(451, 288, 104, 20);
 		contentPane.add(btnNewButton);

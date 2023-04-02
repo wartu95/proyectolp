@@ -44,7 +44,6 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 	 */
 
 	private JPanel contentPane;
-	private JTable tbParticipante;
 	private JPanel panel_1;
 	private JLabel lblIdContrato;
 	private JButton btnBuscar;
@@ -63,19 +62,18 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 	private JLabel lblDNI;
 	private JLabel lblDni;
 
-	// instanciar
-	Participante Pac = new Participante();
-
-	ParticipanteDAO Pact = new ParticipanteDAO();
+	
 	// instanciar un objeto para modelar la tabla
 	DefaultTableModel model = new DefaultTableModel();
-	private JScrollPane scrollPane;
 	private ParticipanteDAO partDao;
 	private JTextField txtIdParticipante;
 	private GestionContratoDAO contDao;
 	private DefaultTableModel modelo;
 	private JButton btnNuevo;
 	private JButton btnActualizar;
+	private JTable tbParticipante;
+	private JScrollPane scrollPane;
+	
 
 	/**
 	 * Launch the application.
@@ -97,29 +95,23 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public FrmParticipante() {
+		
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
+		
 		setTitle("Participantes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 717, 563);
+		setBounds(100, 100, 810, 563);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 231, 681, 245);
-		contentPane.add(scrollPane);
-
-		tbParticipante = new JTable();
-		scrollPane.setViewportView(tbParticipante);
-
 		panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(10, 21, 681, 174);
+		panel_1.setBounds(20, 21, 739, 174);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -196,7 +188,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 		lblNewLabel_7 = new JLabel("TABLA DE PARTICIPANTE");
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		lblNewLabel_7.setBounds(0, 206, 701, 23);
+		lblNewLabel_7.setBounds(20, 206, 739, 23);
 		contentPane.add(lblNewLabel_7);
 
 		btnRegistrar = new JButton("REGISTRAR");
@@ -205,12 +197,12 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 				registrarDatos();
 			}
 		});
-		btnRegistrar.setBounds(133, 487, 89, 23);
+		btnRegistrar.setBounds(133, 487, 97, 23);
 		contentPane.add(btnRegistrar);
 
 		btnEliminar = new JButton("ELIMINAR");
 		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(521, 487, 89, 23);
+		btnEliminar.setBounds(567, 487, 89, 23);
 		contentPane.add(btnEliminar);
 
 		// agregar columna
@@ -221,18 +213,24 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 		model.addColumn("TELEFONO");
 		model.addColumn("CORREO");
 
-		// asociar tabla
-		tbParticipante.setModel(model);
-
 		btnActualizar = new JButton("ACTUALIZAR");
 		btnActualizar.addActionListener(this);
-		btnActualizar.setBounds(311, 487, 119, 23);
+		btnActualizar.setBounds(336, 487, 119, 23);
 		contentPane.add(btnActualizar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(27, 240, 739, 233);
+		contentPane.add(scrollPane);
+		
+		tbParticipante = new JTable();
+		scrollPane.setViewportView(tbParticipante);
+		tbParticipante.setFillsViewportHeight(true);
+		
+		tbParticipante.setModel(model);
 
 		// mostrar datos en la tabla
-		cargarDataParticipante();
-		arranque();
-
+		partDao = new ParticipanteDAO();
+		cargarTabla();
 	}
 
 	private void arranque() {
@@ -259,52 +257,34 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 		ArrayList<Participante> list = partDao.ListarParticipante();
 
 		if (list.size() == 0) {
-			txtIdParticipante.setText("PA001");
+			txtIdParticipante.setText("");
 		} else {
 			int idParticipante = list.get(list.size() - 1).getIdParticipante();
 
 			int n = (idParticipante) + 1;
 
 			txtIdParticipante.setText("");
-			txtIdParticipante.setText("PA" + ft.format("%03d", n));
+			txtIdParticipante.setText("" + ft.format("%1d", n));
 		}
 
 	}
 
 	private void cargarTabla() {
-		ArrayList<Participante> list = partDao.ListarParticipante();
+		ArrayList<Participante> list =partDao.ListarParticipante();
 
-		modelo.setRowCount(0);
+		model.setRowCount(0);
 
 		for (Participante part : list) {
 
 			Object[] x = { part.getIdParticipante(), part.getApellido(), part.getNombre(), part.getDni(),
-					part.getCorreo(), part.getTelefono()
+					part.getTelefono(), part.getCorreo()
 
 			};
-			modelo.addRow(x);
+			model.addRow(x);
 		}
 
 	}
 
-	private void cargarDataParticipante() {
-		// limpiar la tabla
-		model.setRowCount(0);
-		// llamar al proceos de consulta
-		ArrayList<Participante> lista = Pact.ListarParticipante();
-		// crear un bucle para el recorrido
-		for (Participante p : lista) {
-			// crear un arreglo
-			Object fila[] = { p.getIdParticipante(), p.getApellido(), p.getNombre(), p.getDni(), p.getTelefono(),
-					p.getCorreo(),
-
-			};
-			// aÃ±adir la fila a la tabla
-			model.addRow(fila);
-
-		}
-
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -354,13 +334,13 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 
 			// llamar al proceso --> metodo registrar que se encuentra en la clase
 			// "PacienteDAO"
-			int ok = Pact.registrar(p);
+			int ok = partDao.registrar(p);
 			// validar el resultado del proceso de registro
 			if (ok == 0) {
 				mensajeError("Error en el registro");
 			} else {
 				mensajeExistoso("Registro Existoso");
-				cargarDataParticipante();
+				cargarTabla();
 			}
 
 		}
@@ -450,6 +430,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 			txtApellidos.requestFocus();
 		}
 		return ape;
+		
 	}
 
 	private void mensajeError(String msj) {
@@ -507,13 +488,13 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 
 			// llamar al proceso --> metodo registrar que se encuentra en la clase
 			// "PacienteDAO"
-			int ok = Pact.registrar(p);
+			int ok = partDao.registrar(p);
 			// validar el resultado del proceso de registro
 			if (ok == 0) {
 				mensajeError("Error en el registro");
 			} else {
 				mensajeExistoso("Registro Existoso");
-				cargarDataParticipante();
+				cargarTabla();
 			}
 
 		}
@@ -526,18 +507,18 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 
 	private void eliminarParticipante() {
 		// declarar variables
-		int codigo, opcion;
+		int idpart, opcion;
 		// obtener codigo
-		codigo = getIdParticipante();
+		idpart = getIdParticipante();
 		// validar
-		if (codigo == -1) {
+		if (idpart == -1) {
 			return;
 		} else {
 			// trabajar la ventana de confirmacion
 			opcion = JOptionPane.showConfirmDialog(this, "Seguro de eliminar", "Sistema", JOptionPane.YES_NO_OPTION);
 			if (opcion == 0) { // si se va eliminar
 				// llamar al proceso de eliminar
-				int ok = Pact.eliminar(codigo);
+				int ok = partDao.eliminar(idpart);
 				// validar el resultado del proceso
 				if (ok == 0) {
 					mensajeError("codigo no existe");
@@ -546,14 +527,14 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 
 				} else {
 					mensajeExistoso("paciente eliminado");
-					cargarDataParticipante();
+					cargarTabla();
 				}
 			}
 		}
 	}
 
 	protected void actionPerformedBtnBuscar(ActionEvent e) {
-		Participante part = Pact.buscarxIdParticipante(Integer.parseInt(txtIdParticipante.getText().trim()));
+		Participante part = partDao.buscarxIdParticipante(Integer.parseInt(txtIdParticipante.getText().trim()));
 
 		if (part == null) {
 			Tool.mensajeError(this, "El ID ingresado no se encuentra registrado");
