@@ -149,9 +149,6 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		escritorio.add(part).setLocation(0,0);
 		part.toFront();
 
-		FrmParticipante participante = new FrmParticipante();
-		participante.setVisible(true);
-		escritorio.add(participante);
 
 	}
 	//ARCHIVO
