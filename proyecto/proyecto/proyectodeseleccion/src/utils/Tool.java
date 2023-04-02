@@ -4,7 +4,8 @@ import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.Formatter;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 public class Tool {
 	public static void mensajeError(Component pos,String msj) {

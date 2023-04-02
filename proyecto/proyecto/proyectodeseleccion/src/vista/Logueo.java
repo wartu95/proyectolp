@@ -20,7 +20,7 @@ public class Logueo extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JLabel lblUsuario;
-	private JLabel lblContraseña;
+	private JLabel lblContrasena;
 	private JTextField txtUsuario;
 	private JPasswordField txtClave;
 	private JButton btnAceptar;
@@ -62,18 +62,18 @@ public class Logueo extends JFrame implements ActionListener {
 		lblUsuario.setBounds(33, 102, 76, 17);
 		contentPane.add(lblUsuario);
 		
-		lblContraseña = new JLabel("Constrase\u00F1a :");
-		lblContraseña.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblContraseña.setBounds(35, 156, 102, 14);
-		contentPane.add(lblContraseña);
+		lblContrasena = new JLabel("Constrase\u00F1a :");
+		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblContrasena.setBounds(35, 156, 124, 14);
+		contentPane.add(lblContrasena);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(143, 99, 101, 20);
+		txtUsuario.setBounds(158, 103, 101, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		txtClave = new JPasswordField();
-		txtClave.setBounds(143, 150, 101, 20);
+		txtClave.setBounds(158, 150, 101, 20);
 		contentPane.add(txtClave);
 		
 		btnAceptar = new JButton("Aceptar");
@@ -134,7 +134,7 @@ public class Logueo extends JFrame implements ActionListener {
 			ventana.setVisible(true);
 			this.dispose();
 		}else {
-			JOptionPane.showMessageDialog(this, "CONTRASE�A INCORRECTA Y KLISMAN ES GAY", "ATENCION" , 0);
+			JOptionPane.showMessageDialog(this, "CONTRASENA INCORRECTA ", "ATENCION" , 0);
 		}
 		
 	}

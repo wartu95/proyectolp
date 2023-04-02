@@ -24,7 +24,7 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		try {
 			
 			con = MySQLConexion8.getConexion();
-			String sql = "insert into tb_contrato values (?,?,?,?,?,?,?,?)";
+			String sql = "insert into tb_contrato values (?,?,?,?,?,?,?)";
 			pstm = con.prepareStatement(sql);
 			
 			pstm.setString(1,cont.getIdContrato());

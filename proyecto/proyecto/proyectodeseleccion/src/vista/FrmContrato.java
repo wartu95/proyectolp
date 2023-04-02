@@ -28,7 +28,6 @@ import clases.Participante;
 import clases.TipoContrato;
 
 import mantenimiento.GestionContratoDAO;
-import mantenimiento.ObjetoContratoDAO;
 import mantenimiento.ParticipanteDAO;
 import mantenimiento.GestionTipoContratoDAO;
 import utils.Validaciones;
@@ -59,7 +58,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private JPanel panel2;
 	private JTextField txtDescripcion;
 	private GestionTipoContratoDAO tipContDao;
-	private ObjetoContratoDAO objContDao;
 	private GestionContratoDAO contDao;
 	private ParticipanteDAO partDao;
 	
@@ -76,15 +74,17 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private JTextField txtResolucion;
 	private JLabel lblResolucin;
 	private JLabel lblIdParticipante;
-	private JTextField txtParticipante;
+	public static JTextField txtParticipante;
 	private JLabel lblNombreCompleto;
-	private JTextField txtNombresCompletos;
+	public static JTextField txtNombre;
 	private JScrollPane scrollPane;
 	private JLabel lblDni;
-	private JTextField txtDni;
+	public static JTextField txtDni;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	private JButton btnBuscarParticipante;
+	private JLabel lblApellido;
+	public static JTextField txtApellido;
 
 	/**
 	 * Launch the application.
@@ -204,22 +204,22 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		txtParticipante.setBounds(10, 125, 128, 20);
 		panel2.add(txtParticipante);
 
-		lblNombreCompleto = new JLabel("Nombre Completo  :");
+		lblNombreCompleto = new JLabel("Nombre :");
 		lblNombreCompleto.setBounds(228, 100, 113, 15);
 		panel2.add(lblNombreCompleto);
 
-		txtNombresCompletos = new JTextField();
-		txtNombresCompletos.setColumns(10);
-		txtNombresCompletos.setBounds(228, 125, 226, 20);
-		panel2.add(txtNombresCompletos);
+		txtNombre = new JTextField();
+		txtNombre.setColumns(10);
+		txtNombre.setBounds(228, 125, 122, 20);
+		panel2.add(txtNombre);
 
 		lblDni = new JLabel("DNI  :");
-		lblDni.setBounds(482, 100, 113, 15);
+		lblDni.setBounds(550, 100, 113, 15);
 		panel2.add(lblDni);
 
 		txtDni = new JTextField();
 		txtDni.setColumns(10);
-		txtDni.setBounds(480, 125, 105, 20);
+		txtDni.setBounds(548, 125, 105, 20);
 		panel2.add(txtDni);
 		
 		btnBuscarParticipante = new JButton("");
@@ -227,6 +227,15 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		btnBuscarParticipante.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/query.png")));
 		btnBuscarParticipante.setBounds(152, 115, 66, 41);
 		panel2.add(btnBuscarParticipante);
+		
+		lblApellido = new JLabel("Apellido  :");
+		lblApellido.setBounds(367, 100, 113, 15);
+		panel2.add(lblApellido);
+		
+		txtApellido = new JTextField();
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(367, 125, 122, 20);
+		panel2.add(txtApellido);
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 312, 672, 165);
@@ -262,8 +271,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private void arranque() {
 		estado();
 		cargarTipoContrato();
-		
-		correlativo();
 		cargarTabla();
 		limpiar();
 
@@ -323,7 +330,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
 		registrar();
-		correlativo();
 		cargarTabla();
 	}
 
@@ -467,22 +473,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	}
 
-	private void correlativo() {
-		/*
-		 * @SuppressWarnings("resource") Formatter ft = new Formatter();
-		 * 
-		 * ArrayList<Contrato> list = contDao.listarContrato();
-		 * 
-		 * if (list.size() == 0) { txtIDcontrato.setText("PD001"); } else { String
-		 * idPedido = list.get(list.size() - 1).getCodigo();
-		 * 
-		 * int correlativo = Integer.parseInt(idPedido.substring(2)) + 1;
-		 * 
-		 * txtIDcontrato.setText("PD" + ft.format("%03d", correlativo));
-		 * 
-		 * }
-		 */
-	}
+	
 
 	private String leerEstado() {
 		String res = null;
@@ -558,7 +549,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		 */
 	}
 	protected void actionPerformedBtnBuscarParticipante(ActionEvent e) {
-		DlgListaParcipantes dl = new DlgListaParcipantes();
+		DlgListParticipante dl = new DlgListParticipante();
 		dl.setVisible(true);
 	}
 }
