@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.swing.plaf.ComponentUI;
+
 
 import clases.Usuario;
 import interfaces.UsuarioInterfaceDAO;
@@ -28,13 +28,7 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 			
 			pstm = con.prepareStatement(sql);
 			
-		    pstm.setString(1, u.getIdUsuario());
-		    pstm.setString(2, u.getContraseña());
-			pstm.setString(3, u.getNombre());
-			pstm.setString(4, u.getApellido());
-			pstm.setInt(5, u.getIdCargo());
-			pstm.setInt(6, u.getIdPerfil());
-			
+		  
 			
 			//paso 5:ejecutar la instruccion SQL
 			res = pstm.executeUpdate();
@@ -57,9 +51,6 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 		return res ;
 	}
 
-	public int Usuario(ComponentUI ui) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
+
+

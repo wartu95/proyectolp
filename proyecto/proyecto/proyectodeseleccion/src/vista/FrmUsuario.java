@@ -154,96 +154,14 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		model.addColumn("IDPERFIL");
 		
 		tabla.setModel(model);
-	      arranque();
-	}
-
-	private void arranque() {
-		limpiar();
-		
-	}
-
-	private void limpiar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNuevo) {
-			actionPerformedBtnNuevo(e);
-		}
-		if (e.getSource() == btnRegistrar) {
-			actionPerformedBtnRegistrar(e);
-		}
-	}
-	protected void actionPerformedBtnNuevo(ActionEvent e) {
-		limpiar();
-	}
-	
-	protected void actionPerformedBtnRegistrar(ActionEvent e) {
-	    String idUsuario = leerIdUsuario();
-	    String Contraseña = leerContraseña();	   
-	    String Nombre = leerNombre();
-	    String Apellido = leerApellido();
-	    int idCargo = leerIdCargo();
-	    int idPerfil = leerIdPerfil();
 	    
-	    if(idUsuario == null ||Contraseña == null ||Nombre == null ||Apellido == null||idCargo == -1||idPerfil ==-1) {
-	    	Tool.mensajeError(this, "Error de campos, verificar !");
-			return;
-		}else {
-			
-			Usuario user = new Usuario (idUsuario,Contraseña,Nombre,Apellido,idCargo,idPerfil);
-		
-			int ok = gUser.Usuario(ui);
-			
-			if(ok==0) {
-				Tool.mensajeError(this, "Registro rechazado");
-			}else {
-				Tool.mensajeExito(this, "Registrado correctamente !");
-				cargarTabla();
-				
-			}
-			
-		}
-   }
-		
+
+
+  
+	}
 	
 
-	private void cargarTabla() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private int leerIdPerfil() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private int leerIdCargo() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private String leerApellido() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private String leerNombre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private String leerContraseña() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private String leerIdUsuario() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -270,6 +188,12 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
