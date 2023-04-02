@@ -25,17 +25,17 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 			con = MySQLConexion8.getConexion();
 			// Paso 2 : Establecer la instruccion SQL -- Registrar
 
-			String sql = "insert into tb_paciente values (?,?,?,?,?,?);";
+			String sql = "insert into tb_participante values (null,?,?,?,?,?);";
 			// paso 3 : Crear el objeto pstm y enviar la variable sql
 			pstm = con.prepareStatement(sql); // obtener comandos SQL
 			// paso 4 obtener los parametros para la instruccion SQL
-			pstm.setInt(1, p.getIdParticipante());
-			pstm.setString(2, p.getApellido());
-			pstm.setString(3, p.getNombre());
-			pstm.setString(4, p.getDni());
-			pstm.setString(5, p.getTelefono());
-			pstm.setString(6, p.getCorreo());
+			pstm.setString(1, p.getApellido());
+			pstm.setString(2, p.getNombre());
+			pstm.setString(3, p.getDni());
+			pstm.setString(4, p.getTelefono());
+			pstm.setString(5, p.getCorreo());
 
+			
 			// paso 5 : ejecutar la instruccion SQL
 			res = pstm.executeUpdate();
 		} catch (Exception e) {
@@ -63,7 +63,7 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 			// paso1 --> conecxion a la base de datos
 			con = MySQLConexion8.getConexion();
 			// paso 2 -->> establecer la instrucccion SQL- PARA ELIMINAR
-			String sql = "delete from tb_paciente where codigo = ?";
+			String sql = "delete from tb_participante where id_participante = null";
 			// PASO 3 --> enviar la instruccion al objeto pstm -->obtener los comandos sql
 			pstm = con.prepareStatement(sql);
 			// paso 4 --> obtener el parametro
@@ -98,7 +98,7 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 			con = MySQLConexion8.getConexion();
 
 			// paso2 .--> establecer la instruccion SQL
-			String sql = "update tb_paciente set nombre = ?,apellido = ?,dni = ?,fecha_nac = ? ,edad = ? where codigo = ?";
+			String sql = "update tb_parcticipante set nombre = ?,apellido = ?,dni = ?,fecha_nac = ? ,edad = ? where codigo = ?";
 
 			// paso 3 --> enviar la instruccion SQL al objeto "pstm" para obtner los
 			// comandos SQL
@@ -141,7 +141,7 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 		try {
 
 			con = MySQLConexion8.getConexion();
-			String sql = "select * from tb_paciente where codigo = ?;";
+			String sql = "select * from tb_parcticipante where codigo = ?;";
 
 			pstm = con.prepareStatement(sql);
 
@@ -173,7 +173,7 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 			con = MySQLConexion8.getConexion();
 			// paso -->> establecer la instruccion SQL -- este caso es una consulta a
 			// tb_usuarios
-			String sql = "select * from tb_paciente;";
+			String sql = "select * from tb_participante";
 			// paso3 --> Enviar la instruccion sql al objeto ""pstm"
 			pstm = con.prepareStatement(sql);
 			// paso4 --> parametros
@@ -232,7 +232,7 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 
 			con = MySQLConexion8.getConexion();
 
-			String sql = "select * from tb_participante" + " where codigo_parti = ?";
+			String sql = "select * from tb_participante" + " where id_participante = ?";
 
 			pstm = con.prepareStatement(sql);
 

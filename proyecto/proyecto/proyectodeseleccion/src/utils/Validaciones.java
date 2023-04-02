@@ -17,7 +17,7 @@ public class Validaciones {
 		
 		//PARTICIPANTE
 		
-		public static String ID_PARTICIPANTE="[P][A]\\d{3}";
+		public static String ID_PARTICIPANTE="\\d{1}";
 		public static String APELLIDO_PAR="[a-zA-Z\\�\\s]{2,20}";
 		public static String NOMBRE_PAR="[a-zA-Z\\s]{2,20}";
 		public static String DNI_PAR = "\\d{8}";
