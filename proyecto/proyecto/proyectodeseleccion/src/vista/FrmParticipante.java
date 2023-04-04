@@ -36,8 +36,11 @@ import mantenimiento.ParticipanteDAO;
 import interfaces.Utils;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+import javax.swing.JSplitPane;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class FrmParticipante extends JInternalFrame implements ActionListener {
+public class FrmParticipante extends JInternalFrame implements ActionListener, MouseListener {
 
 	/**
 	 * 
@@ -223,6 +226,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 		contentPane.add(scrollPane);
 		
 		tbParticipante = new JTable();
+		tbParticipante.addMouseListener(this);
 		scrollPane.setViewportView(tbParticipante);
 		tbParticipante.setFillsViewportHeight(true);
 		
@@ -231,6 +235,28 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 		// mostrar datos en la tabla
 		partDao = new ParticipanteDAO();
 		cargarTabla();
+		//mostrar datos en la tabla
+		mostrarData(0);
+		
+	}
+
+	private void mostrarData(int posFila) {
+		//declarar variables
+		String idpar,ape,nomb,dni,telef,corr;
+		//pas 1 : obtener los datos de la tabla
+		idpar = tbParticipante.getValueAt(posFila, 0).toString();
+		ape = tbParticipante.getValueAt(posFila, 1).toString();
+		nomb = tbParticipante.getValueAt(posFila, 2).toString();
+		dni = tbParticipante.getValueAt(posFila, 3).toString();
+		telef = tbParticipante.getValueAt(posFila, 4).toString();
+		corr = tbParticipante.getValueAt(posFila, 5).toString();
+		//paso 2 : enviar losdatos de la tabla  a las cajas de texto
+		txtIdParticipante.setText(idpar);
+		txtApellidos.setText(ape);
+		txtNombres.setText(nomb);
+		txtDNI.setText(dni);
+		txtTelefono.setText(telef);
+		txtCorreo.setText(corr);
 	}
 
 	private void arranque() {
@@ -276,13 +302,18 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 
 		for (Participante part : list) {
 
-			Object[] x = { part.getIdParticipante(), part.getApellido(), part.getNombre(), part.getDni(),
-					part.getTelefono(), part.getCorreo()
+			Object fila []  = { part.getIdParticipante(), 
+					part.getApellido(), 
+					part.getNombre(), 
+					part.getDni(),
+					part.getTelefono(), 
+					part.getCorreo()
 
 			};
-			model.addRow(x);
+			model.addRow(fila);
 		}
-
+		
+	
 	}
 
 
@@ -552,5 +583,24 @@ public class FrmParticipante extends JInternalFrame implements ActionListener {
 
 	protected void actionPerformedBtnNuevo(ActionEvent e) {
 		arranque();
+	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tbParticipante) {
+			mouseClickedTbParticipante(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTbParticipante(MouseEvent e) {
+		//obtener el valor de la fila seleccionada
+		int posFila = tbParticipante.getSelectedRow();
+		//MOSTRAR DATA
+		mostrarData(posFila);
 	}
 }
