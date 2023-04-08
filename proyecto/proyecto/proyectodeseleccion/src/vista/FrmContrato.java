@@ -239,7 +239,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(367, 125, 122, 20);
+		txtApellido.setBounds(367, 125, 157, 20);
 		panel2.add(txtApellido);
 
 		scrollPane = new JScrollPane();
@@ -250,6 +250,10 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		tbContrato.addMouseListener(this);
 		scrollPane.setViewportView(tbContrato);
 		tbContrato.setFillsViewportHeight(true);
+		//deshabilitar cajas de texto del nombre 
+		txtNombre.setEditable(false);
+		txtApellido.setEditable(false);
+		txtDni.setEditable(false);
 
 		model.addColumn("ID CONTRATO");
 		model.addColumn("TIPO");
@@ -288,16 +292,21 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		dcFecha.setDate(null);
 		txtDescripcion.setText("");
 		txtEstado.setText("EN REGISTRO");
-		txtIDcontrato.setText("");
+		txtIDcontrato.setEditable(false);
+		txtIDcontrato.setText(obtenercodContrato());
 		txtApellido.setText("");
 		txtNombre.setText("");
 		txtParticipante.setText("");
 		txtResolucion.setText("");
 		txtDni.setText("");
 		cboTipo.setSelectedIndex(0);
+		
 
 	}
-
+	private String obtenercodContrato() {		
+		// TODO Auto-generated method stub
+		return gCont.codContrato();
+	}
 	
 
 	private void cargarTipoContrato() {
@@ -311,12 +320,9 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 			cboTipo.addItem(tipCont.getIdTipoContrato() + ". " + tipCont.getDescripTipo());
 
-		}
-
 	}
-
-
-	}
+    }
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
