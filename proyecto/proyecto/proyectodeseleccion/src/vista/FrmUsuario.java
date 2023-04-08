@@ -34,8 +34,8 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	private JLabel lblNombre;
 	private JTextField txtApellido;
 	private JLabel lblApellido;
-	private JTextField txtContraseña;
-	private JLabel lblContraseña;
+	private JTextField txtContraseÃ±a;
+	private JLabel lblContraseÃ±a;
 	private JTextField txtEstado;
 	private JLabel lblEstado;
 	private JTable tabla;
@@ -98,14 +98,14 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		lblApellido.setBounds(10, 126, 73, 14);
 		getContentPane().add(lblApellido);
 		
-		txtContraseña = new JTextField();
-		txtContraseña.setColumns(10);
-		txtContraseña.setBounds(98, 32, 156, 20);
-		getContentPane().add(txtContraseña);
+		txtContraseÃ±a = new JTextField();
+		txtContraseÃ±a.setColumns(10);
+		txtContraseÃ±a.setBounds(98, 32, 156, 20);
+		getContentPane().add(txtContraseÃ±a);
 		
-		lblContraseña = new JLabel("Contrase\u00F1a");
-		lblContraseña.setBounds(115, 11, 87, 14);
-		getContentPane().add(lblContraseña);
+		lblContraseÃ±a = new JLabel("Contrase\u00F1a");
+		lblContraseÃ±a.setBounds(115, 11, 87, 14);
+		getContentPane().add(lblContraseÃ±a);
 		
 		txtEstado = new JTextField();
 		txtEstado.setEditable(false);
@@ -148,7 +148,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		
 		model = new DefaultTableModel ();
 		model.addColumn("IDUSUARIO");
-		model.addColumn("CONTRASEÑA");
+		model.addColumn("CONTRASEï¿½A");
 		model.addColumn("APELLIDO");
 		model.addColumn("IDCARGO");
 		model.addColumn("IDPERFIL");

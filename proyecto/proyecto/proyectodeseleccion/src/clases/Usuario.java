@@ -2,61 +2,90 @@ package clases;
 
 public class Usuario {
 // 
-	private String idUsuario;
-	private String Contraseña;
-	private String Nombre;
-	private String Apellido;
-	private int idCargo;
-	private int idPerfil;
-	//
-	public Usuario() {
+	private String usuario;
+	private String clave;
+	private String nombre;
+	private String apellido;
+	private int cargo;
+	private int Perfil;
 	
-	}
-	public Usuario(String idUsuario, String contraseña, String nombre, String apellido, int idCargo, int idPerfil){
+	
+	public Usuario() {
 		super();
-		this.idUsuario = idUsuario;
-		this.Contraseña = contraseña;
-		this.Nombre = nombre;
-		this.Apellido = apellido;
-		this.idCargo = idCargo;
-		this.idPerfil = idPerfil;
+		// TODO Auto-generated constructor stub
 	}
-	//get set
-	public String getIdUsuario() {
-		return idUsuario;
+
+
+	public Usuario(String usuario, String clave, String nombre, String apellido, int cargo, int perfil) {
+		super();
+		this.usuario = usuario;
+		this.clave = clave;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.cargo = cargo;
+		Perfil = perfil;
 	}
-	public void setIdUsuario(String idUsuario) {
-		this.idUsuario = idUsuario;
+
+
+	public String getUsuario() {
+		return usuario;
 	}
-	public String getContraseña() {
-		return Contraseña;
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
-	public void setContrasena(String contraseña) {
-		Contraseña = contraseña;
+
+
+	public String getClave() {
+		return clave;
 	}
+
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
+
+
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
+
+
 	public String getApellido() {
-		return Apellido;
+		return apellido;
 	}
+
+
 	public void setApellido(String apellido) {
-		Apellido = apellido;
+		this.apellido = apellido;
 	}
-	public int getIdCargo() {
-		return idCargo;
+
+
+	public int getCargo() {
+		return cargo;
 	}
-	public void setIdCargo(int idCargo) {
-		this.idCargo = idCargo;
+
+
+	public void setCargo(int cargo) {
+		this.cargo = cargo;
 	}
-	public int getIdPerfil() {
-		return idPerfil;
+
+
+	public int getPerfil() {
+		return Perfil;
 	}
-	public void setIdPerfil(int idPerfil) {
-		this.idPerfil = idPerfil;
+
+
+	public void setPerfil(int perfil) {
+		Perfil = perfil;
 	}
+	
 	
 }
+	
