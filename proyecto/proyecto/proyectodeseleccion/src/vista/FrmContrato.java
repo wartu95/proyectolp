@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -38,8 +39,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.awt.event.MouseEvent;
 
-public class FrmContrato extends JInternalFrame implements ActionListener {
+public class FrmContrato extends JInternalFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField txtIDcontrato;
@@ -70,7 +75,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	GestionTipoContratoDAO gtipcon = new GestionTipoContratoDAO();
 
-	private GestionContratoDAO conDAO;
+
 	private JTextField txtResolucion;
 	private JLabel lblResolucin;
 	private JLabel lblIdParticipante;
@@ -242,6 +247,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		contentPane.add(scrollPane);
 
 		tbContrato = new JTable();
+		tbContrato.addMouseListener(this);
 		scrollPane.setViewportView(tbContrato);
 		tbContrato.setFillsViewportHeight(true);
 
@@ -257,19 +263,21 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		
 		
 		btnNewButton = new JButton("ELIMINAR");
+		btnNewButton.addActionListener(this);
 		btnNewButton.setBounds(451, 288, 104, 20);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("NUEVO");
+		btnNewButton_1.addActionListener(this);
 		btnNewButton_1.setBounds(562, 288, 110, 21);
 		contentPane.add(btnNewButton_1);
 
 		
 		cargarTipoContrato();
+		cargarTabla();
 	}
 
 	private void arranque() {
-		estado();
 		cargarTipoContrato();
 		cargarTabla();
 		limpiar();
@@ -277,9 +285,16 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	}
 
 	private void limpiar() {
-		dcFecha.setDate(new Date());
+		dcFecha.setDate(null);
 		txtDescripcion.setText("");
-		txtEstado.setText("REGISTRADO");
+		txtEstado.setText("EN REGISTRO");
+		txtIDcontrato.setText("");
+		txtApellido.setText("");
+		txtNombre.setText("");
+		txtParticipante.setText("");
+		txtResolucion.setText("");
+		txtDni.setText("");
+		cboTipo.setSelectedIndex(0);
 
 	}
 
@@ -300,22 +315,17 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	}
 
-	private void estado() {
-		/*
-		 * ArrayList<Participante> listPart = partDao.listarParticipante();
-		 * ArrayList<Contrato> listCont = conDAO.listarContrato();
-		 * 
-		 * for (Participante part : listPart) {
-		 * 
-		 * for (Contrato con : listCont) { if
-		 * (part.getIdContrato().equals(con.getCodigo())) { con.setEstado("EN PROCESO");
-		 * contDao.actualizarContrato(con); } } }
-		 * 
-		 */
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
+		if (e.getSource() == btnNewButton_1) {
+			actionPerformedBtnNewButton_1(e);
+		}
 		if (e.getSource() == btnBuscarParticipante) {
 			actionPerformedBtnBuscarParticipante(e);
 		}
@@ -370,13 +380,9 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 				Tool.mensajeError(this, "Error de registro del contrato");
 			} else {
 				Tool.mensajeExito(this, "Registro exitoso");
+				cargarTabla();
 			}
-
-			Object fila[] = { idCont, tipCont, Partic, fecha, descrip, resolu, estado };
-
-			// Agregar la fila en la tabla
-
-			model.addRow(fila);
+                  
 
 		}
 
@@ -431,7 +437,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 		 } else { res = cboTipo.getSelectedIndex(); }
 		 
 		return res;
-		//return Integer.parseInt(cboTipo.getSelectedItem().toString());
+		
 	}
 
 	private String getidCont() {
@@ -473,83 +479,126 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 
 	}
 
-	
-
-	private String leerEstado() {
-		String res = null;
-
-		if (txtEstado.getText().trim().length() == 0) {
-			Tool.mensajeError(this, "El campo estado esta vac�o !");
-			txtEstado.requestFocus();
-		} else {
-			res = txtEstado.getText().toString();
-		}
-
-		return res;
-	}
-
-	private String leerFecha() {
-		String res = null;
-
-		if (dcFecha.getDate() == null) {
-			Tool.mensajeError(this, "El campo fecha esta vacio !");
-			dcFecha.requestFocus();
-		} else {
-			res = Tool.sdf.format(dcFecha.getDate()).toString();
-		}
-
-		return res;
-	}
-
-	private String leerDescripcion() {
-		String res = null;
-
-		if (txtDescripcion.getText().trim().length() == 0) {
-			Tool.mensajeError(this, "El registro necesita un descripcion");
-			txtDescripcion.requestFocus();
-		} else {
-			res = txtDescripcion.getText().trim();
-		}
-		return res;
-	}
-	private String leerIdContrato() {
-		String res = null;
-
-		if (txtIDcontrato.getText().trim().length() == 0) {
-			Tool.mensajeError(this, "Campo del id pedido esta vacio !");
-			txtIDcontrato.requestFocus();
-		} else if (txtIDcontrato.getText().trim().matches(Validaciones.ID_CONTRATO)) {
-			res = txtIDcontrato.getText().trim();
-		} else {
-			Tool.mensajeError(this, "ID pedido invalido. Ejemp (CD002)");
-			txtIDcontrato.requestFocus();
-		}
-
-		return res;
-	}
 
 	protected void actionPerformedBtnModificar(ActionEvent e) {
-		/*
-		 * String idCodigo = leerIdContrato(); String entidad = leerEntidad(); String
-		 * ruc = leerRuc(); int idTipoContrato = leerTipo(); int idObjetoContrato =
-		 * leerObjeto(); String descripcion = leerDescripcion(); String fecha =
-		 * leerFecha(); String estado = leerEstado();
-		 * 
-		 * if (idCodigo == null || entidad == null || ruc == null || idTipoContrato ==
-		 * -1 || idObjetoContrato == -1 || descripcion == null || fecha == null ||
-		 * estado == null) { return; } else {
-		 * 
-		 * Contrato cont = new Contrato(idCodigo, entidad, ruc, idTipoContrato,
-		 * idObjetoContrato, descripcion, fecha, estado);
-		 * 
-		 * int ok = contDao.actualizarContrato(cont);
-		 * 
-		 * if (ok == 0) { Tool.mensajeError(this, "Error de update"); } else {
-		 * Tool.mensajeExito(this, "Pedido actualizado!"); cargarTabla(); } }
-		 */
+		
+		  
+		  String idCont = getidCont(); 
+		  int tipCont = gettipCont();
+		  int Partic = getPartic(); 
+		  String fecha = getfecha();;
+		  String descrip = getdescrip();
+		  String resolu = getresolu(); 
+		  String estado = getestado();
+		  
+		  
+		  if (idCont == null || tipCont == -1 || Partic == -1 || fecha == null
+		  || descrip == null || resolu == null || estado == null) 
+		  { return; } else {
+		 
+		  Contrato cont = new Contrato();
+		  
+		  cont.setTiPoContrato(tipCont);
+		  cont.setIdParticipante(Partic);
+		  cont.setFecha(fecha);
+		  cont.setDescripcion(descrip);
+		  cont.setResulucion(resolu);
+		  cont.setEstado(estado);
+		  cont.setIdContrato(idCont);
+		  
+		  int ok = gCont.actualizarContrato(cont);
+		  
+		  if (ok == 0) 
+		  { Tool.mensajeError(this, "Error en la Actualizacion de datos del contrato"); }
+		  else {
+		  Tool.mensajeExito(this, "Contrato Actualizado!"); 
+		  cargarTabla(); } }
+		 
 	}
 	protected void actionPerformedBtnBuscarParticipante(ActionEvent e) {
 		DlgListParticipante dl = new DlgListParticipante();
 		dl.setVisible(true);
 	}
+	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+		limpiar();
+	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tbContrato) {
+			mouseClickedTbContrato(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTbContrato(MouseEvent e) {
+		int posfila;
+		posfila=tbContrato.getSelectedRow();
+		//Mostrar data
+		Mostrardata(posfila);
+		
+	}
+
+	private void Mostrardata(int posfila) {
+	String idcont,idpart,fec,descrip,resol,estad;
+	Date fechh;
+	int tipcont;
+	
+		
+	idcont= tbContrato.getValueAt(posfila, 0).toString();
+	tipcont= Integer.parseInt(tbContrato.getValueAt(posfila, 1).toString());
+	//tipcont= tbContrato.getValueAt(posfila, 1).toString();
+	idpart= tbContrato.getValueAt(posfila, 2).toString();
+	fec= tbContrato.getValueAt(posfila, 3).toString();
+    descrip= tbContrato.getValueAt(posfila, 4).toString();
+	resol= tbContrato.getValueAt(posfila, 5).toString();
+	estad= tbContrato.getValueAt(posfila, 6).toString();
+	
+	//Mostrar en la caja de texto
+	
+	txtIDcontrato.setText(idcont);
+	txtParticipante.setText(idpart);
+	cboTipo.setSelectedIndex(tipcont);
+	txtEstado.setText(estad);
+
+	try {
+		dcFecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fec));
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	txtDescripcion.setText(descrip);
+	txtResolucion.setText(resol);
+	txtEstado.setText(estad);
+	}
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		
+		String idcont; 
+	      int opcion;
+		//obtener el id
+		idcont= getidCont();
+		//validar
+		if (idcont == null) {
+			return;
+		}else {
+			opcion= JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el contrato","Sistema",JOptionPane.YES_NO_OPTION);
+			if (opcion == 0) {
+			//llamar al proceso eliminar
+			int ok = gCont.eliminarContrato(idcont);
+			//validar el resultado del proceso
+			if (ok == 0) {
+				Tool.mensajeError(this, "El Id del contrato no existe");
+			}else {
+				Tool.mensajeExito(this, "Contrato eliminado");
+				cargarTabla();
+
+			}
+			}
+	}
+	}
+
 }

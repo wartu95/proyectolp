@@ -56,15 +56,14 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		int res = 0;
 		Connection con =null;
 		PreparedStatement pstm = null;
-		
 		try {
 			
 			con = MySQLConexion8.getConexion();
 			
 			String sql;
 			sql = "update tb_contrato set "
-				  + "tipoContrato = ?, id_participante = ?, fecha=? , descripcion = ?,resolucion=?,estado=?"
-				  + "where id_con = ?";
+				  + "tipo_Contrato = ?, id_participante = ?, fecha=? , descripcion = ?,resolucion=?,estado=?"
+				  + "where id_contrato = ?";
 			
 			pstm = con.prepareStatement(sql);
 			
@@ -74,7 +73,6 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			pstm.setString(4,cont.getDescripcion());
 			pstm.setString(5,cont.getResulucion());
 			pstm.setString(6,cont.getEstado());
-			
 			pstm.setString(7,cont.getIdContrato());
 			
 			res = pstm.executeUpdate();
@@ -89,14 +87,12 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 				System.out.println("Error al cerrar la base de datos" + e.getMessage());
 			}
 		}
-		
-		
+
 		return res;
 	}
 
 	public int eliminarContrato(String idContrato) {
 		int res = 0;
-		
 		Connection con =null;
 		PreparedStatement pstm = null;
 		
@@ -104,7 +100,7 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "delete from tb_contrato where id_con = ?"; 
+			String sql = "delete from tb_contrato where id_contrato = ?"; 
 						
 			pstm = con.prepareStatement(sql);
 			
@@ -137,11 +133,8 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		try {
 			
 			con = MySQLConexion8.getConexion();
-			
 			String sql = "select * from tb_contrato"; 
-						
 			pstm = con.prepareStatement(sql);
-			
 			res = pstm.executeQuery();
 			
 			while (res.next()) {
@@ -155,9 +148,8 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 						cont.setResulucion(res.getString(6));
                         cont.setEstado(res.getString(7));
 						
-						
-				
-				list.add(cont);
+
+				        list.add(cont);
 			}
 			
 			
