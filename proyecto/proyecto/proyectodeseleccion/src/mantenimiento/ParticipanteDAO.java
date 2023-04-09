@@ -14,6 +14,7 @@ public class ParticipanteDAO implements ParticipanteInterfaceDAO {
 
 
 
+	
 	@Override
 	public int registrar(Participante p) {
 		// declaracion de variables

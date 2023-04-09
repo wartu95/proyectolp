@@ -106,6 +106,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		setTitle("Participantes");
 		setBounds(100, 100, 810, 563);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -119,7 +120,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		panel_1.setLayout(null);
 
 		lblIdContrato = new JLabel("ID. Participante :");
-		lblIdContrato.setBounds(10, 24, 96, 14);
+		lblIdContrato.setBounds(10, 24, 144, 14);
 		panel_1.add(lblIdContrato);
 
 		btnBuscar = new JButton("");

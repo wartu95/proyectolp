@@ -8,12 +8,12 @@ import javax.swing.JLabel;
 public class HiloReloj extends Thread {
 
 	// componeten privado
-	private JLabel lblReloj1;
+	private JLabel lblReloj;
 
 	// constructor
-	public HiloReloj(JLabel lblReloj1) {
+	public HiloReloj(JLabel lblReloj) {
 
-		this.lblReloj1 = lblReloj1;
+		this.lblReloj = lblReloj;
 	}
 
 	@Override
@@ -25,7 +25,8 @@ public class HiloReloj extends Thread {
 			// la hora
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 			// mostrar la hora en la etuiqtea "lblReloj"
-			lblReloj1.setText(sdf.format(hora));
+			lblReloj.setText(sdf.format(hora));
+			
 		}
 	}
 

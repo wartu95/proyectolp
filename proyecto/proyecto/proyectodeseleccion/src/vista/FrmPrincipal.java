@@ -7,7 +7,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import utils.HiloReloj;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -18,6 +22,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import javax.swing.SwingConstants;
 
 public class FrmPrincipal extends JFrame implements ActionListener   {
 	private JMenuBar menuBar;
@@ -25,15 +30,22 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	private JMenuItem mniUsuario;
 	private JMenuItem mniSalir;
 	private JMenu mnMantenimiento;
-	private JMenu mnConsulta;
 	private JMenu mnTransaccion;
 	private JMenu mnReporte;
 	private JMenu mnAyuda;
 	private JMenuItem mniContrato;
 	private JMenuItem mniParticipante;
 	private JDesktopPane escritorio;
-	private JMenuItem mntmContratosPendientes;
-	private JMenuItem mntmNewMenuItem;
+	private JMenuItem mniContratoPendientes;
+	private JMenuItem mniTipoContratos;
+	private JMenu mnNewMenu;
+	private JMenuItem mniConsultaParticipante;
+	private JMenuItem mniConsultaContratos;
+	private JMenuItem mntmNewMenuItem_3;
+	private JMenuItem mntmNewMenuItem_4;
+	private JLabel lblReloj;
+	private JLabel lblFondo;
+	
 
 	/**
 	 * Launch the application.
@@ -56,10 +68,15 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	 * Create the frame.
 	 */
 	public FrmPrincipal() {
+		try {
+			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/img/logo-smv.png")));
 		setTitle("CONTRATACION DE PERSONAL ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1085, 720);
+		setBounds(100, 100, 975, 690);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -82,7 +99,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnMantenimiento.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/maintenance.png")));
 		menuBar.add(mnMantenimiento);
 		
-		mniContrato = new JMenuItem("Registrar Contrato");
+		mniContrato = new JMenuItem("Registro de Contrato");
 		mniContrato.addActionListener(this);
 		mniContrato.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/contract.png")));
 		mnMantenimiento.add(mniContrato);
@@ -92,15 +109,21 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mniParticipante.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/diversity.png")));
 		mnMantenimiento.add(mniParticipante);
 		
-		mntmContratosPendientes = new JMenuItem("Contratos Pendientes");
-		mnMantenimiento.add(mntmContratosPendientes);
+		mniContratoPendientes = new JMenuItem("Contratos Pendientes");
+		mnMantenimiento.add(mniContratoPendientes);
 		
-		mntmNewMenuItem = new JMenuItem("Lista de Contratos");
-		mnMantenimiento.add(mntmNewMenuItem);
+		mniTipoContratos = new JMenuItem("Tipo de Contratos");
+		mnMantenimiento.add(mniTipoContratos);
 		
-		mnConsulta = new JMenu(" ");
-		mnConsulta.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/query.png")));
-		menuBar.add(mnConsulta);
+		mnNewMenu = new JMenu("Consulta");
+		mnNewMenu.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/query.png")));
+		menuBar.add(mnNewMenu);
+		
+		mniConsultaParticipante = new JMenuItem("Consulta Participante");
+		mnNewMenu.add(mniConsultaParticipante);
+		
+		mniConsultaContratos = new JMenuItem("Consulta de Contratos");
+		mnNewMenu.add(mniConsultaContratos);
 		
 		mnTransaccion = new JMenu("Transacci\u00F3n");
 		mnTransaccion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/transaction.png")));
@@ -110,13 +133,33 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnReporte.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/report.png")));
 		menuBar.add(mnReporte);
 		
+		mntmNewMenuItem_3 = new JMenuItem("Reporte de Contratos");
+		mnReporte.add(mntmNewMenuItem_3);
+		
 		mnAyuda = new JMenu("Ayuda");
 		mnAyuda.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/respect.png")));
 		menuBar.add(mnAyuda);
 		
+		mntmNewMenuItem_4 = new JMenuItem("¿Quienes somos?");
+		mnAyuda.add(mntmNewMenuItem_4);
+		
 		escritorio = new JDesktopPane();
-		escritorio.setBackground(SystemColor.textHighlight);
+		escritorio.setBackground(new Color(192, 192, 192));
 		getContentPane().add(escritorio, BorderLayout.CENTER);
+		
+		lblReloj = new JLabel("hh:mm:ss");
+		lblReloj.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblReloj.setForeground(Color.WHITE);
+		lblReloj.setBackground(Color.WHITE);
+		lblReloj.setBounds(815, 23, 134, 27);
+		escritorio.add(lblReloj);
+		
+		lblFondo = new JLabel("New label");
+		lblFondo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/Screenshot_20.png")));
+		lblFondo.setBounds(0, 0, 959, 621);
+		escritorio.add(lblFondo);
+		//mostrar hora
+		cargarHora();
 	}
 
 	@Override
@@ -137,6 +180,12 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		
 	}
 	
+	private void cargarHora() {
+		
+		HiloReloj h = new HiloReloj(lblReloj);
+		h.start();
+	}
+
 	//MANTENIMIENTO 
 	protected void actionPerformedMniContrato(ActionEvent e) {
 		FrmContrato contrato = new FrmContrato();
@@ -160,8 +209,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		System.exit(0);
 	}
 	protected void actionPerformedMniUsuario(ActionEvent e) {
-		FrmUsuario u = new FrmUsuario();
-		u.setVisible(true);
-		escritorio.add(u);
+		FrmUsuario usuario = new FrmUsuario();
+		usuario.setVisible(true);
+		escritorio.add(usuario).setLocation(0,0);
+		usuario.toFront();
 	}
 }

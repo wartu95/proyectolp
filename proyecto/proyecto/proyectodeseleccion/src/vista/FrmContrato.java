@@ -28,8 +28,8 @@ import clases.Participante;
 import clases.TipoContrato;
 
 import mantenimiento.GestionContratoDAO;
-import mantenimiento.ParticipanteDAO;
 import mantenimiento.GestionTipoContratoDAO;
+import mantenimiento.ParticipanteDAO;
 import utils.Validaciones;
 import utils.Tool;
 

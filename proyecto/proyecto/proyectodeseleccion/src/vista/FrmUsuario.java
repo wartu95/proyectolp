@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -31,6 +32,9 @@ import utils.Validaciones;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+import javax.swing.JPanel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class FrmUsuario extends JInternalFrame implements ActionListener, MouseListener {
@@ -56,60 +60,41 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	private JButton btnNuevo;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JLabel lblNewLabel;
 
 	public static void main(String[] args) {
 
-		FrmUsuario form = new FrmUsuario();
-		form.setVisible(true);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmUsuario frame = new FrmUsuario();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 
 	}
 
 	public FrmUsuario() {
-		getContentPane().setBackground(new Color(192, 192, 192));
-
-		setTitle("USUARIO");
-		setBounds(100, 100, 667, 432);
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
 
+		getContentPane().setBackground(new Color(192, 192, 192));
+
+		setTitle("USUARIO");
+		setBounds(100, 100, 671, 450);
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		this.getContentPane().setLayout(null);
 
-		lblIdUsuario = new JLabel("IdUsuario");
-		lblIdUsuario.setBounds(27, 24, 73, 14);
-		getContentPane().add(lblIdUsuario);
-
-		txtIdUsuario = new JTextField();
-		txtIdUsuario.setBounds(22, 49, 78, 20);
-		getContentPane().add(txtIdUsuario);
-		txtIdUsuario.setColumns(10);
-
-		txtNombre = new JTextField();
-		txtNombre.setColumns(10);
-		txtNombre.setBounds(179, 104, 135, 20);
-		getContentPane().add(txtNombre);
-
-		lblNombre = new JLabel("Nombres");
-		lblNombre.setBounds(179, 79, 73, 14);
-		getContentPane().add(lblNombre);
-
-		txtApellido = new JTextField();
-		txtApellido.setColumns(10);
-		txtApellido.setBounds(338, 48, 150, 20);
-		getContentPane().add(txtApellido);
-
-		lblApellido = new JLabel("Apellidos");
-		lblApellido.setBounds(343, 24, 73, 14);
-		getContentPane().add(lblApellido);
-
-		lblContraseña = new JLabel("Contrase\u00F1a");
-		lblContraseña.setBounds(184, 24, 87, 14);
-		getContentPane().add(lblContraseña);
-
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 154, 624, 228);
+		scrollPane.setBounds(10, 176, 629, 228);
 		getContentPane().add(scrollPane);
 
 		tbUsuarios = new JTable();
@@ -117,87 +102,132 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		tbUsuarios.setFillsViewportHeight(true);
 		scrollPane.setViewportView(tbUsuarios);
 
-		btnRegistrar = new JButton("");
-		btnRegistrar.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/abrir.png")));
-		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(587, 28, 47, 41);
-		getContentPane().add(btnRegistrar);
-
 		model = new DefaultTableModel();
 		model.addColumn("Usuario");
 		model.addColumn("Clave");
 		model.addColumn("Nombre");
 		model.addColumn("Apellido");
 		model.addColumn("Cargo");
-		
 
 		tbUsuarios.setModel(model);
 
-		lblTipoUsuario = new JLabel("Tipo Usuario");
-		lblTipoUsuario.setBounds(348, 79, 73, 14);
-		getContentPane().add(lblTipoUsuario);
+		panel = new JPanel();
+		panel.setBounds(10, 12, 497, 134);
+		getContentPane().add(panel);
+		panel.setLayout(null);
 
-		cboTipoUsuario = new JComboBox();
-		cboTipoUsuario.setBounds(338, 103, 156, 22);
-		getContentPane().add(cboTipoUsuario);
+		txtIdUsuario = new JTextField();
+		txtIdUsuario.setBounds(10, 21, 78, 20);
+		panel.add(txtIdUsuario);
+		txtIdUsuario.setColumns(10);
+
+		lblIdUsuario = new JLabel("IdUsuario");
+		lblIdUsuario.setBounds(10, 6, 73, 14);
+		panel.add(lblIdUsuario);
 
 		btnBuscarCargo = new JButton("");
+		btnBuscarCargo.setBounds(98, 11, 47, 35);
+		panel.add(btnBuscarCargo);
 		btnBuscarCargo.addActionListener(this);
 		btnBuscarCargo.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/busca.png")));
-		btnBuscarCargo.setBounds(110, 34, 47, 35);
-		getContentPane().add(btnBuscarCargo);
+
+		txtNombre = new JTextField();
+		txtNombre.setBounds(167, 77, 135, 20);
+		panel.add(txtNombre);
+		txtNombre.setColumns(10);
+
+		lblNombre = new JLabel("Nombres");
+		lblNombre.setBounds(167, 52, 73, 14);
+		panel.add(lblNombre);
+
+		lblContraseña = new JLabel("Contrase\u00F1a");
+		lblContraseña.setBounds(167, 6, 87, 14);
+		panel.add(lblContraseña);
 
 		txtClave = new JPasswordField();
-		txtClave.setBounds(179, 49, 73, 20);
-		getContentPane().add(txtClave);
+		txtClave.setBounds(167, 21, 73, 20);
+		panel.add(txtClave);
+
+		lblApellido = new JLabel("Apellidos");
+		lblApellido.setBounds(314, 6, 73, 14);
+		panel.add(lblApellido);
+
+		txtApellido = new JTextField();
+		txtApellido.setBounds(314, 21, 150, 20);
+		panel.add(txtApellido);
+		txtApellido.setColumns(10);
+
+		lblTipoUsuario = new JLabel("Tipo Usuario");
+		lblTipoUsuario.setBounds(314, 52, 73, 14);
+		panel.add(lblTipoUsuario);
+
+		cboTipoUsuario = new JComboBox();
+		cboTipoUsuario.setBounds(312, 76, 156, 22);
+		panel.add(cboTipoUsuario);
+
+		panel_1 = new JPanel();
+		panel_1.setBounds(517, 12, 122, 134);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
 
 		btnNuevo = new JButton("");
+		btnNuevo.setBounds(10, 9, 47, 43);
+		panel_1.add(btnNuevo);
 		btnNuevo.addActionListener(this);
 		btnNuevo.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/nuevo.png")));
-		btnNuevo.setBounds(522, 24, 47, 43);
-		getContentPane().add(btnNuevo);
 
-		btnActualizar = new JButton("");
-		btnActualizar.addActionListener(this);
-		btnActualizar.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/update (1).png")));
-		btnActualizar.setBounds(532, 89, 45, 35);
-		getContentPane().add(btnActualizar);
+		btnRegistrar = new JButton("");
+		btnRegistrar.setBounds(67, 11, 47, 41);
+		panel_1.add(btnRegistrar);
+		btnRegistrar.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/abrir.png")));
 
 		btnEliminar = new JButton("");
+		btnEliminar.setBounds(67, 76, 47, 35);
+		panel_1.add(btnEliminar);
 		btnEliminar.addActionListener(this);
 		btnEliminar.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/delete (2).png")));
-		btnEliminar.setBounds(596, 89, 38, 35);
-		getContentPane().add(btnEliminar);
+
+		btnActualizar = new JButton("");
+		btnActualizar.setBounds(10, 76, 47, 35);
+		panel_1.add(btnActualizar);
+		btnActualizar.addActionListener(this);
+		btnActualizar.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/update (1).png")));
+
+		lblNewLabel = new JLabel("TABLA DE USUARIO");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lblNewLabel.setBounds(0, 149, 655, 23);
+		getContentPane().add(lblNewLabel);
+		btnRegistrar.addActionListener(this);
 
 		// Mostrar datos en la tabla
 		cargarDataUsuario();
 		// mostrar datos de baja de la tabla
 		mostrarData(0);
-		//mostrar datos del CBO
+		// mostrar datos del CBO
 		cargarTipoUsuario();
 
 	}
 
 	private void cargarTipoUsuario() {
-		
+
 		cboTipoUsuario.setSelectedIndex(-1);
 		cboTipoUsuario.addItem("Seleccione un cargo");
 		for (TipoUsuario obj : gtipUser.listarTipoUsuarios()) {
 			cboTipoUsuario.addItem(obj.getDescripCargo());
 		}
-		
-		
+
 	}
 
 	private void mostrarData(int posFila) {
 		// declarar variables
-		String user, pass, nomb, ape,carg;
+		String user, pass, nomb, ape, carg;
 		// paso 1 : obtener los datos de la tabla
 		user = tbUsuarios.getValueAt(posFila, 0).toString();
 		pass = tbUsuarios.getValueAt(posFila, 1).toString();
 		nomb = tbUsuarios.getValueAt(posFila, 2).toString();
 		ape = tbUsuarios.getValueAt(posFila, 3).toString();
-		carg = tbUsuarios.getValueAt(posFila,4).toString();
+		carg = tbUsuarios.getValueAt(posFila, 4).toString();
 
 		// paso 2: eEnviar los datos de la tabla a la cajas de texto
 		txtIdUsuario.setText(user);
@@ -213,22 +243,20 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		model.setRowCount(0);
 		// 2.llamar al proceso de consulta
 		ArrayList<Usuario> lista = gUser.listarUsuarios();
-		
-		
-		
+
 		// crear un bucle para el recorrido
 		for (Usuario u : lista) {
-			//MOSTRAR VALOR DEL CBO EN CARGO
+			// MOSTRAR VALOR DEL CBO EN CARGO
 			String cargo = null;
-			
-			for(TipoUsuario obj:gtipUser.listarTipoUsuarios()) {
-				if(obj.getIdcargo()==u.getCargo()) {
+
+			for (TipoUsuario obj : gtipUser.listarTipoUsuarios()) {
+				if (obj.getIdcargo() == u.getCargo()) {
 					cargo = obj.getDescripCargo();
 				}
 			}
-			
+
 			// crear un arreglo
-			Object fila[] = { u.getUsuario(), u.getClave(), u.getNombre(), u.getApellido(),cargo
+			Object fila[] = { u.getUsuario(), u.getClave(), u.getNombre(), u.getApellido(), cargo
 
 			};
 			// a�adir la fila a la tabla
@@ -279,7 +307,6 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 			u.setNombre(nomb);
 			u.setApellido(ape);
 			u.setCargo(carg);
-			
 
 			// Llamar al proceso --->> metodo registra que se encuentra en la clase
 			// "GestionUsuarioDAO"
@@ -300,7 +327,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	}
 
 	private int getCargo() {
-	
+
 		return cboTipoUsuario.getSelectedIndex();
 	}
 
@@ -525,6 +552,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		// mostrar data
 		mostrarData(posFila);
 	}
+
 	protected void actionPerformedBtnBuscarCargo(ActionEvent e) {
 		buscarDatosUsuario();
 	}
@@ -547,9 +575,9 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 				txtNombre.setText(user.getNombre());
 				txtApellido.setText(user.getApellido());
 				cboTipoUsuario.setSelectedIndex(user.getCargo());
-		
+
 			}
 		}
-		
+
 	}
 }
