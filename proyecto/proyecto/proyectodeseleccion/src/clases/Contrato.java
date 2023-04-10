@@ -8,7 +8,7 @@ public class Contrato {
 	private String  fecha;
 	private String Descripcion;
 	private String Resulucion;
-	private String Estado;
+	private String Estado ;
 	// INCIALIZAMOS ENTRADAS
 	public Contrato() {
 		
