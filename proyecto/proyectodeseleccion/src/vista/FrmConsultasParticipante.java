@@ -81,7 +81,7 @@ public class FrmConsultasParticipante extends JFrame {
 	}
 	
 	public void arranque() {
-		
+		cargarTablaParticipante();
 	}
 	
 	public void cargarTablaParticipante() {
