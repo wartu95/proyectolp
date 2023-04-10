@@ -100,7 +100,7 @@ public class FrmConsultasParticipante extends JFrame {
 					obj.getCorreo()
 			};
 			
-			model.addColumn(x);
+			model.addRow(x);
 			
 		}
 		
