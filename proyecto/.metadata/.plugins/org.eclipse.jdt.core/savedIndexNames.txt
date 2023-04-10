@@ -1,0 +1,9 @@
+INDEX VERSION 1.131+C:\Users\lr270\OneDrive\Documentos\GitHub\proyectolp\proyecto\.metadata\.plugins\org.eclipse.jdt.core
+578712275.index
+2589105401.index
+1865797976.index
+3344232105.index
+3254436756.index
+3851118145.index
+1627551108.index
+3529695324.index
