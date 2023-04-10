@@ -44,7 +44,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	private JLabel lblNombre;
 	private JTextField txtApellido;
 	private JLabel lblApellido;
-	private JLabel lblContraseÃ±a;
+	private JLabel lblContraseña;
 	private JTable tbUsuarios;
 	private JScrollPane scrollPane;
 	private JButton btnRegistrar;
@@ -140,9 +140,9 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		lblNombre.setBounds(167, 52, 73, 14);
 		panel.add(lblNombre);
 
-		lblContraseÃ±a = new JLabel("Contrase\u00F1a");
-		lblContraseÃ±a.setBounds(167, 6, 87, 14);
-		panel.add(lblContraseÃ±a);
+		lblContraseña = new JLabel("Contrase\u00F1a");
+		lblContraseña.setBounds(167, 6, 87, 14);
+		panel.add(lblContraseña);
 
 		txtClave = new JPasswordField();
 		txtClave.setBounds(167, 21, 73, 20);
