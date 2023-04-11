@@ -50,7 +50,7 @@ public class FrmConsultaContrato extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FrmConsultaContrato() {
-		setTitle("CONSULTA DE PARTICIPANTES");
+		setTitle("CONSULTA DE CONTRATOS");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setIconifiable(true);
