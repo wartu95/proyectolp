@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -25,6 +26,7 @@ import javax.swing.JScrollBar;
 import com.toedter.calendar.JDateChooser;
 
 import clases.Contrato;
+import clases.DetalleContrato;
 import clases.Participante;
 import clases.TipoContrato;
 
@@ -35,7 +37,9 @@ import utils.Validaciones;
 import utils.Tool;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicToolBarSeparatorUI;
 import javax.swing.table.DefaultTableModel;
+import javax.tools.DocumentationTool.Location;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -48,7 +52,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 	private JPanel contentPane;
 	private JTextField txtIDcontrato;
-	private JLabel lblObjetoContrato;
 	private JButton btnRegistrar;
 	private JButton btnModificar;
 	private JLabel lblFecha;
@@ -65,7 +68,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private GestionTipoContratoDAO tipContDao;
 	private GestionContratoDAO contDao;
 	private GestionParticipanteDAO partDao;
-	
 
 	// instanciar un objeto para modelar la tabla
 	DefaultTableModel model = new DefaultTableModel();
@@ -74,7 +76,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	GestionContratoDAO gCont = new GestionContratoDAO();
 
 	GestionTipoContratoDAO gtipcon = new GestionTipoContratoDAO();
-
 
 	private JTextField txtResolucion;
 	private JLabel lblResolucin;
@@ -90,6 +91,11 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private JButton btnBuscarParticipante;
 	private JLabel lblApellido;
 	public static JTextField txtApellido;
+	private JButton btnVisado;
+	private JPanel panel;
+	private JTable tableVisado;
+	private DefaultTableModel modelVisado;
+	private JScrollPane scrollPane_1;
 
 	/**
 	 * Launch the application.
@@ -111,17 +117,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	 * Create the frame.
 	 */
 	public FrmContrato() {
-		
-		
-		
+
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
-		
-		
+
 		setTitle("Mantenimiento de Contrato");
-		
-		setBounds(100, 100, 706, 516);
+
+		setBounds(100, 100, 745, 554);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -129,17 +132,17 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 		btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(226, 288, 104, 20);
+		btnRegistrar.setBounds(226, 324, 104, 20);
 		contentPane.add(btnRegistrar);
 
 		btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(340, 288, 104, 20);
+		btnModificar.setBounds(340, 324, 104, 20);
 		contentPane.add(btnModificar);
 
 		panel2 = new JPanel();
 		panel2.setBorder(new TitledBorder(null, "CONTRATO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel2.setBounds(10, 11, 674, 267);
+		panel2.setBounds(10, 5, 395, 272);
 		contentPane.add(panel2);
 		panel2.setLayout(null);
 
@@ -148,36 +151,32 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		panel2.add(txtIDcontrato);
 		txtIDcontrato.setColumns(10);
 
-		lblObjetoContrato = new JLabel("Participante  :");
-		lblObjetoContrato.setBounds(10, 76, 96, 14);
-		panel2.add(lblObjetoContrato);
-
 		lblTipoContrato = new JLabel("Tipo de Contrato:");
-		lblTipoContrato.setBounds(10, 159, 113, 14);
+		lblTipoContrato.setBounds(10, 72, 113, 14);
 		panel2.add(lblTipoContrato);
 
 		cboTipo = new JComboBox<Object>();
-		cboTipo.setBounds(10, 179, 188, 22);
+		cboTipo.setBounds(10, 92, 188, 22);
 		panel2.add(cboTipo);
 
 		lblFecha = new JLabel("Fecha Inicio :");
-		lblFecha.setBounds(216, 21, 86, 14);
+		lblFecha.setBounds(149, 21, 86, 14);
 		panel2.add(lblFecha);
 
 		dcFecha = new JDateChooser();
-		dcFecha.setBounds(215, 46, 122, 20);
+		dcFecha.setBounds(148, 46, 122, 20);
 		panel2.add(dcFecha);
 
 		lblDescrip = new JLabel("Descripcion de Contrato :");
-		lblDescrip.setBounds(216, 169, 226, 14);
+		lblDescrip.setBounds(10, 125, 226, 14);
 		panel2.add(lblDescrip);
 
 		lblEstado = new JLabel("Estado :");
-		lblEstado.setBounds(462, 21, 46, 14);
+		lblEstado.setBounds(280, 21, 46, 14);
 		panel2.add(lblEstado);
 
 		txtEstado = new JTextField();
-		txtEstado.setBounds(463, 46, 86, 20);
+		txtEstado.setBounds(281, 46, 86, 20);
 		panel2.add(txtEstado);
 		txtEstado.setColumns(10);
 
@@ -187,73 +186,27 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 		txtDescripcion = new JTextField();
 		txtDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
-		txtDescripcion.setBounds(216, 193, 447, 64);
+		txtDescripcion.setBounds(10, 149, 270, 100);
 		panel2.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
 
 		txtResolucion = new JTextField();
 		txtResolucion.setColumns(10);
-		txtResolucion.setBounds(559, 46, 86, 20);
+		txtResolucion.setBounds(217, 94, 109, 45);
 		panel2.add(txtResolucion);
 
 		lblResolucin = new JLabel("Resoluci\u00F3n  :");
-		lblResolucin.setBounds(559, 21, 72, 14);
+		lblResolucin.setBounds(217, 72, 72, 14);
 		panel2.add(lblResolucin);
 
-		lblIdParticipante = new JLabel("ID Participante  :");
-		lblIdParticipante.setBounds(10, 100, 90, 15);
-		panel2.add(lblIdParticipante);
-
-		txtParticipante = new JTextField();
-		txtParticipante.setColumns(10);
-		txtParticipante.setBounds(10, 125, 128, 20);
-		panel2.add(txtParticipante);
-
-		lblNombreCompleto = new JLabel("Nombre :");
-		lblNombreCompleto.setBounds(228, 100, 113, 15);
-		panel2.add(lblNombreCompleto);
-
-		txtNombre = new JTextField();
-		txtNombre.setColumns(10);
-		txtNombre.setBounds(228, 125, 122, 20);
-		panel2.add(txtNombre);
-
-		lblDni = new JLabel("DNI  :");
-		lblDni.setBounds(550, 100, 113, 15);
-		panel2.add(lblDni);
-
-		txtDni = new JTextField();
-		txtDni.setColumns(10);
-		txtDni.setBounds(548, 125, 105, 20);
-		panel2.add(txtDni);
-		
-		btnBuscarParticipante = new JButton("");
-		btnBuscarParticipante.addActionListener(this);
-		btnBuscarParticipante.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/query.png")));
-		btnBuscarParticipante.setBounds(152, 115, 66, 41);
-		panel2.add(btnBuscarParticipante);
-		
-		lblApellido = new JLabel("Apellido  :");
-		lblApellido.setBounds(367, 100, 113, 15);
-		panel2.add(lblApellido);
-		
-		txtApellido = new JTextField();
-		txtApellido.setColumns(10);
-		txtApellido.setBounds(367, 125, 157, 20);
-		panel2.add(txtApellido);
-
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 312, 672, 165);
+		scrollPane.setBounds(10, 348, 672, 165);
 		contentPane.add(scrollPane);
 
 		tbContrato = new JTable();
 		tbContrato.addMouseListener(this);
 		scrollPane.setViewportView(tbContrato);
 		tbContrato.setFillsViewportHeight(true);
-		//deshabilitar cajas de texto del nombre 
-		txtNombre.setEditable(false);
-		txtApellido.setEditable(false);
-		txtDni.setEditable(false);
 
 		model.addColumn("ID CONTRATO");
 		model.addColumn("TIPO");
@@ -264,21 +217,89 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		model.addColumn("ESTADO");
 		// asociar
 		tbContrato.setModel(model);
-		
-		
+
 		btnNewButton = new JButton("ELIMINAR");
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(451, 288, 104, 20);
+		btnNewButton.setBounds(451, 324, 104, 20);
 		contentPane.add(btnNewButton);
-		
+
 		btnNewButton_1 = new JButton("NUEVO");
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(562, 288, 110, 21);
+		btnNewButton_1.setBounds(562, 324, 110, 21);
 		contentPane.add(btnNewButton_1);
 
+		btnVisado = new JButton("VISAR DOC");
+		btnVisado.addActionListener(this);
+		btnVisado.setBounds(10, 323, 104, 20);
+		contentPane.add(btnVisado);
+
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(406, 5, 305, 177);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		txtParticipante = new JTextField();
+		txtParticipante.setBounds(23, 44, 128, 20);
+		panel.add(txtParticipante);
+		txtParticipante.setColumns(10);
+
+		lblIdParticipante = new JLabel("ID Participante  :");
+		lblIdParticipante.setBounds(23, 29, 90, 15);
+		panel.add(lblIdParticipante);
+
+		btnBuscarParticipante = new JButton("");
+		btnBuscarParticipante.setBounds(161, 29, 66, 41);
+		panel.add(btnBuscarParticipante);
+		btnBuscarParticipante.addActionListener(this);
+		btnBuscarParticipante.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/query.png")));
+
+		txtNombre = new JTextField();
+		txtNombre.setBounds(23, 86, 122, 20);
+		panel.add(txtNombre);
+		txtNombre.setColumns(10);
+		// deshabilitar cajas de texto del nombre
+		txtNombre.setEditable(false);
+
+		lblNombreCompleto = new JLabel("Nombre :");
+		lblNombreCompleto.setBounds(20, 71, 113, 15);
+		panel.add(lblNombreCompleto);
+
+		lblApellido = new JLabel("Apellido  :");
+		lblApellido.setBounds(160, 71, 123, 15);
+		panel.add(lblApellido);
+
+		txtApellido = new JTextField();
+		txtApellido.setBounds(155, 86, 123, 20);
+		panel.add(txtApellido);
+		txtApellido.setColumns(10);
+		txtApellido.setEditable(false);
+
+		txtDni = new JTextField();
+		txtDni.setBounds(25, 132, 105, 20);
+		panel.add(txtDni);
+		txtDni.setColumns(10);
+		txtDni.setEditable(false);
+
+		lblDni = new JLabel("DNI  :");
+		lblDni.setBounds(25, 117, 113, 15);
+		panel.add(lblDni);
 		
-		cargarTipoContrato();
-		cargarTabla();
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(415, 193, 283, 120);
+		contentPane.add(scrollPane_1);
+
+		tableVisado = new JTable();
+		scrollPane_1.setViewportView(tableVisado);
+		
+		
+		modelVisado = new DefaultTableModel();
+		modelVisado.addColumn("ID VISADO");
+		modelVisado.addColumn("ID USUARIO");
+		modelVisado.addColumn("ESTADO");
+		tableVisado.setModel(modelVisado);
+
+		arranque();
 	}
 
 	private void arranque() {
@@ -300,14 +321,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		txtResolucion.setText("");
 		txtDni.setText("");
 		cboTipo.setSelectedIndex(0);
-		
 
 	}
-	private String obtenercodContrato() {		
+
+	private String obtenercodContrato() {
 		// TODO Auto-generated method stub
 		return gCont.codContrato();
 	}
-	
 
 	private void cargarTipoContrato() {
 
@@ -320,12 +340,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 			cboTipo.addItem(tipCont.getIdTipoContrato() + ". " + tipCont.getDescripTipo());
 
+		}
 	}
-    }
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnVisado) {
+			actionPerformedBtnVisado(e);
+		}
 		if (e.getSource() == btnNewButton) {
 			actionPerformedBtnNewButton(e);
 		}
@@ -388,7 +410,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 				Tool.mensajeExito(this, "Registro exitoso");
 				cargarTabla();
 			}
-                  
 
 		}
 
@@ -438,12 +459,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private int gettipCont() {
 		int res = -1;
 
-		
-		 if (cboTipo.getSelectedIndex() == 0) { Tool.mensajeError(this,"Elige un tipo de pedido"); 
-		 } else { res = cboTipo.getSelectedIndex(); }
-		 
+		if (cboTipo.getSelectedIndex() == 0) {
+			Tool.mensajeError(this, "Elige un tipo de pedido");
+		} else {
+			res = cboTipo.getSelectedIndex();
+		}
+
 		return res;
-		
+
 	}
 
 	private String getidCont() {
@@ -485,126 +508,166 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 	}
 
-
 	protected void actionPerformedBtnModificar(ActionEvent e) {
-		
-		  
-		  String idCont = getidCont(); 
-		  int tipCont = gettipCont();
-		  int Partic = getPartic(); 
-		  String fecha = getfecha();;
-		  String descrip = getdescrip();
-		  String resolu = getresolu(); 
-		  String estado = getestado();
-		  
-		  
-		  if (idCont == null || tipCont == -1 || Partic == -1 || fecha == null
-		  || descrip == null || resolu == null || estado == null) 
-		  { return; } else {
-		 
-		  Contrato cont = new Contrato();
-		  
-		  cont.setTiPoContrato(tipCont);
-		  cont.setIdParticipante(Partic);
-		  cont.setFecha(fecha);
-		  cont.setDescripcion(descrip);
-		  cont.setResulucion(resolu);
-		  cont.setEstado(estado);
-		  cont.setIdContrato(idCont);
-		  
-		  int ok = gCont.actualizarContrato(cont);
-		  
-		  if (ok == 0) 
-		  { Tool.mensajeError(this, "Error en la Actualizacion de datos del contrato"); }
-		  else {
-		  Tool.mensajeExito(this, "Contrato Actualizado!"); 
-		  cargarTabla(); } }
-		 
+
+		String idCont = getidCont();
+		int tipCont = gettipCont();
+		int Partic = getPartic();
+		String fecha = getfecha();
+		;
+		String descrip = getdescrip();
+		String resolu = getresolu();
+		String estado = getestado();
+
+		if (idCont == null || tipCont == -1 || Partic == -1 || fecha == null || descrip == null || resolu == null
+				|| estado == null) {
+			return;
+		} else {
+
+			Contrato cont = new Contrato();
+
+			cont.setTiPoContrato(tipCont);
+			cont.setIdParticipante(Partic);
+			cont.setFecha(fecha);
+			cont.setDescripcion(descrip);
+			cont.setResulucion(resolu);
+			cont.setEstado(estado);
+			cont.setIdContrato(idCont);
+
+			int ok = gCont.actualizarContrato(cont);
+
+			if (ok == 0) {
+				Tool.mensajeError(this, "Error en la Actualizacion de datos del contrato");
+			} else {
+				Tool.mensajeExito(this, "Contrato Actualizado!");
+				cargarTabla();
+			}
+		}
+
 	}
+
 	protected void actionPerformedBtnBuscarParticipante(ActionEvent e) {
 		DlgListParticipante dl = new DlgListParticipante();
 		dl.setVisible(true);
 	}
+
 	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
 		limpiar();
 	}
+
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == tbContrato) {
 			mouseClickedTbContrato(e);
 		}
 	}
+
 	public void mouseEntered(MouseEvent e) {
 	}
+
 	public void mouseExited(MouseEvent e) {
 	}
+
 	public void mousePressed(MouseEvent e) {
 	}
+
 	public void mouseReleased(MouseEvent e) {
 	}
+
 	protected void mouseClickedTbContrato(MouseEvent e) {
 		int posfila;
-		posfila=tbContrato.getSelectedRow();
-		//Mostrar data
+		posfila = tbContrato.getSelectedRow();
+		// Mostrar data
 		Mostrardata(posfila);
-		
+
 	}
 
 	private void Mostrardata(int posfila) {
-	String idcont,idpart,fec,descrip,resol,estad;
-	Date fechh;
-	int tipcont;
-	
-		
-	idcont= tbContrato.getValueAt(posfila, 0).toString();
-	tipcont= Integer.parseInt(tbContrato.getValueAt(posfila, 1).toString());
-	//tipcont= tbContrato.getValueAt(posfila, 1).toString();
-	idpart= tbContrato.getValueAt(posfila, 2).toString();
-	fec= tbContrato.getValueAt(posfila, 3).toString();
-    descrip= tbContrato.getValueAt(posfila, 4).toString();
-	resol= tbContrato.getValueAt(posfila, 5).toString();
-	estad= tbContrato.getValueAt(posfila, 6).toString();
-	
-	//Mostrar en la caja de texto
-	
-	txtIDcontrato.setText(idcont);
-	txtParticipante.setText(idpart);
-	cboTipo.setSelectedIndex(tipcont);
-	txtEstado.setText(estad);
+		String idcont, idpart, fec, descrip, resol, estad;
+		Date fechh;
+		int tipcont;
 
-	try {
-		dcFecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fec));
-	} catch (ParseException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		idcont = tbContrato.getValueAt(posfila, 0).toString();
+		tipcont = Integer.parseInt(tbContrato.getValueAt(posfila, 1).toString());
+		// tipcont= tbContrato.getValueAt(posfila, 1).toString();
+		idpart = tbContrato.getValueAt(posfila, 2).toString();
+		fec = tbContrato.getValueAt(posfila, 3).toString();
+		descrip = tbContrato.getValueAt(posfila, 4).toString();
+		resol = tbContrato.getValueAt(posfila, 5).toString();
+		estad = tbContrato.getValueAt(posfila, 6).toString();
+
+		// Mostrar en la caja de texto
+
+		txtIDcontrato.setText(idcont);
+		txtParticipante.setText(idpart);
+		cboTipo.setSelectedIndex(tipcont);
+		txtEstado.setText(estad);
+
+		try {
+			dcFecha.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(fec));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		txtDescripcion.setText(descrip);
+		txtResolucion.setText(resol);
+		txtEstado.setText(estad);
 	}
-	txtDescripcion.setText(descrip);
-	txtResolucion.setText(resol);
-	txtEstado.setText(estad);
-	}
+
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		
-		String idcont; 
-	      int opcion;
-		//obtener el id
-		idcont= getidCont();
-		//validar
+
+		String idcont;
+		int opcion;
+		// obtener el id
+		idcont = getidCont();
+		// validar
 		if (idcont == null) {
 			return;
-		}else {
-			opcion= JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el contrato","Sistema",JOptionPane.YES_NO_OPTION);
+		} else {
+			opcion = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el contrato", "Sistema",
+					JOptionPane.YES_NO_OPTION);
 			if (opcion == 0) {
-			//llamar al proceso eliminar
-			int ok = gCont.eliminarContrato(idcont);
-			//validar el resultado del proceso
-			if (ok == 0) {
-				Tool.mensajeError(this, "El Id del contrato no existe");
-			}else {
-				Tool.mensajeExito(this, "Contrato eliminado");
-				cargarTabla();
+				// llamar al proceso eliminar
+				int ok = gCont.eliminarContrato(idcont);
+				// validar el resultado del proceso
+				if (ok == 0) {
+					Tool.mensajeError(this, "El Id del contrato no existe");
+				} else {
+					Tool.mensajeExito(this, "Contrato eliminado");
+					cargarTabla();
 
+				}
 			}
-			}
-	}
+		}
 	}
 
+	protected void actionPerformedBtnVisado(ActionEvent e) {
+
+		registrarVisado();
+
+	}
+	
+	private void registrarVisado() {
+		
+		List<Contrato> lista = gCont.listarContrato();
+		boolean bandera = false;
+		
+		for (Contrato obj: lista) {
+			if (obj.getIdContrato().equals(txtIDcontrato.getText())) {
+				bandera = true;
+			}
+		}
+		
+		if (bandera == true) {
+			FrmPrincipal principal = new FrmPrincipal();
+
+			FrmDetContrato ventana = new FrmDetContrato(principal, true);
+
+			ventana.setLocationRelativeTo(this);
+			ventana.setVisible(true);
+			ventana.toFront();
+		}else {
+			Tool.mensajeError(this, "NO SE PUEDO VISAR UN CONTRATO QUE NO SE ENCUENTRE REGISTRADO");
+		}
+		
+	}
 }
