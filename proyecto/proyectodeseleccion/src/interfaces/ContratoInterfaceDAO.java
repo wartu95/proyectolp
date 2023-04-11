@@ -15,4 +15,6 @@ public interface ContratoInterfaceDAO {
 		public ArrayList<Contrato> listarContrato();
    //lista de contratos por participantes
 		public ArrayList <Contrato> listarContratoConParticipantes ();
+  //cod de contrato
+		public String codContrato();
 }

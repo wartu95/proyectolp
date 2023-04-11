@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import clases.*;
@@ -56,15 +57,14 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		int res = 0;
 		Connection con =null;
 		PreparedStatement pstm = null;
-		
 		try {
 			
 			con = MySQLConexion8.getConexion();
 			
 			String sql;
 			sql = "update tb_contrato set "
-				  + "tipoContrato = ?, id_participante = ?, fecha=? , descripcion = ?,resolucion=?,estado=?"
-				  + "where id_con = ?";
+				  + "tipo_Contrato = ?, id_participante = ?, fecha=? , descripcion = ?,resolucion=?,estado=?"
+				  + "where id_contrato = ?";
 			
 			pstm = con.prepareStatement(sql);
 			
@@ -74,7 +74,6 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			pstm.setString(4,cont.getDescripcion());
 			pstm.setString(5,cont.getResulucion());
 			pstm.setString(6,cont.getEstado());
-			
 			pstm.setString(7,cont.getIdContrato());
 			
 			res = pstm.executeUpdate();
@@ -89,14 +88,12 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 				System.out.println("Error al cerrar la base de datos" + e.getMessage());
 			}
 		}
-		
-		
+
 		return res;
 	}
 
 	public int eliminarContrato(String idContrato) {
 		int res = 0;
-		
 		Connection con =null;
 		PreparedStatement pstm = null;
 		
@@ -104,7 +101,7 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			
 			con = MySQLConexion8.getConexion();
 			
-			String sql = "delete from tb_contrato where id_con = ?"; 
+			String sql = "delete from tb_contrato where id_contrato = ?"; 
 						
 			pstm = con.prepareStatement(sql);
 			
@@ -137,11 +134,8 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 		try {
 			
 			con = MySQLConexion8.getConexion();
-			
 			String sql = "select * from tb_contrato"; 
-						
 			pstm = con.prepareStatement(sql);
-			
 			res = pstm.executeQuery();
 			
 			while (res.next()) {
@@ -155,9 +149,8 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 						cont.setResulucion(res.getString(6));
                         cont.setEstado(res.getString(7));
 						
-						
-				
-				list.add(cont);
+
+				        list.add(cont);
 			}
 			
 			
@@ -271,6 +264,46 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public String codContrato() {
+		
+		String cod="C0001";
+		Connection con = null;
+		PreparedStatement pstm=null;
+		ResultSet res = null;
+		try {
+			
+			con=MySQLConexion8.getConexion();
+			
+			String sql="select substring(max(id_contrato),3) from tb_contrato;";
+			pstm =con.prepareStatement(sql);
+			res=pstm.executeQuery();
+			
+			
+			
+			if(res.next()) {
+				DecimalFormat df = new DecimalFormat("0000");
+				cod="C"+df.format(Integer.parseInt(res.getString(1))+1);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error al generar el codigo de contrato"+e.getMessage());
+		} finally {
+			try {
+				if (pstm != null)pstm.close();
+				if (con != null)con.close();
+				if (res != null)res.close();
+
+			} catch (SQLException e2) {
+				System.out.println(">>>>>> Error al cerrar la base de datos" + e2.getMessage());
+			}
+		
+		
+		
+		
+	}return cod;
 	}
 
 	
