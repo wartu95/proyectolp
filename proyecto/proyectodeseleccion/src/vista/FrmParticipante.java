@@ -32,7 +32,7 @@ import com.toedter.calendar.JDateChooser;
 import clases.Contrato;
 import clases.Participante;
 import mantenimiento.GestionContratoDAO;
-import mantenimiento.ParticipanteDAO;
+import mantenimiento.GestionParticipanteDAO;
 import interfaces.Utils;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
@@ -68,7 +68,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	
 	// instanciar un objeto para modelar la tabla
 	DefaultTableModel model = new DefaultTableModel();
-	private ParticipanteDAO partDao;
+	private GestionParticipanteDAO partDao;
 	private JTextField txtIdParticipante;
 	private GestionContratoDAO contDao;
 	private DefaultTableModel modelo;
@@ -234,7 +234,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		tbParticipante.setModel(model);
 
 		// mostrar datos en la tabla
-		partDao = new ParticipanteDAO();
+		partDao = new GestionParticipanteDAO();
 		cargarTabla();
 		//mostrar datos en la tabla
 		mostrarData(0);

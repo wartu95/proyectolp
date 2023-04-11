@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -120,9 +121,11 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		menuBar.add(mnNewMenu);
 		
 		mniConsultaParticipante = new JMenuItem("Consulta Participante");
+		mniConsultaParticipante.addActionListener(this);
 		mnNewMenu.add(mniConsultaParticipante);
 		
 		mniConsultaContratos = new JMenuItem("Consulta de Contratos");
+		mniConsultaContratos.addActionListener(this);
 		mnNewMenu.add(mniConsultaContratos);
 		
 		mnTransaccion = new JMenu("Transacci\u00F3n");
@@ -156,7 +159,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		
 		lblFondo = new JLabel("New label");
 		lblFondo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/Screenshot_20.png")));
-		lblFondo.setBounds(0, 0, 959, 621);
+		lblFondo.setBounds(0, 0, 959, 588);
 		escritorio.add(lblFondo);
 		//mostrar hora
 		cargarHora();
@@ -164,6 +167,12 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mniConsultaContratos) {
+			actionPerformedMniConsultaContratos(e);
+		}
+		if (e.getSource() == mniConsultaParticipante) {
+			actionPerformedMniConsultaParticipante(e);
+		}
 		if (e.getSource() == mniUsuario) {
 			actionPerformedMniUsuario(e);
 		}
@@ -204,6 +213,31 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 
 	}
+	
+	//CONSULTAS
+	
+	protected void actionPerformedMniConsultaParticipante(ActionEvent e) {
+		FrmConsultaParticipante ventana = new FrmConsultaParticipante();
+		ventana.setVisible(true);
+		escritorio.add(ventana).setLocation(0, 0);
+		ventana.toFront();
+	}
+	
+	protected void actionPerformedMniConsultaContratos(ActionEvent e) {
+		FrmConsultaContrato ventana = new FrmConsultaContrato();
+		ventana.setVisible(true);
+		escritorio.add(ventana).setLocation(0,0);
+		
+		try {
+			ventana.setMaximum(true);
+		} catch (PropertyVetoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ventana.toFront();
+		
+	}
+	
 	//ARCHIVO
 	protected void actionPerformedMniSalir(ActionEvent e) {
 		System.exit(0);
@@ -214,4 +248,8 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		escritorio.add(usuario).setLocation(0,0);
 		usuario.toFront();
 	}
+	
+	
+	
+
 }

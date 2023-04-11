@@ -5,19 +5,20 @@ import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Participante;
-import mantenimiento.ParticipanteDAO;
+import mantenimiento.GestionParticipanteDAO;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-public class FrmConsultasParticipante extends JFrame {
+public class FrmConsultaParticipante extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -25,7 +26,7 @@ public class FrmConsultasParticipante extends JFrame {
 	private DefaultTableModel model;
 	
 	//INSTANCIAR OBJETOS
-	ParticipanteDAO parDao = new ParticipanteDAO();
+	GestionParticipanteDAO parDao = new GestionParticipanteDAO();
 	Participante objPar = new Participante();
 	
 
@@ -36,7 +37,7 @@ public class FrmConsultasParticipante extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmConsultasParticipante frame = new FrmConsultasParticipante();
+					FrmConsultaParticipante frame = new FrmConsultaParticipante();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,9 +49,14 @@ public class FrmConsultasParticipante extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmConsultasParticipante() {
+	public FrmConsultaParticipante() {
 		setTitle("CONSULTA DE PARTICIPANTES");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setClosable(true);
+		this.setIconifiable(true);
+		this.setMaximizable(true);
+		
 		setBounds(100, 100, 648, 412);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

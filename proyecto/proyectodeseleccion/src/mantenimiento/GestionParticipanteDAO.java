@@ -10,7 +10,7 @@ import clases.Participante;
 import interfaces.ParticipanteInterfaceDAO;
 import utils.MySQLConexion8;
 
-public class ParticipanteDAO implements ParticipanteInterfaceDAO {
+public class GestionParticipanteDAO implements ParticipanteInterfaceDAO {
 
 
 

@@ -29,7 +29,7 @@ import clases.TipoContrato;
 
 import mantenimiento.GestionContratoDAO;
 import mantenimiento.GestionTipoContratoDAO;
-import mantenimiento.ParticipanteDAO;
+import mantenimiento.GestionParticipanteDAO;
 import utils.Validaciones;
 import utils.Tool;
 
@@ -59,7 +59,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener {
 	private JTextField txtDescripcion;
 	private GestionTipoContratoDAO tipContDao;
 	private GestionContratoDAO contDao;
-	private ParticipanteDAO partDao;
+	private GestionParticipanteDAO partDao;
 	
 
 	// instanciar un objeto para modelar la tabla

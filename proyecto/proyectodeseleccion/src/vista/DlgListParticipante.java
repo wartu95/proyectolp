@@ -22,7 +22,7 @@ import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
 
 import clases.Participante;
-import mantenimiento.ParticipanteDAO;
+import mantenimiento.GestionParticipanteDAO;
 import utils.Tool;
 
 import javax.swing.border.EtchedBorder;
@@ -32,7 +32,7 @@ import javax.swing.JTextArea;
 public class DlgListParticipante extends JDialog implements ActionListener {
 	//insntanciar de la clase table
 	DefaultTableModel model= new DefaultTableModel();
-	ParticipanteDAO gPart = new ParticipanteDAO();
+	GestionParticipanteDAO gPart = new GestionParticipanteDAO();
 	Participante Part = new Participante();
 	
 	
