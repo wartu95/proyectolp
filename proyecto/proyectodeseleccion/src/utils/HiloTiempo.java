@@ -2,26 +2,29 @@ package utils;
 
 import javax.swing.JLabel;
 import javax.swing.JFrame;
-
 import vista.Logueo;
 
 public class HiloTiempo extends Thread {
 	//declarar componentes privados
 	
-	private JLabel lblTiempo;
+	private JLabel lblTiempo1;
 	private JFrame ventana;
+		
 	
-	//constructor
-	public HiloTiempo(JLabel lblTiempo, JFrame ventana) {
+		
+		
+	public HiloTiempo(JLabel lblTiempo1, JFrame ventana) {
 		super();
-		this.lblTiempo = lblTiempo;
+		this.lblTiempo1 = lblTiempo1;
 		this.ventana = ventana;
 	}
+
+
 	
 	@Override
 	public void run() {
 		for (int i = 10; i >= 0; i--) {
-			lblTiempo.setText(i + "s");
+			lblTiempo1.setText(i + "s");
 			try {
 				Thread.sleep(1000);// pausa al proceso
 			} catch (InterruptedException e) {

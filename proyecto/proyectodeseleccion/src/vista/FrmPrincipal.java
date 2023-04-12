@@ -75,7 +75,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 			e.printStackTrace();
 		}
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/img/logo-smv.png")));
-		setTitle("CONTRATACION DE PERSONAL ");
+		setTitle("SMV");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 975, 690);
 		
@@ -159,7 +159,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		
 		lblFondo = new JLabel("New label");
 		lblFondo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/Screenshot_20.png")));
-		lblFondo.setBounds(0, 0, 959, 588);
+		lblFondo.setBounds(0, 0, 975, 628);
 		escritorio.add(lblFondo);
 		//mostrar hora
 		cargarHora();

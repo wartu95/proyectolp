@@ -63,6 +63,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	private JPanel panel;
 	private JPanel panel_1;
 	private JLabel lblNewLabel;
+	private JLabel lblMensaje;
 
 	public static void main(String[] args) {
 
@@ -164,6 +165,10 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		cboTipoUsuario = new JComboBox();
 		cboTipoUsuario.setBounds(312, 76, 156, 22);
 		panel.add(cboTipoUsuario);
+		
+		lblMensaje = new JLabel("Esta ventana de cerrar\u00E1 en");
+		lblMensaje.setBounds(10, 108, 171, 14);
+		panel.add(lblMensaje);
 
 		panel_1 = new JPanel();
 		panel_1.setBounds(517, 12, 122, 134);
