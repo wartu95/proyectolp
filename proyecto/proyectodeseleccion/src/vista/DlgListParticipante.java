@@ -38,7 +38,7 @@ public class DlgListParticipante extends JDialog implements ActionListener {
 	
 	private JButton okButton;
 	private JTable tbParticipante;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPane ;
 
 	/**
 	 * Launch the application.

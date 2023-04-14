@@ -72,7 +72,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace ();
 		}
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/img/logo-smv.png")));
 		setTitle("SMV");

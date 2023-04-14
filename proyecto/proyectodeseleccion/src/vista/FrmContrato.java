@@ -67,7 +67,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private JTextField txtDescripcion;
 	private GestionTipoContratoDAO tipContDao;
 	private GestionContratoDAO contDao;
-	private GestionParticipanteDAO partDao;
+	private GestionParticipanteDAO partDao ;
 
 	// instanciar un objeto para modelar la tabla
 	DefaultTableModel model = new DefaultTableModel();

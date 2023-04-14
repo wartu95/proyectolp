@@ -63,7 +63,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 	private JLabel lblNombres;
 	private JTextField txtDNI;
 	private JLabel lblDNI;
-	private JLabel lblDni;
+	private JLabel lblDni ;
 
 	
 	// instanciar un objeto para modelar la tabla
