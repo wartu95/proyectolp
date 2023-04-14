@@ -39,7 +39,7 @@ public class Logueo extends JFrame implements WindowListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtUsuario;
+	private JTextField txtUsuario ;
 	private JPasswordField txtClave;
 	public static Logueo frame;
 	private JButton btnAceptar;
