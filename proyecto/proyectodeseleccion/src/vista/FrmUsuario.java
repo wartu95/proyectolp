@@ -165,7 +165,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		cboTipoUsuario = new JComboBox();
 		cboTipoUsuario.setBounds(312, 76, 156, 22);
 		panel.add(cboTipoUsuario);
-		
+
 		lblMensaje = new JLabel("Esta ventana de cerrar\u00E1 en");
 		lblMensaje.setBounds(10, 108, 171, 14);
 		panel.add(lblMensaje);
