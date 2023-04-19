@@ -144,6 +144,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		menuBar.add(mnAyuda);
 		
 		mntmNewMenuItem_4 = new JMenuItem("¿Quienes somos?");
+		mntmNewMenuItem_4.addActionListener(this);
 		mnAyuda.add(mntmNewMenuItem_4);
 		
 		escritorio = new JDesktopPane();
@@ -167,6 +168,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmNewMenuItem_4) {
+			actionPerformedMntmNewMenuItem_4(e);
+		}
 		if (e.getSource() == mniConsultaContratos) {
 			actionPerformedMniConsultaContratos(e);
 		}
@@ -252,4 +256,10 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	
 	
 
+	protected void actionPerformedMntmNewMenuItem_4(ActionEvent e) {
+		FrmAyuda ayuda = new FrmAyuda();
+		ayuda.setVisible(true);
+		escritorio.add(ayuda).setLocation(0,0);
+		ayuda.toFront();
+	}
 }
