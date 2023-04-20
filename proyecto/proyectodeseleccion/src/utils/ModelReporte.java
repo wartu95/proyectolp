@@ -29,6 +29,6 @@ public class ModelReporte {
 		}catch (FileNotFoundException e) {
 			System.out.println("Error en el archivo " + e.getMessage());
 			}
-		return jaspPrint;
+		 return jaspPrint;
 }
 }

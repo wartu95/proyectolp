@@ -306,8 +306,60 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 	}return cod;
 	}
 
+	@Override
+	public ArrayList<Contrato> listarContratoxFecha(String fech) {
+    ArrayList<Contrato> lista = new ArrayList<Contrato>();
+		
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		Contrato cont = null;
+		try {
+		
+			con= MySQLConexion8.getConexion();
+			
+			String sql = "select * from tb_contrato where fecha = ? ";
+
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1, fech);
+			
+			res= pstm.executeQuery();
+			
+			while(res.next()) {
+				
+				 cont = new Contrato();
+				
+				 cont.setIdContrato(res.getString(1));
+				 cont.setTiPoContrato(res.getInt(2));
+				 cont.setIdParticipante(res.getInt(3));
+				 cont.setFecha(res.getString(4));
+				 cont.setDescripcion(res.getString(5));
+				 cont.setResulucion(res.getString(6));
+				 cont.setEstado(res.getString(7));
+				 
+				 
+				 lista.add(cont);
 	
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en la instrucciOn SQL - Reporte"+e.getMessage());
+		}finally {
+			try {
+				if(pstm != null)pstm.close();
+				if(res != null)res.close();
+				if(con != null)con.close();
+				
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar la base de datos"+e2.getMessage());
+			}
+		}
+		return lista;
+	}
 
 	
 
-}
+	
+
+} 
