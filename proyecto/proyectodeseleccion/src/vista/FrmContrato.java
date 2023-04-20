@@ -130,14 +130,16 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		btnRegistrar = new JButton("REGISTRAR");
+		btnRegistrar = new JButton("");
+		btnRegistrar.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/Registro-Contrato.png")));
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(226, 324, 104, 20);
+		btnRegistrar.setBounds(166, 303, 49, 41);
 		contentPane.add(btnRegistrar);
 
-		btnModificar = new JButton("MODIFICAR");
+		btnModificar = new JButton("");
+		btnModificar.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/Modificar-contrato.png")));
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(340, 324, 104, 20);
+		btnModificar.setBounds(225, 303, 41, 41);
 		contentPane.add(btnModificar);
 
 		panel2 = new JPanel();
@@ -218,14 +220,16 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		// asociar
 		tbContrato.setModel(model);
 
-		btnNewButton = new JButton("ELIMINAR");
+		btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/delete-contrato.png")));
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(451, 324, 104, 20);
+		btnNewButton.setBounds(276, 303, 41, 41);
 		contentPane.add(btnNewButton);
 
-		btnNewButton_1 = new JButton("NUEVO");
+		btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/new-document.png")));
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(562, 324, 110, 21);
+		btnNewButton_1.setBounds(327, 303, 41, 41);
 		contentPane.add(btnNewButton_1);
 
 		btnVisado = new JButton("VISAR DOC");

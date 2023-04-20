@@ -42,10 +42,12 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	private JMenu mnNewMenu;
 	private JMenuItem mniConsultaParticipante;
 	private JMenuItem mniConsultaContratos;
-	private JMenuItem mntmNewMenuItem_3;
-	private JMenuItem mntmNewMenuItem_4;
+	private JMenuItem mntmReporteContratos;
+	private JMenuItem mntmQuienesSomos;
 	private JLabel lblReloj;
 	private JLabel lblFondo;
+	private JMenuItem mntmReporteParticipantes;
+	private JMenuItem mntmReporteUsuario;
 	
 
 	/**
@@ -136,16 +138,23 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnReporte.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/report.png")));
 		menuBar.add(mnReporte);
 		
-		mntmNewMenuItem_3 = new JMenuItem("Reporte de Contratos");
-		mnReporte.add(mntmNewMenuItem_3);
+		mntmReporteContratos = new JMenuItem("Reporte Contratos");
+		mnReporte.add(mntmReporteContratos);
+		
+		mntmReporteParticipantes = new JMenuItem("Reporte Participantes");
+		mnReporte.add(mntmReporteParticipantes);
+		
+		mntmReporteUsuario = new JMenuItem("Reporte Usuario");
+		mntmReporteUsuario.addActionListener(this);
+		mnReporte.add(mntmReporteUsuario);
 		
 		mnAyuda = new JMenu("Ayuda");
 		mnAyuda.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/respect.png")));
 		menuBar.add(mnAyuda);
 		
-		mntmNewMenuItem_4 = new JMenuItem("¿Quienes somos?");
-		mntmNewMenuItem_4.addActionListener(this);
-		mnAyuda.add(mntmNewMenuItem_4);
+		mntmQuienesSomos = new JMenuItem("¿Quienes somos?");
+		mntmQuienesSomos.addActionListener(this);
+		mnAyuda.add(mntmQuienesSomos);
 		
 		escritorio = new JDesktopPane();
 		escritorio.setBackground(new Color(192, 192, 192));
@@ -168,9 +177,13 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mntmNewMenuItem_4) {
-			actionPerformedMntmNewMenuItem_4(e);
-		}
+                      
+		if (e.getSource() == mntmQuienesSomos) {
+			actionPerformedQuienesSomos(e);
+             
+		if (e.getSource() == mntmReporteUsuario) {
+			actionPerformedMntmReporteUsuario(e);
+
 		if (e.getSource() == mniConsultaContratos) {
 			actionPerformedMniConsultaContratos(e);
 		}
@@ -188,6 +201,8 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		}
 		if (e.getSource() == mniContrato) {
 			actionPerformedMniContrato(e);
+		}
+		}
 		}
 		// TODO Auto-generated method stub
 		
@@ -252,14 +267,19 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		escritorio.add(usuario).setLocation(0,0);
 		usuario.toFront();
 	}
-	
-	
-	
 
-	protected void actionPerformedMntmNewMenuItem_4(ActionEvent e) {
+
+	protected void actionPerformedQuienesSomos(ActionEvent e) {
 		FrmAyuda ayuda = new FrmAyuda();
 		ayuda.setVisible(true);
 		escritorio.add(ayuda).setLocation(0,0);
 		ayuda.toFront();
+	}
+	protected void actionPerformedMntmReporteUsuario(ActionEvent e) {
+		FrmReporteUsuario RepUs = new FrmReporteUsuario();
+		RepUs .setVisible(true);
+		escritorio.add(RepUs).setLocation(0,0);
+		RepUs .toFront();
+
 	}
 }
