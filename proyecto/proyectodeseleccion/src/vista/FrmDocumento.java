@@ -72,7 +72,7 @@ public class FrmDocumento extends JFrame implements ActionListener, MouseListene
 	public FrmDocumento() {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 597, 268);
+		setBounds(100, 100, 597, 312);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -109,7 +109,7 @@ public class FrmDocumento extends JFrame implements ActionListener, MouseListene
 		contentPane.add(lblDescripcion);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(291, 74, 275, 127);
+		scrollPane.setBounds(291, 74, 275, 154);
 		contentPane.add(scrollPane);
 
 		tbDocumento = new JTable();
@@ -121,12 +121,12 @@ public class FrmDocumento extends JFrame implements ActionListener, MouseListene
 
 		btnVisarDoc = new JButton("Visar Doc");
 		btnVisarDoc.addActionListener(this);
-		btnVisarDoc.setBounds(10, 189, 89, 23);
+		btnVisarDoc.setBounds(20, 239, 89, 23);
 		contentPane.add(btnVisarDoc);
 
 		txtDescripcion = new JTextArea();
 		JScrollPane scrollDescripcion = new JScrollPane();
-		scrollDescripcion.setBounds(10, 128, 147, 50);
+		scrollDescripcion.setBounds(10, 118, 271, 110);
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setBorder(new EmptyBorder(4,4,4,4));
 		scrollDescripcion.setViewportView(txtDescripcion);

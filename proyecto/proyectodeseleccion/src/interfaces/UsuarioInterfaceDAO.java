@@ -21,5 +21,7 @@ public interface UsuarioInterfaceDAO {
 	//validar el accesp al sistema
 	public Usuario ValidarAcceso(String user, String clave);
 	
+	public ArrayList<Usuario> listarUsuariosxPerfil(int perfil);
+	
 	//
 }

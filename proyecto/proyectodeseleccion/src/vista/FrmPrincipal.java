@@ -193,11 +193,13 @@ public class FrmPrincipal  extends JFrame implements ActionListener   {
 			
 			//	mantenimiento y reportes y consultas
 			mniUsuario.setVisible(false);
+			mnTransaccion.setVisible(false);
 			
 			break;
 		case 3: // ADMINISTRADOR
 			
 			// TODO
+			
 			
 			break;
 		default:
