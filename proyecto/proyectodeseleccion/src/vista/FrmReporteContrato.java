@@ -113,6 +113,7 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 		panelBusquedaxtipocont.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(this);
 		btnNewButton_1.setIcon(new ImageIcon(FrmReporteContrato.class.getResource("/img/delete (2).png")));
 		btnNewButton_1.setBounds(100, 41, 66, 48);
 		panelBusquedaxtipocont.add(btnNewButton_1);
@@ -120,6 +121,9 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton_1) {
+			actionPerformedBtnNewButton_1(e);
+		}
 		if (e.getSource() == btnNewButton) {
 			actionPerformedBtnNewButton(e);
 		}
@@ -194,4 +198,25 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 			System.out.println("Error al generar reporte " + e1.getMessage());
 		}
 	}
+	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+		ArrayList<Contrato> lisCont = gCont.listarContrato();
+
+		try {
+			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(lisCont);
+
+			String fileName = "Report_Contrato.jasper";
+
+			JasperPrint jaspPrint = ModelReporte.generar(fileName, data, null);
+
+			JRViewer jvi = new JRViewer(jaspPrint);
+
+			panelReporte.removeAll();
+			jvi=null;
+			panelReporte.repaint();
+			panelReporte.revalidate();
+
+		} catch (Exception e1) {
+			System.out.println("Error al generar reporte " + e1.getMessage());
+		}
+	    }
 }
