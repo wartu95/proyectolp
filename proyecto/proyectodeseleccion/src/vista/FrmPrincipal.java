@@ -175,6 +175,33 @@ public class FrmPrincipal  extends JFrame implements ActionListener   {
 		escritorio.add(lblFondo);
 		//mostrar hora
 		cargarHora();
+		restriccion();
+	}
+
+	private void restriccion() {
+		// TODO Auto-generated method stub
+		int cod_perfil = Logueo.usuario.getPerfil();
+		switch(cod_perfil){
+		case 1: // USUARIO
+			
+			// reportes y consultas
+			mnMantenimiento.setVisible(false);
+			mniUsuario.setVisible(false);
+			
+			break;
+		case 2: // TECNICO
+			
+			//	mantenimiento y reportes y consultas
+			mniUsuario.setVisible(false);
+			
+			break;
+		case 3: // ADMINISTRADOR
+			
+			// TODO
+			
+			break;
+		default:
+		}
 	}
 
 	@Override

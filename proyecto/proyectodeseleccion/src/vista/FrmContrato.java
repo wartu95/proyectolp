@@ -66,7 +66,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private JComboBox<Object> cboTipo;
 	private JLabel lblNroPedido;
 	private JPanel panel2;
-	private JTextField txtDescripcion;
+	private JTextArea txtDescripcion;
 	private GestionTipoContratoDAO tipContDao;
 	private GestionContratoDAO contDao;
 	private GestionParticipanteDAO partDao;
@@ -94,9 +94,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private JLabel lblApellido;
 	public static JTextField txtApellido;
 	private JPanel panel;
-	private JTable tableVisado;
 	private DefaultTableModel modelVisado;
-	private JScrollPane scrollPane_1;
 
 	/**
 	 * Launch the application.
@@ -135,13 +133,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		btnRegistrar = new JButton("");
 		btnRegistrar.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/Registro-Contrato.png")));
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(10, 303, 49, 41);
+		btnRegistrar.setBounds(440, 216, 49, 41);
 		contentPane.add(btnRegistrar);
 
 		btnModificar = new JButton("");
 		btnModificar.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/Modificar-contrato.png")));
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(69, 303, 41, 41);
+		btnModificar.setBounds(499, 216, 41, 41);
 		contentPane.add(btnModificar);
 
 		panel2 = new JPanel();
@@ -188,11 +186,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		lblNroPedido.setBounds(10, 21, 72, 14);
 		panel2.add(lblNroPedido);
 
-		txtDescripcion = new JTextField();
-		txtDescripcion.setHorizontalAlignment(SwingConstants.LEFT);
-		txtDescripcion.setBounds(10, 149, 270, 100);
-		panel2.add(txtDescripcion);
-		txtDescripcion.setColumns(10);
+		txtDescripcion = new JTextArea();
+		txtDescripcion.setLineWrap(true);
+		txtDescripcion.setBorder(new EmptyBorder(4,4,4,4));
+		JScrollPane scrollPaneDescripcion = new JScrollPane();
+		scrollPaneDescripcion.setBounds(10, 149, 270, 100);
+		scrollPaneDescripcion.setViewportView(txtDescripcion);
+		panel2.add(scrollPaneDescripcion);
 
 		txtResolucion = new JTextField();
 		txtResolucion.setColumns(10);
@@ -204,7 +204,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		panel2.add(lblResolucin);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 348, 672, 165);
+		scrollPane.setBounds(10, 289, 672, 224);
 		contentPane.add(scrollPane);
 
 		tbContrato = new JTable();
@@ -225,13 +225,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/delete-contrato.png")));
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(131, 303, 41, 41);
+		btnNewButton.setBounds(561, 216, 41, 41);
 		contentPane.add(btnNewButton);
 
 		btnNewButton_1 = new JButton("");
 		btnNewButton_1.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/new-document.png")));
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(196, 303, 41, 41);
+		btnNewButton_1.setBounds(626, 216, 41, 41);
 		contentPane.add(btnNewButton_1);
 
 		panel = new JPanel();
@@ -286,18 +286,10 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		lblDni.setBounds(25, 117, 113, 15);
 		panel.add(lblDni);
 
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(415, 193, 283, 120);
-		contentPane.add(scrollPane_1);
-
-		tableVisado = new JTable();
-		scrollPane_1.setViewportView(tableVisado);
-
 		modelVisado = new DefaultTableModel();
 		modelVisado.addColumn("ID VISADO");
 		modelVisado.addColumn("ID USUARIO");
 		modelVisado.addColumn("ESTADO");
-		tableVisado.setModel(modelVisado);
 
 		arranque();
 	}
