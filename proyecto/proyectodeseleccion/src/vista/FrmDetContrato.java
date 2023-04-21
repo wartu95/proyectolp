@@ -10,7 +10,9 @@ import clases.Contrato;
 import clases.DetalleContrato;
 import clases.Usuario;
 import mantenimiento.GestionContratoDAO;
+import mantenimiento.GestionDetalleContratoDAO;
 import mantenimiento.GestionUsuarioDAO;
+import utils.Tool;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -161,9 +163,27 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		return res;
 	}
 	
+	//METODOS QUE RETORNAN VALORES
 	
+	private int correlativoItem() {
+		int res = -1;
+		
+		Contrato objCon = FrmContratoVisado.objContrato;
+		
+		if(new GestionDetalleContratoDAO().ListarDestalleContratoPorIdContrato(objCon.getIdContrato()).size()==0){
+			res = 1;
+		}else {
+			for (DetalleContrato obj: new GestionDetalleContratoDAO().ListarDestalleContratoPorIdContrato(objCon.getIdContrato())) {
+				res = obj.getIdVisado() +1;
+			}
+		}
+		
+		
+		return res;
+	}
 	
 	//VOID
+	
 	private void visarContrato() {
 		
 		int res = 0;
@@ -179,17 +199,40 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		
 		objCon.setEstado("PENDIENTE");
 		
-		res = gCon.visarContrato(objDetCon, objCon);
 		
-		if(res!=0) {
-			utils.Tool.mensajeExito(this, "VISADO EXITOSO");
-			FrmDocumento doc = new FrmDocumento();
-			doc.setVisible(true);
-			doc.setLocationRelativeTo(this);
-			this.dispose();
+		if (new GestionDetalleContratoDAO().ListarDestalleContratoPorIdContrato(idContrato).size()>=3){
+			Tool.mensajeError(this, "SOLO SE PUEDE HACER 3 VISADOS");
+			return;
+		}else if (new GestionDetalleContratoDAO().ListarDestalleContratoPorIdContrato(idContrato).size()>=2){
+			objCon.setEstado("APROBADO");
+			res = gCon.visarContrato(objDetCon, objCon);
+			
+			if(res!=0) {
+				Tool.mensajeExito(this, "VISADO EXITOSO, DOCUMENTO APROBADO");
+				FrmDocumento doc = new FrmDocumento();
+				doc.setVisible(true);
+				doc.setLocationRelativeTo(this);
+				this.dispose();
+			}else {
+				utils.Tool.mensajeError(this, "VISADO FALLIDO");
+			}
+			return;
 		}else {
-			utils.Tool.mensajeError(this, "VISADO FALLIDO");
+			res = gCon.visarContrato(objDetCon, objCon);
+			
+			if(res!=0) {
+				Tool.mensajeExito(this, "VISADO EXITOSO");
+				FrmDocumento doc = new FrmDocumento();
+				doc.setVisible(true);
+				doc.setLocationRelativeTo(this);
+				this.dispose();
+			}else {
+				utils.Tool.mensajeError(this, "VISADO FALLIDO");
+			}
+			return;
 		}
+		
+		
 	}
 	
 	private void mostrarDetalle() {
@@ -197,6 +240,7 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		Contrato objCon = FrmContratoVisado.objContrato;
 		
 		txtIdContrato.setText(objCon.getIdContrato());
+		txtItemVisado.setText(correlativoItem() + "");
 		txtEstadoContrato.setText("APROBADO");
 		
 	}
