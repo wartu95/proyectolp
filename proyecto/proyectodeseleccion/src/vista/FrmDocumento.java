@@ -126,7 +126,7 @@ public class FrmDocumento extends JFrame implements ActionListener, MouseListene
 
 		txtDescripcion = new JTextArea();
 		JScrollPane scrollDescripcion = new JScrollPane();
-		scrollDescripcion.setBounds(10, 128, 147, 50);
+		scrollDescripcion.setBounds(10, 116, 268, 62);
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setBorder(new EmptyBorder(4,4,4,4));
 		scrollDescripcion.setViewportView(txtDescripcion);
