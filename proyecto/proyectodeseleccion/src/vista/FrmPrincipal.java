@@ -47,6 +47,7 @@ public class FrmPrincipal  extends JFrame implements ActionListener   {
 	private JMenuItem mntmReporteParticipantes;
 	private JMenuItem mntmReporteUsuario;
 	private JMenuItem mniDocumento;
+	private JMenuItem mntmNewMenuItem;
 	
 
 	/**
@@ -97,6 +98,11 @@ public class FrmPrincipal  extends JFrame implements ActionListener   {
 		
 		mniSalir = new JMenuItem("Salir");
 		mniSalir.addActionListener(this);
+		
+		mntmNewMenuItem = new JMenuItem("Cambiar usuario");
+		mntmNewMenuItem.addActionListener(this);
+		mntmNewMenuItem.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/man - 24px.png")));
+		mnArchivo.add(mntmNewMenuItem);
 		mniSalir.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/logout.png")));
 		mnArchivo.add(mniSalir);
 		
@@ -206,6 +212,9 @@ public class FrmPrincipal  extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmNewMenuItem) {
+			actionPerformedMntmNewMenuItem(e);
+		}
 		if (e.getSource() == mntmReporteParticipantes) {
 			actionPerformedMntmReporteParticipantes(e);
 		}
@@ -333,6 +342,13 @@ public class FrmPrincipal  extends JFrame implements ActionListener   {
 		part.setVisible(true);
 		escritorio.add(part).setLocation(0,0);
 		part.toFront();
+	}
+	protected void actionPerformedMntmNewMenuItem(ActionEvent e) {
+		Logueo log = new Logueo();
+		log.setVisible(true);
+		log.setLocationRelativeTo(this);
+		this.dispose();
+		
 	}
 }
 
