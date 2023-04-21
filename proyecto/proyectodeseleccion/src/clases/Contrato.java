@@ -57,7 +57,7 @@ public class Contrato {
 	public String getResolucion() {
 		return Resolucion;
 	}
-	public void setResulucion(String resolucion) {
+	public void setResolucion(String resolucion) {
 		Resolucion = resolucion;
 	}
 	public String getEstado() {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,18 +15,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 
 public class DlgDetalleContratos extends JDialog implements ActionListener {
-
 	private final JPanel contentPanel = new JPanel();
 	//insntanciar de la clase table
-	DefaultTableModel model= new DefaultTableModel();
+	DefaultTableModel  model= new DefaultTableModel();
 	
 	
 	private JButton okButton;
@@ -52,6 +54,7 @@ public class DlgDetalleContratos extends JDialog implements ActionListener {
 	public DlgDetalleContratos() {
 		setBounds(100, 100, 658, 325);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(new Color(192, 192, 192));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -59,7 +62,7 @@ public class DlgDetalleContratos extends JDialog implements ActionListener {
 			JPanel panel2 = new JPanel();
 			panel2.setLayout(null);
 			panel2.setBorder(new TitledBorder(null, "CONTRATO", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel2.setBounds(10, 10, 634, 247);
+			panel2.setBounds(10, 10, 622, 232);
 			contentPanel.add(panel2);
 			{
 				textField = new JTextField();

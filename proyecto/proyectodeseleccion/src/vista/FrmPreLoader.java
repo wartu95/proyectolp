@@ -23,7 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-public class FrmPreLoader extends JFrame implements ChangeListener {
+public class FrmPreLoader  extends JFrame implements ChangeListener {
 
 	private JPanel contentPane;
 	public static JProgressBar prbCarga_1;
@@ -58,7 +58,7 @@ public class FrmPreLoader extends JFrame implements ChangeListener {
 		setTitle("Cargando...");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 345, 277);
+		setBounds(100, 100, 432, 323);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -68,24 +68,24 @@ public class FrmPreLoader extends JFrame implements ChangeListener {
 		prbCarga_1 = new JProgressBar();
 		prbCarga_1.addChangeListener(this);
 		prbCarga_1.setStringPainted(true);
-		prbCarga_1.setBounds(-10, 24, 376, 19);
+		prbCarga_1.setBounds(0, 24, 416, 19);
 		contentPane.add(prbCarga_1);
 
 		JLabel lblMensajes = new JLabel("El sistema est\u00E1 cargando, espere unos segundos");
-		lblMensajes.setForeground(Color.WHITE);
+		lblMensajes.setForeground(new Color(0, 0, 0));
 		lblMensajes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblMensajes.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMensajes.setBounds(11, 11, 313, 14);
+		lblMensajes.setBounds(53, 11, 313, 14);
 		contentPane.add(lblMensajes);
 
 		lblSpinner = new JLabel("");
-		lblSpinner.setIcon(new ImageIcon(FrmPreLoader.class.getResource("/img/loading1.gif")));
-		lblSpinner.setBounds(36, 55, 250, 185);
+		lblSpinner.setIcon(new ImageIcon(FrmPreLoader.class.getResource("/img/Loading-2.gif")));
+		lblSpinner.setBounds(53, 54, 313, 229);
 		contentPane.add(lblSpinner);
 		
 		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(FrmPreLoader.class.getResource("/img/Screenshot_22.png")));
-		lblNewLabel.setBounds(0, -22, 341, 272);
+		lblNewLabel.setIcon(new ImageIcon(FrmPreLoader.class.getResource("/img/WhatsApp Image 2023-04-21 at 12.36.57 AM.jpeg")));
+		lblNewLabel.setBounds(0, 0, 431, 284);
 		contentPane.add(lblNewLabel);
 		// Metodo para iniciar el conteo en la barra de progreso
 		iniciarBarraProgreso();

@@ -59,6 +59,7 @@ public class FrmReporteUsuario extends JInternalFrame implements ActionListener 
 	 * Create the frame.
 	 */
 	public FrmReporteUsuario() {
+		getContentPane().setBackground(new Color(192, 192, 192));
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
@@ -74,18 +75,18 @@ public class FrmReporteUsuario extends JInternalFrame implements ActionListener 
 		panelBusquedaGeneral = new JPanel();
 		panelBusquedaGeneral.setLayout(null);
 		panelBusquedaGeneral.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "General", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelBusquedaGeneral.setBounds(10, 21, 170, 72);
+		panelBusquedaGeneral.setBounds(10, 21, 170, 79);
 		getContentPane().add(panelBusquedaGeneral);
 		
 		btnReporte = new JButton("");
-		btnReporte.setBounds(10, 10, 62, 52);
+		btnReporte.setBounds(10, 16, 62, 52);
 		panelBusquedaGeneral.add(btnReporte);
 		btnReporte.addActionListener(this);
 		btnReporte.setIcon(new ImageIcon(FrmReporteUsuario.class.getResource("/img/new (1).png")));
 		
 		btnLimpiar = new JButton("");
 		btnLimpiar.setIcon(new ImageIcon(FrmReporteUsuario.class.getResource("/img/delete (2).png")));
-		btnLimpiar.setBounds(85, 10, 54, 52);
+		btnLimpiar.setBounds(87, 16, 54, 52);
 		panelBusquedaGeneral.add(btnLimpiar);
 		
 		panelBusquedad = new JPanel();

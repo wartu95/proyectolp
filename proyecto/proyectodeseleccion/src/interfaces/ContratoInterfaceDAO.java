@@ -3,6 +3,7 @@ package interfaces;
 import java.util.ArrayList;
 
 import clases.Contrato;
+import clases.DetalleContrato;
 
 public interface ContratoInterfaceDAO {
 	//registrar contrato
@@ -20,4 +21,9 @@ public interface ContratoInterfaceDAO {
 		
 	// 	lista de contractos por fecha
 		public ArrayList<Contrato> listarContratoxFecha(String fech);
+		
+	// lista buscar contarto
+		public Contrato buscarContrato(String idContrato);
+			
+		public int visarContrato(DetalleContrato objDetCon, Contrato objCon);
 }

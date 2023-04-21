@@ -57,6 +57,7 @@ public class DlgListParticipante extends JDialog implements ActionListener {
 	 * Create the dialog.
 	 */
 	public DlgListParticipante() {
+		getContentPane().setBackground(new Color(192, 192, 192));
 		setBounds(100, 100, 658, 353);
 		getContentPane().setLayout(null);
 		{

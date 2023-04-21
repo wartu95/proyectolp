@@ -60,6 +60,7 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 	 * Create the frame.
 	 */
 	public FrmReporteContrato() {
+		getContentPane().setBackground(new Color(192, 192, 192));
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);

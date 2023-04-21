@@ -25,7 +25,7 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 
-public class FrmPrincipal extends JFrame implements ActionListener   {
+public class FrmPrincipal  extends JFrame implements ActionListener   {
 	private JMenuBar menuBar;
 	private JMenu mnArchivo;
 	private JMenuItem mniUsuario;
@@ -37,17 +37,16 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	private JMenuItem mniContrato;
 	private JMenuItem mniParticipante;
 	private JDesktopPane escritorio;
-	private JMenuItem mniContratoPendientes;
-	private JMenuItem mniTipoContratos;
 	private JMenu mnNewMenu;
 	private JMenuItem mniConsultaParticipante;
 	private JMenuItem mniConsultaContratos;
 	private JMenuItem mntmReporteContratos;
-	private JMenuItem mntmNewMenuItem_4;
+	private JMenuItem mntmAyuda;
 	private JLabel lblReloj;
 	private JLabel lblFondo;
 	private JMenuItem mntmReporteParticipantes;
 	private JMenuItem mntmReporteUsuario;
+	private JMenuItem mniDocumento;
 	
 
 	/**
@@ -71,13 +70,16 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	 * Create the frame.
 	 */
 	public FrmPrincipal() {
+		
+		setTitle(Logueo.usuario.getNombre()+ " "+Logueo.usuario.getApellido() );
+		
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 		} catch (Exception e) {
 			e.printStackTrace ();
 		}
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/img/logo-smv.png")));
-		setTitle("SMV");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 975, 690);
 		
@@ -112,12 +114,6 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mniParticipante.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/diversity.png")));
 		mnMantenimiento.add(mniParticipante);
 		
-		mniContratoPendientes = new JMenuItem("Contratos Pendientes");
-		mnMantenimiento.add(mniContratoPendientes);
-		
-		mniTipoContratos = new JMenuItem("Tipo de Contratos");
-		mnMantenimiento.add(mniTipoContratos);
-		
 		mnNewMenu = new JMenu("Consulta");
 		mnNewMenu.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/query.png")));
 		menuBar.add(mnNewMenu);
@@ -133,6 +129,10 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnTransaccion = new JMenu("Transacci\u00F3n");
 		mnTransaccion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/transaction.png")));
 		menuBar.add(mnTransaccion);
+		
+		mniDocumento = new JMenuItem("Documento visado");
+		mniDocumento.addActionListener(this);
+		mnTransaccion.add(mniDocumento);
 		
 		mnReporte = new JMenu("Reporte");
 		mnReporte.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/report.png")));
@@ -154,8 +154,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnAyuda.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/respect.png")));
 		menuBar.add(mnAyuda);
 		
-		mntmNewMenuItem_4 = new JMenuItem("¿Quienes somos?");
-		mnAyuda.add(mntmNewMenuItem_4);
+		mntmAyuda = new JMenuItem("\u00BFQuienes somos?");
+		mntmAyuda.addActionListener(this);
+		mnAyuda.add(mntmAyuda);
 		
 		escritorio = new JDesktopPane();
 		escritorio.setBackground(new Color(192, 192, 192));
@@ -163,7 +164,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		
 		lblReloj = new JLabel("hh:mm:ss");
 		lblReloj.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblReloj.setForeground(Color.WHITE);
+		lblReloj.setForeground(new Color(0, 0, 0));
 		lblReloj.setBackground(Color.WHITE);
 		lblReloj.setBounds(815, 23, 134, 27);
 		escritorio.add(lblReloj);
@@ -180,6 +181,12 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mntmReporteParticipantes) {
 			actionPerformedMntmReporteParticipantes(e);
+		}
+		if (e.getSource() == mntmAyuda) {
+			actionPerformedMntmAyuda(e);
+		}
+		if (e.getSource() == mniDocumento) {
+			actionPerformedMniDocumento(e);
 		}
 		if (e.getSource() == mntmReporteContratos) {
 			actionPerformedMntmReporteContratos(e);
@@ -270,20 +277,39 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	}
 	protected void actionPerformedMntmReporteUsuario(ActionEvent e) {
 		FrmReporteUsuario RepUs = new FrmReporteUsuario();
-		RepUs.setVisible(true);
+		RepUs .setVisible(true);
 		escritorio.add(RepUs).setLocation(0,0);
-		RepUs.toFront();
+		RepUs .toFront();
 	}
 	protected void actionPerformedMntmReporteContratos(ActionEvent e) {
 		FrmReporteContrato RepCn = new FrmReporteContrato();
-		RepCn.setVisible(true);
+		RepCn .setVisible(true);
 		escritorio.add(RepCn).setLocation(0,0);
-		RepCn.toFront();
+		RepCn .toFront();
+	}
+	
+	//TRANSICIONES
+	protected void actionPerformedMniDocumento(ActionEvent e) {
+		FrmContratoVisado visa = new FrmContratoVisado();
+		visa.setVisible(true);
+		escritorio.add(visa).setLocation(0,0);
+		visa.toFront();
+	}
+	protected void actionPerformedMntmAyuda(ActionEvent e) {
+		FrmAyuda ayuda = new FrmAyuda();
+		ayuda.setVisible(true);
+		escritorio.add(ayuda).setLocation(0,0);
+		ayuda.toFront();
 	}
 	protected void actionPerformedMntmReporteParticipantes(ActionEvent e) {
-		FrmReporteParticipante RepPn = new FrmReporteParticipante();
-		RepPn.setVisible(true);
-		escritorio.add(RepPn).setLocation(0,0);
-		RepPn.toFront();
+		FrmReporteParticipante part = new FrmReporteParticipante();
+		part.setVisible(true);
+		escritorio.add(part).setLocation(0,0);
+		part.toFront();
 	}
 }
+
+
+
+
+

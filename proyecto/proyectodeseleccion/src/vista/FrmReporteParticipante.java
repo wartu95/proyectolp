@@ -57,6 +57,7 @@ public class FrmReporteParticipante extends JInternalFrame implements ActionList
 	 * Create the frame.
 	 */
 	public FrmReporteParticipante() {
+		getContentPane().setBackground(new Color(192, 192, 192));
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
