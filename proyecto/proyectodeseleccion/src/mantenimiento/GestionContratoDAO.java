@@ -33,7 +33,7 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			pstm.setInt(3,cont.getIdParticipante());
 			pstm.setString(4,cont.getFecha());
 			pstm.setString(5,cont.getDescripcion());
-			pstm.setString(6,cont.getResulucion());
+			pstm.setString(6,cont.getResolucion());
 			pstm.setString(7,cont.getEstado());
 			
 			res = pstm.executeUpdate();
@@ -72,7 +72,7 @@ public class GestionContratoDAO implements ContratoInterfaceDAO{
 			pstm.setInt(2,cont.getIdParticipante());
 			pstm.setString(3,cont.getFecha());
 			pstm.setString(4,cont.getDescripcion());
-			pstm.setString(5,cont.getResulucion());
+			pstm.setString(5,cont.getResolucion());
 			pstm.setString(6,cont.getEstado());
 			pstm.setString(7,cont.getIdContrato());
 			

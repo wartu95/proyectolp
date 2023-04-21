@@ -143,6 +143,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnReporte.add(mntmReporteContratos);
 		
 		mntmReporteParticipantes = new JMenuItem("Reporte Participantes");
+		mntmReporteParticipantes.addActionListener(this);
 		mnReporte.add(mntmReporteParticipantes);
 		
 		mntmReporteUsuario = new JMenuItem("Reporte Usuario");
@@ -177,6 +178,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmReporteParticipantes) {
+			actionPerformedMntmReporteParticipantes(e);
+		}
 		if (e.getSource() == mntmReporteContratos) {
 			actionPerformedMntmReporteContratos(e);
 		}
@@ -266,14 +270,20 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	}
 	protected void actionPerformedMntmReporteUsuario(ActionEvent e) {
 		FrmReporteUsuario RepUs = new FrmReporteUsuario();
-		RepUs .setVisible(true);
+		RepUs.setVisible(true);
 		escritorio.add(RepUs).setLocation(0,0);
-		RepUs .toFront();
+		RepUs.toFront();
 	}
 	protected void actionPerformedMntmReporteContratos(ActionEvent e) {
 		FrmReporteContrato RepCn = new FrmReporteContrato();
-		RepCn .setVisible(true);
+		RepCn.setVisible(true);
 		escritorio.add(RepCn).setLocation(0,0);
-		RepCn .toFront();
+		RepCn.toFront();
+	}
+	protected void actionPerformedMntmReporteParticipantes(ActionEvent e) {
+		FrmReporteParticipante RepPn = new FrmReporteParticipante();
+		RepPn.setVisible(true);
+		escritorio.add(RepPn).setLocation(0,0);
+		RepPn.toFront();
 	}
 }

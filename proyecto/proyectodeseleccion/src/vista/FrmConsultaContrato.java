@@ -149,7 +149,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 					obj.getTiPoContrato(),
 					obj.getDescripcion(),
 					obj.getFecha(),
-					obj.getResulucion(),
+					obj.getResolucion(),
 					obj.getEstado()
 			};
 			model.addRow(x);
@@ -173,7 +173,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 							obj.getTiPoContrato(),
 							obj.getDescripcion(),
 							obj.getFecha(),
-							obj.getResulucion(),
+							obj.getResolucion(),
 							obj.getEstado()
 					};
 					model.addRow(x);

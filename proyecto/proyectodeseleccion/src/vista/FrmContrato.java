@@ -32,6 +32,7 @@ import clases.TipoContrato;
 
 import mantenimiento.GestionContratoDAO;
 import mantenimiento.GestionTipoContratoDAO;
+import mantenimiento.GestionTipoUsuarioDAO;
 import mantenimiento.GestionParticipanteDAO;
 import utils.Validaciones;
 import utils.Tool;
@@ -76,6 +77,8 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	GestionContratoDAO gCont = new GestionContratoDAO();
 
 	GestionTipoContratoDAO gtipcon = new GestionTipoContratoDAO();
+	
+	
 
 	private JTextField txtResolucion;
 	private JLabel lblResolucin;
@@ -502,7 +505,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		for (Contrato p : list) {
 
 			Object[] cont = { p.getIdContrato(), p.getTiPoContrato(), p.getIdParticipante(), p.getFecha(),
-					p.getDescripcion(), p.getResulucion(), p.getEstado()
+					p.getDescripcion(), p.getResolucion(), p.getEstado()
 
 			};
 

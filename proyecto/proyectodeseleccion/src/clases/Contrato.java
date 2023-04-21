@@ -7,21 +7,21 @@ public class Contrato {
 	private int idParticipante;
 	private String  fecha;
 	private String Descripcion;
-	private String Resulucion;
+	private String Resolucion;
 	private String Estado ;
 	// INCIALIZAMOS ENTRADAS
 	public Contrato() {
 		
 	}
 	public Contrato(String idContrato, int tiPoContrato, int idParticipante, String fecha, String descripcion,
-			String resulucion, String estado) {
+			String resolucion, String estado) {
 	
 		this.idContrato = idContrato;
 		this.tiPoContrato = tiPoContrato;
 		this.idParticipante = idParticipante;
 		this.fecha = fecha;
 		this.Descripcion = descripcion;
-		this.Resulucion = resulucion;
+		this.Resolucion = resolucion;
 		this.Estado = estado;
 	}
 	public String getIdContrato() {
@@ -54,11 +54,11 @@ public class Contrato {
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
 	}
-	public String getResulucion() {
-		return Resulucion;
+	public String getResolucion() {
+		return Resolucion;
 	}
-	public void setResulucion(String resulucion) {
-		Resulucion = resulucion;
+	public void setResulucion(String resolucion) {
+		Resolucion = resolucion;
 	}
 	public String getEstado() {
 		return Estado;

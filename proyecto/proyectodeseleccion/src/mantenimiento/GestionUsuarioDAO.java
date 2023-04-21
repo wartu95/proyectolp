@@ -263,4 +263,55 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 		return lista;
 	}
 
+	@Override
+	public ArrayList<Usuario> listarUsuariosxCargo(int tipocargo) {
+		ArrayList<Usuario> lista = new ArrayList<Usuario>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		Usuario user = null;
+		
+		try {
+			
+			con= MySQLConexion8.getConexion();
+			
+			String sql = "Select * from tb_usuario where id_cargo=?";
+			
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, tipocargo);
+			
+			res= pstm.executeQuery();
+			
+			while(res.next()) {
+				
+				    user = new Usuario();
+				 
+				    user.setUsuario(res.getString(1));
+					user.setClave(res.getString(2));
+					user.setNombre(res.getNString(3));
+					user.setApellido(res.getString(4));
+					user.setCargo(res.getInt(5));
+					user.setPerfil(res.getInt(6));
+					
+					lista.add(user);
+				 
+					
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en la instrucci�n SQL - listar usuarios"+e.getMessage());
+		}finally {
+			try {
+				if(pstm != null)pstm.close();
+				if(res != null)res.close();
+				if(con != null)con.close();
+				
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar la base de datos"+e2.getMessage());
+			}
+		}
+		return lista;
+	}
+
 }
