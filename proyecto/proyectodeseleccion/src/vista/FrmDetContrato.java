@@ -28,7 +28,7 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 	private JTextField txtIdContrato;
 	private JButton btnVisado;
 	private JLabel lblEstadoVisado;
-	private JComboBox<Object> cboIdUsuario;
+	private JComboBox<Object> cboIdCargo;
 	private JLabel lblIdUsuario;
 	private JTextField txtEstadoContrato;
 	
@@ -88,9 +88,9 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		lblEstadoVisado.setBounds(253, 11, 83, 14);
 		contentPane.add(lblEstadoVisado);
 		
-		cboIdUsuario = new JComboBox<Object>();
-		cboIdUsuario.setBounds(10, 72, 148, 20);
-		contentPane.add(cboIdUsuario);
+		cboIdCargo = new JComboBox<Object>();
+		cboIdCargo.setBounds(10, 72, 148, 20);
+		contentPane.add(cboIdCargo);
 		
 		lblIdUsuario = new JLabel("ID USUARIO");
 		lblIdUsuario.setBounds(10, 57, 94, 14);
@@ -145,10 +145,10 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		return res;
 	}
 	
-	public String getIdUsuario() {
+	public String getIdCargo() {
 		String res = null;
 		
-		res= cboIdUsuario.getSelectedItem().toString();
+		res= cboIdCargo.getSelectedItem().toString();
 		
 		return res;
 	}
@@ -170,7 +170,7 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		
 		String idContrato = getIdContrato();
 		int idVisado = getItemVisado();
-		String idUsuario = getIdUsuario();
+		String idUsuario = getIdCargo();
 		String estado = getEstado();
 		
 		DetalleContrato objDetCon = new DetalleContrato(idContrato,idVisado,idUsuario,estado);
@@ -203,12 +203,12 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 	
 	private void cargarUsuario() {
 		
-		cboIdUsuario.addItem("SELECCIONE USUARIO");
-		cboIdUsuario.setSelectedIndex(0);
+		cboIdCargo.addItem("SELECCIONE USUARIO");
+		cboIdCargo.setSelectedIndex(0);
 		
 		for (Usuario obj: gUsu.listarUsuarios() ) {
 			
-			cboIdUsuario.addItem(obj.getUsuario());
+			cboIdCargo.addItem(obj.getUsuario());
 			
 		}
 		
