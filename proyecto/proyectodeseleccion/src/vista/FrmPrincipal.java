@@ -72,7 +72,7 @@ public class FrmPrincipal  extends JFrame implements ActionListener   {
 	 */
 	public FrmPrincipal() {
 		
-		setTitle(Logueo.usuario.getNombre()+ " "+Logueo.usuario.getApellido() );
+		setTitle(Logueo.usuario.getNombre()+ " "+Logueo.usuario.getApellido() + " - " + Logueo.usuario.getPerfil());
 		
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");

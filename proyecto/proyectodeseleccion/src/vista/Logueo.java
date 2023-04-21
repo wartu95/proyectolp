@@ -211,6 +211,7 @@ public class Logueo extends JFrame implements WindowListener {
 				mensajeError("Usuario y/o clave incorrecta");
 			} else {
 				cargarBarraProgreso();
+				this.dispose();
 			}
 		}
 	}
@@ -276,6 +277,7 @@ public class Logueo extends JFrame implements WindowListener {
 				FrmPreLoader barra = new FrmPreLoader();
 				barra.setVisible(true);
 				barra.setLocationRelativeTo(this);
+				this.dispose();
 			}
 		}
 
