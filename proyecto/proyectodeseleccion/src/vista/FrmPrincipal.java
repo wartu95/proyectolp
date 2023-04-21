@@ -131,6 +131,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		menuBar.add(mnReporte);
 		
 		mntmReporteContratos = new JMenuItem("Reporte Contratos");
+		mntmReporteContratos.addActionListener(this);
 		mnReporte.add(mntmReporteContratos);
 		
 		mntmReporteParticipantes = new JMenuItem("Reporte Participantes");
@@ -159,8 +160,8 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		escritorio.add(lblReloj);
 		
 		lblFondo = new JLabel("New label");
-		lblFondo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/Screenshot_20.png")));
-		lblFondo.setBounds(0, 0, 975, 628);
+		lblFondo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/smv-logo-mod.png")));
+		lblFondo.setBounds(0, 0, 961, 628);
 		escritorio.add(lblFondo);
 		//mostrar hora
 		cargarHora();
@@ -168,6 +169,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmReporteContratos) {
+			actionPerformedMntmReporteContratos(e);
+		}
 		if (e.getSource() == mntmReporteUsuario) {
 			actionPerformedMntmReporteUsuario(e);
 		}
@@ -257,5 +261,11 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		RepUs .setVisible(true);
 		escritorio.add(RepUs).setLocation(0,0);
 		RepUs .toFront();
+	}
+	protected void actionPerformedMntmReporteContratos(ActionEvent e) {
+		FrmReporteContrato RepCn = new FrmReporteContrato();
+		RepCn .setVisible(true);
+		escritorio.add(RepCn).setLocation(0,0);
+		RepCn .toFront();
 	}
 }

@@ -16,12 +16,15 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.swing.JRViewer;
 import utils.ModelReporte;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class FrmReporteUsuario extends JInternalFrame implements ActionListener {
 	private JPanel panelReporte;
 	private JButton btnReporte;
 	
     GestionUsuarioDAO gUser = new GestionUsuarioDAO();
+    private JPanel panelBusquedaxtipocont;
 
 	/**
 	 * Launch the application.
@@ -44,19 +47,25 @@ public class FrmReporteUsuario extends JInternalFrame implements ActionListener 
 	 */
 	public FrmReporteUsuario() {
 		setTitle("Reporte de Usuario");
-		setBounds(100, 100, 794, 618);
+		setBounds(100, 100, 804, 706);
 		getContentPane().setLayout(null);
 		
 		panelReporte = new JPanel();
 		panelReporte.setBorder(new TitledBorder(null, "Reporte de Usuario", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelReporte.setBounds(10, 20, 762, 501);
+		panelReporte.setBounds(10, 128, 762, 539);
 		getContentPane().add(panelReporte);
 		
+		panelBusquedaxtipocont = new JPanel();
+		panelBusquedaxtipocont.setLayout(null);
+		panelBusquedaxtipocont.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), " Reporte General", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelBusquedaxtipocont.setBounds(10, 21, 140, 91);
+		getContentPane().add(panelBusquedaxtipocont);
+		
 		btnReporte = new JButton("");
+		btnReporte.setBounds(61, 38, 69, 43);
+		panelBusquedaxtipocont.add(btnReporte);
 		btnReporte.addActionListener(this);
-		btnReporte.setIcon(new ImageIcon(FrmReporteUsuario.class.getResource("/img/report.png")));
-		btnReporte.setBounds(10, 536, 69, 43);
-		getContentPane().add(btnReporte);
+		btnReporte.setIcon(new ImageIcon(FrmReporteUsuario.class.getResource("/img/new (1).png")));
 
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -67,23 +76,16 @@ public class FrmReporteUsuario extends JInternalFrame implements ActionListener 
 	protected void actionPerformedBtnReporte(ActionEvent e) {
 		
 		 ArrayList<Usuario> listUsu =  gUser.listarUsuarios();
-		  //validar 
+		  
 		 try {
-		  //Paso 1 obtener la data 
 		 JRBeanCollectionDataSource data = new  JRBeanCollectionDataSource(listUsu);
 		 
-		  
-		  //paso 2 el diseño del reporte 
 		 String fileName = "Report_Usuario.jasper";
 		  
-		  //paso 3 generar el reporte 
 		  JasperPrint jaspPrint =  ModelReporte.generar(fileName, data, null);
 		  
-		  //paso 4 mostrar el reporte 
 		  JRViewer jvi = new JRViewer(jaspPrint);
 		  
-		  
-		  //añadir el reporte al panel 
 		  panelReporte.removeAll(); 
 		  panelReporte.add(jvi);
 		  panelReporte.repaint();
