@@ -162,6 +162,8 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 	//VOID
 	private void visarContrato() {
 		
+		int res = 0;
+		
 		String idContrato = getIdContrato();
 		int idVisado = getItemVisado();
 		String idUsuario = getIdUsuario();
@@ -173,7 +175,17 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		
 		objCon.setEstado("PENDIENTE");
 		
-		gCon.visarContrato(objDetCon, objCon);
+		res = gCon.visarContrato(objDetCon, objCon);
+		
+		if(res!=0) {
+			utils.Tool.mensajeExito(this, "VISADO EXITOSO");
+			FrmDocumento doc = new FrmDocumento();
+			doc.setVisible(true);
+			doc.setLocationRelativeTo(this);
+			this.dispose();
+		}else {
+			utils.Tool.mensajeError(this, "VISADO FALLIDO");
+		}
 	}
 	
 	private void mostrarDetalle() {

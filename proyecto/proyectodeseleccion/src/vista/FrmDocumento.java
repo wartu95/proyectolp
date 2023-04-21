@@ -69,7 +69,7 @@ public class FrmDocumento extends JFrame implements ActionListener, MouseListene
 	 * Create the frame.
 	 */
 	public FrmDocumento() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 597, 268);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -153,8 +153,9 @@ public class FrmDocumento extends JFrame implements ActionListener, MouseListene
 		txtDescripcion.setText(obj.getDescripcion());
 
 	}
+	
 
-	private void cargarData() {
+	public void cargarData() {
 		String id_contrato = FrmContratoVisado.objContrato.getIdContrato();
 		// limpiar la tabla
 		model.setRowCount(0);
@@ -205,6 +206,7 @@ public class FrmDocumento extends JFrame implements ActionListener, MouseListene
 
 			ventana.setLocationRelativeTo(this);
 			ventana.setVisible(true);
+			this.dispose();
 			ventana.toFront();
 		} else {
 			Tool.mensajeError(this, "NO SE PUEDO VISAR UN CONTRATO QUE NO SE ENCUENTRE REGISTRADO");

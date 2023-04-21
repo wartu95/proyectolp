@@ -44,6 +44,7 @@ public class FrmContratoVisado extends JFrame implements ActionListener, MouseLi
 	GestionContratoDAO gCont = new GestionContratoDAO();
 	
 	public static Contrato objContrato = new Contrato();
+	private JButton btnActualizar;
 
 	/**
 	 * Launch the application.
@@ -112,6 +113,11 @@ public class FrmContratoVisado extends JFrame implements ActionListener, MouseLi
 
 		// mostrar tabla
 		tbLista.setModel(model);
+		
+		btnActualizar = new JButton("ACTUALIZAR");
+		btnActualizar.addActionListener(this);
+		btnActualizar.setBounds(264, 69, 114, 23);
+		contentPane.add(btnActualizar);
 		// CARGAR TABLA CONTRATOS
 		cargarDataContratos();
 	}
@@ -154,6 +160,9 @@ public class FrmContratoVisado extends JFrame implements ActionListener, MouseLi
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnActualizar) {
+			actionPerformedBtnActualizar(e);
+		}
 		if (e.getSource() == btnVisualizar) {
 			actionPerformedBtnVisualizar(e);
 		}
@@ -210,5 +219,8 @@ public class FrmContratoVisado extends JFrame implements ActionListener, MouseLi
 		posFila = tbLista.getSelectedRow();
 		// Mostrar data
 		mostrarData(posFila);
+	}
+	protected void actionPerformedBtnActualizar(ActionEvent e) {
+		cargarDataContratos();
 	}
 }
