@@ -79,7 +79,7 @@ public class Logueo extends JFrame implements WindowListener {
 			e.printStackTrace();
 		}
 		addWindowListener(this);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Logueo.class.getResource("/img/avatar.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Logueo.class.getResource("/img/logo-smv.png")));
 		setTitle("CIBERFARMA - Acceso al Sistema");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 480, 310);

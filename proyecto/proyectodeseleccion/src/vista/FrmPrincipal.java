@@ -37,8 +37,6 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	private JMenuItem mniContrato;
 	private JMenuItem mniParticipante;
 	private JDesktopPane escritorio;
-	private JMenuItem mniContratoPendientes;
-	private JMenuItem mniTipoContratos;
 	private JMenu mnNewMenu;
 	private JMenuItem mniConsultaParticipante;
 	private JMenuItem mniConsultaContratos;
@@ -111,12 +109,6 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mniParticipante.addActionListener(this);
 		mniParticipante.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/diversity.png")));
 		mnMantenimiento.add(mniParticipante);
-		
-		mniContratoPendientes = new JMenuItem("Contratos Pendientes");
-		mnMantenimiento.add(mniContratoPendientes);
-		
-		mniTipoContratos = new JMenuItem("Tipo de Contratos");
-		mnMantenimiento.add(mniTipoContratos);
 		
 		mnNewMenu = new JMenu("Consulta");
 		mnNewMenu.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/query.png")));

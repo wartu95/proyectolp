@@ -67,7 +67,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private JTextField txtDescripcion;
 	private GestionTipoContratoDAO tipContDao;
 	private GestionContratoDAO contDao;
-	private GestionParticipanteDAO partDao ;
+	private GestionParticipanteDAO partDao;
 
 	// instanciar un objeto para modelar la tabla
 	DefaultTableModel model = new DefaultTableModel();
@@ -91,7 +91,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private JButton btnBuscarParticipante;
 	private JLabel lblApellido;
 	public static JTextField txtApellido;
-	private JButton btnVisado;
 	private JPanel panel;
 	private JTable tableVisado;
 	private DefaultTableModel modelVisado;
@@ -133,13 +132,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		btnRegistrar = new JButton("");
 		btnRegistrar.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/Registro-Contrato.png")));
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(166, 303, 49, 41);
+		btnRegistrar.setBounds(10, 303, 49, 41);
 		contentPane.add(btnRegistrar);
 
 		btnModificar = new JButton("");
 		btnModificar.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/Modificar-contrato.png")));
 		btnModificar.addActionListener(this);
-		btnModificar.setBounds(225, 303, 41, 41);
+		btnModificar.setBounds(69, 303, 41, 41);
 		contentPane.add(btnModificar);
 
 		panel2 = new JPanel();
@@ -223,19 +222,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/delete-contrato.png")));
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(276, 303, 41, 41);
+		btnNewButton.setBounds(120, 303, 41, 41);
 		contentPane.add(btnNewButton);
 
 		btnNewButton_1 = new JButton("");
 		btnNewButton_1.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/new-document.png")));
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(327, 303, 41, 41);
+		btnNewButton_1.setBounds(171, 303, 41, 41);
 		contentPane.add(btnNewButton_1);
-
-		btnVisado = new JButton("VISAR DOC");
-		btnVisado.addActionListener(this);
-		btnVisado.setBounds(10, 323, 104, 20);
-		contentPane.add(btnVisado);
 
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "PARTICIPANTE", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -288,15 +282,14 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		lblDni = new JLabel("DNI  :");
 		lblDni.setBounds(25, 117, 113, 15);
 		panel.add(lblDni);
-		
+
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(415, 193, 283, 120);
 		contentPane.add(scrollPane_1);
 
 		tableVisado = new JTable();
 		scrollPane_1.setViewportView(tableVisado);
-		
-		
+
 		modelVisado = new DefaultTableModel();
 		modelVisado.addColumn("ID VISADO");
 		modelVisado.addColumn("ID USUARIO");
@@ -349,9 +342,6 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnVisado) {
-			actionPerformedBtnVisado(e);
-		}
 		if (e.getSource() == btnNewButton) {
 			actionPerformedBtnNewButton(e);
 		}
@@ -401,7 +391,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 			cont.setIdParticipante(Partic);
 			cont.setFecha(fecha);
 			cont.setDescripcion(descrip);
-			cont.setResulucion(resolu);
+			cont.setResolucion(resolu);
 			cont.setEstado(estado);
 
 			// llamar al proceso de registro
@@ -502,7 +492,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		for (Contrato p : list) {
 
 			Object[] cont = { p.getIdContrato(), p.getTiPoContrato(), p.getIdParticipante(), p.getFecha(),
-					p.getDescripcion(), p.getResulucion(), p.getEstado()
+					p.getDescripcion(), p.getResolucion(), p.getEstado()
 
 			};
 
@@ -534,7 +524,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 			cont.setIdParticipante(Partic);
 			cont.setFecha(fecha);
 			cont.setDescripcion(descrip);
-			cont.setResulucion(resolu);
+			cont.setResolucion(resolu);
 			cont.setEstado(estado);
 			cont.setIdContrato(idCont);
 
@@ -644,34 +634,4 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		}
 	}
 
-	protected void actionPerformedBtnVisado(ActionEvent e) {
-
-		registrarVisado();
-
-	}
-	
-	private void registrarVisado() {
-		
-		List<Contrato> lista = gCont.listarContrato();
-		boolean bandera = false;
-		
-		for (Contrato obj: lista) {
-			if (obj.getIdContrato().equals(txtIDcontrato.getText())) {
-				bandera = true;
-			}
-		}
-		
-		if (bandera == true) {
-			FrmPrincipal principal = new FrmPrincipal();
-
-			FrmDetContrato ventana = new FrmDetContrato(principal, true);
-
-			ventana.setLocationRelativeTo(this);
-			ventana.setVisible(true);
-			ventana.toFront();
-		}else {
-			Tool.mensajeError(this, "NO SE PUEDO VISAR UN CONTRATO QUE NO SE ENCUENTRE REGISTRADO");
-		}
-		
-	}
 }

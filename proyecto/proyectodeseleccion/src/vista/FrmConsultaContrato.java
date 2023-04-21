@@ -33,7 +33,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 	private DefaultTableModel model;
 	
 	//INSTANCIAR OBJETOS
-	GestionContratoDAO conDao = new GestionContratoDAO();
+	GestionContratoDAO gCont = new GestionContratoDAO();
 	Contrato objCon = new Contrato();
 	private JLabel lblEstadoContrato;
 	private JComboBox <Object>cboEstadoContrato;
@@ -139,7 +139,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 	public void cargarTablaParticipante() {
 		
 		model.setRowCount(0);
-		List<Contrato> lista=conDao.listarContrato();
+		List<Contrato> lista= gCont.listarContrato();
 		
 		for(Contrato obj:lista ) {
 			
@@ -149,7 +149,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 					obj.getTiPoContrato(),
 					obj.getDescripcion(),
 					obj.getFecha(),
-					obj.getResulucion(),
+					obj.getResolucion(),
 					obj.getEstado()
 			};
 			model.addRow(x);
@@ -161,7 +161,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 		String estado= cboEstadoContrato.getSelectedItem().toString();
 		
 		model.setRowCount(0);
-		List<Contrato> lista=conDao.listarContrato();
+		List<Contrato> lista=gCont.listarContrato();
 		
 		for(Contrato obj:lista ) {
 			
@@ -173,7 +173,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 							obj.getTiPoContrato(),
 							obj.getDescripcion(),
 							obj.getFecha(),
-							obj.getResulucion(),
+							obj.getResolucion(),
 							obj.getEstado()
 					};
 					model.addRow(x);
@@ -187,7 +187,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 	
 	public void cargarEstadoContrato() {
 		
-		List<Contrato> lista=conDao.listarContrato();
+		List<Contrato> lista=gCont.listarContrato();
 		
 		cboEstadoContrato.addItem("SELECCIONAR ESTADO");
 		cboEstadoContrato.setSelectedIndex(0);
