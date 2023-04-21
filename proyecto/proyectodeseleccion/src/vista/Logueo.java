@@ -11,11 +11,14 @@ import mantenimiento.GestionUsuarioDAO;
 import utils.HiloTiempo;
 
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Frame;
 
 import javax.swing.JTextField;
@@ -50,7 +53,9 @@ public class Logueo extends JFrame implements WindowListener {
 	private JLabel lblMensaje;
 	private JLabel lblTiempo;
 	private JLabel lblFondo;
+	private JLabel lblNewLabel_1;
 
+	
 
 	/**
 	 * Launch the application.
@@ -79,29 +84,42 @@ public class Logueo extends JFrame implements WindowListener {
 			e.printStackTrace();
 		}
 		addWindowListener(this);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Logueo.class.getResource("/img/avatar.png")));
-		setTitle("CIBERFARMA - Acceso al Sistema");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Logueo.class.getResource("/img/logo-smv.png")));
+		setTitle("Superintendencia de Mercado  Valores");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 480, 310);
+		setBounds(100, 100, 414, 736);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		try {
+			Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("font/DMSans-Regular.ttf")).deriveFont(60f);
+			
+			JLabel lblUsuario = new JLabel("Usuario :");
+			lblUsuario.setForeground(Color.BLACK);
+			lblUsuario.setFont(new Font("Dialog", Font.PLAIN, 20));
+			lblUsuario.setBounds(60, 397, 96, 29);
+			contentPane.add(lblUsuario);
+			
+			
+			JLabel lblClave = new JLabel("Contrase\u00F1a:");
+			lblClave.setForeground(Color.BLACK);
+			lblClave.setFont(new Font("Dialog", Font.PLAIN, 20));
+			lblClave.setBounds(60, 486, 164, 29);
+			contentPane.add(lblClave);
+			
+		} catch (FontFormatException | IOException e1) {
+			
+			e1.printStackTrace();
+		}
 
-		JLabel lblUsuario = new JLabel("Usuario :");
-		lblUsuario.setForeground(Color.BLACK);
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblUsuario.setBounds(27, 79, 96, 20);
-		contentPane.add(lblUsuario);
+		
 
-		JLabel lblClave = new JLabel("Contrase\u00F1a:");
-		lblClave.setForeground(Color.BLACK);
-		lblClave.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblClave.setBounds(27, 126, 96, 20);
-		contentPane.add(lblClave);
+		
 
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(133, 80, 103, 22);
+		txtUsuario.setBounds(60, 424, 267, 38);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
@@ -117,43 +135,54 @@ public class Logueo extends JFrame implements WindowListener {
 				keyReleasedTxtClave(e);
 			}
 		});
-		txtClave.setBounds(133, 128, 103, 20);
+		txtClave.setBounds(60, 513, 267, 38);
 		contentPane.add(txtClave);
 
 		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAceptar.setBackground(new Color(0, 0, 0));
+		btnAceptar.setForeground(new Color(255, 255, 255));
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				actionPerformedBtnAceptar(e);
 			}
 		});
-		btnAceptar.setBounds(44, 188, 89, 23);
+		btnAceptar.setBounds(90, 578, 193, 29);
 		contentPane.add(btnAceptar);
 		btnAceptar.setEnabled(false);
 
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setBackground(new Color(0, 0, 0));
+		btnSalir.setForeground(new Color(255, 255, 255));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnSalir.setBounds(183, 188, 89, 23);
+		btnSalir.setBounds(90, 617, 193, 31);
 		contentPane.add(btnSalir);
 		
 		lblMensaje = new JLabel("Esta ventana de cerrar\u00E1 en");
 		lblMensaje.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblMensaje.setForeground(Color.BLACK);
-		lblMensaje.setBounds(10, 11, 183, 14);
+		lblMensaje.setBounds(153, 675, 174, 14);
 		contentPane.add(lblMensaje);
 		
-		lblTiempo = new JLabel("10 s");
+		lblTiempo = new JLabel("60 s");
 		lblTiempo.setForeground(Color.RED);
 		lblTiempo.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTiempo.setBounds(183, 11, 69, 14);
+		lblTiempo.setBounds(348, 675, 42, 14);
 		contentPane.add(lblTiempo);
 		
-		lblFondo = new JLabel("New label");
-		lblFondo.setIcon(new ImageIcon(Logueo.class.getResource("/img/Screenshot_1.png")));
-		lblFondo.setBounds(0, 0, 464, 271);
+		lblNewLabel_1 = new JLabel("Login");
+		lblNewLabel_1.setFont(new Font("Lucida Bright", Font.BOLD, 36));
+		lblNewLabel_1.setBounds(149, 331, 120, 56);
+		contentPane.add(lblNewLabel_1);
+		
+		
+		lblFondo = new JLabel("");
+		lblFondo.setIcon(new ImageIcon(Logueo.class.getResource("/img/Login Page Wireframe Mobile UI Prototype.png")));
+		lblFondo.setBounds(0, 0, 414, 842);
 		contentPane.add(lblFondo);
 		
 		// metodo que se encarga de inciar con el proceso de conteo

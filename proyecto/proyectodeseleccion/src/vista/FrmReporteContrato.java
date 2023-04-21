@@ -34,11 +34,11 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 	private JPanel panelBusquedaFecha;
 	private JDateChooser dcFecha;
 	private JLabel lblNewLabel;
-	private JPanel panelBusquedaxtipocont;
+	private JPanel panelBusquedad;
 
 	GestionContratoDAO gCont = new GestionContratoDAO();
+	private JButton btnLimpiar;
 	private JButton btnNewButton;
-	private JButton btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -98,34 +98,34 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 		lblNewLabel.setBounds(31, 27, 86, 19);
 		panelBusquedaFecha.add(lblNewLabel);
 
-		panelBusquedaxtipocont = new JPanel();
-		panelBusquedaxtipocont.setBorder(new TitledBorder(
+		panelBusquedad = new JPanel();
+		panelBusquedad.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				" Reporte General", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelBusquedaxtipocont.setBounds(335, 26, 188, 122);
-		getContentPane().add(panelBusquedaxtipocont);
-		panelBusquedaxtipocont.setLayout(null);
-
+		panelBusquedad.setBounds(335, 26, 188, 122);
+		getContentPane().add(panelBusquedad);
+		panelBusquedad.setLayout(null);
+		
+		btnLimpiar = new JButton("");
+		btnLimpiar.addActionListener(this);
+		btnLimpiar.setIcon(new ImageIcon(FrmReporteContrato.class.getResource("/img/delete (2).png")));
+		btnLimpiar.setBounds(102, 41, 62, 48);
+		panelBusquedad.add(btnLimpiar);
+		
 		btnNewButton = new JButton("");
 		btnNewButton.addActionListener(this);
 		btnNewButton.setIcon(new ImageIcon(FrmReporteContrato.class.getResource("/img/Reporte-icon.png")));
-		btnNewButton.setBounds(10, 41, 73, 48);
-		panelBusquedaxtipocont.add(btnNewButton);
-		
-		btnNewButton_1 = new JButton("");
-		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setIcon(new ImageIcon(FrmReporteContrato.class.getResource("/img/delete (2).png")));
-		btnNewButton_1.setBounds(100, 41, 66, 48);
-		panelBusquedaxtipocont.add(btnNewButton_1);
+		btnNewButton.setBounds(21, 41, 62, 48);
+		panelBusquedad.add(btnNewButton);
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton_1) {
-			actionPerformedBtnNewButton_1(e);
-		}
 		if (e.getSource() == btnNewButton) {
 			actionPerformedBtnNewButton(e);
+		}
+		if (e.getSource() == btnLimpiar) {
+			actionPerformedBtnLimpiar(e);
 		}
 		if (e.getSource() == btnReporte) {
 			actionPerformedBtnReporte(e);
@@ -154,10 +154,7 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 					JasperPrint jaspPrint = ModelReporte.generar(fileName, data, null);
 
 					JRViewer jvi = new JRViewer(jaspPrint);
-					
-					jvi.setZoomRatio(1.0f);
-			        jvi.setFitWidthZoomRatio();
-					
+					jvi.setPreferredSize(panelReporte.getSize());
 
 					panelReporte.removeAll();
 					panelReporte.add(jvi);
@@ -176,29 +173,7 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return sdf.format(dcFecha.getDate());
 	}
-
-	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		ArrayList<Contrato> lisCont = gCont.listarContrato();
-
-		try {
-			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(lisCont);
-
-			String fileName = "Report_Contrato.jasper";
-
-			JasperPrint jaspPrint = ModelReporte.generar(fileName, data, null);
-
-			JRViewer jvi = new JRViewer(jaspPrint);
-
-			panelReporte.removeAll();
-			panelReporte.add(jvi);
-			panelReporte.repaint();
-			panelReporte.revalidate();
-
-		} catch (Exception e1) {
-			System.out.println("Error al generar reporte " + e1.getMessage());
-		}
-	}
-	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+	protected void actionPerformedBtnLimpiar(ActionEvent e) {
 		ArrayList<Contrato> lisCont = gCont.listarContrato();
 
 		try {
@@ -218,5 +193,27 @@ public class FrmReporteContrato extends JInternalFrame implements ActionListener
 		} catch (Exception e1) {
 			System.out.println("Error al generar reporte " + e1.getMessage());
 		}
-	    }
+	}
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		ArrayList<Contrato> lisCont = gCont.listarContrato();
+
+		try {
+			JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(lisCont);
+
+			String fileName = "Report_Contrato.jasper";
+
+			JasperPrint jaspPrint = ModelReporte.generar(fileName, data, null);
+
+			JRViewer jvi = new JRViewer(jaspPrint);
+			jvi.setPreferredSize(panelReporte.getSize());
+
+			panelReporte.removeAll();
+			panelReporte.add(jvi);
+			panelReporte.repaint();
+			panelReporte.revalidate();
+
+		} catch (Exception e1) {
+			System.out.println("Error al generar reporte " + e1.getMessage());
+		}
+	}
 }
