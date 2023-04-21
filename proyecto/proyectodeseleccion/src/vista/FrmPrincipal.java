@@ -43,7 +43,7 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	private JMenuItem mniConsultaParticipante;
 	private JMenuItem mniConsultaContratos;
 	private JMenuItem mntmReporteContratos;
-	private JMenuItem mntmNewMenuItem_4;
+	private JMenuItem mntmQuienesSomos;
 	private JLabel lblReloj;
 	private JLabel lblFondo;
 	private JMenuItem mntmReporteParticipantes;
@@ -152,8 +152,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnAyuda.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/respect.png")));
 		menuBar.add(mnAyuda);
 		
-		mntmNewMenuItem_4 = new JMenuItem("¿Quienes somos?");
-		mnAyuda.add(mntmNewMenuItem_4);
+		mntmQuienesSomos = new JMenuItem("¿Quienes somos?");
+		mntmQuienesSomos.addActionListener(this);
+		mnAyuda.add(mntmQuienesSomos);
 		
 		escritorio = new JDesktopPane();
 		escritorio.setBackground(new Color(192, 192, 192));
@@ -176,9 +177,13 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+                      
+		if (e.getSource() == mntmQuienesSomos) {
+			actionPerformedQuienesSomos(e);
+             
 		if (e.getSource() == mntmReporteUsuario) {
 			actionPerformedMntmReporteUsuario(e);
-		}
+
 		if (e.getSource() == mniConsultaContratos) {
 			actionPerformedMniConsultaContratos(e);
 		}
@@ -196,6 +201,8 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		}
 		if (e.getSource() == mniContrato) {
 			actionPerformedMniContrato(e);
+		}
+		}
 		}
 		// TODO Auto-generated method stub
 		
@@ -259,6 +266,14 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		usuario.setVisible(true);
 		escritorio.add(usuario).setLocation(0,0);
 		usuario.toFront();
+	}
+
+
+	protected void actionPerformedQuienesSomos(ActionEvent e) {
+		FrmAyuda ayuda = new FrmAyuda();
+		ayuda.setVisible(true);
+		escritorio.add(ayuda).setLocation(0,0);
+		ayuda.toFront();
 	}
 	protected void actionPerformedMntmReporteUsuario(ActionEvent e) {
 		FrmReporteUsuario RepUs = new FrmReporteUsuario();
