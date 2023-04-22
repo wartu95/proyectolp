@@ -14,13 +14,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Dialog.ModalExclusionType;
+import java.awt.Dimension;
+
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.metal.MetalProgressBarUI;
 import javax.swing.event.ChangeEvent;
 
 public class FrmPreLoader  extends JFrame implements ChangeListener {
@@ -28,6 +34,8 @@ public class FrmPreLoader  extends JFrame implements ChangeListener {
 	private JPanel contentPane;
 	public static JProgressBar prbCarga_1;
 	private JLabel lblSpinner;
+	private JLabel lblsmv;
+	private JLabel lbllogo;
 	private JLabel lblNewLabel;
 
 	/**
@@ -58,35 +66,55 @@ public class FrmPreLoader  extends JFrame implements ChangeListener {
 		setTitle("Cargando...");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 432, 323);
+		setBounds(100, 100, 394, 380);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		lblsmv = new JLabel("Superintendencia del Mercado de Valores");
+		lblsmv.setForeground(Color.BLUE);
+		lblsmv.setFont(new Font("Lucida Bright", Font.PLAIN, 10));
+		lblsmv.setBounds(89, 312, 209, 31);
+		contentPane.add(lblsmv);
+		
 		prbCarga_1 = new JProgressBar();
+		//prbCarga_1.setUI(new MetalProgressBarUI());
+		prbCarga_1.setForeground(UIManager.getColor("ProgressBar.selectionBackground"));
 		prbCarga_1.addChangeListener(this);
 		prbCarga_1.setStringPainted(true);
-		prbCarga_1.setBounds(0, 24, 416, 19);
-		contentPane.add(prbCarga_1);
+		prbCarga_1.setBounds(3, 186, 379, 26);
+		
+		
+		
+		
+		contentPane.add(prbCarga_1);		
 
-		JLabel lblMensajes = new JLabel("El sistema est\u00E1 cargando, espere unos segundos");
+		JLabel lblMensajes = new JLabel("El sistema de la smv est\u00E1 cargando, espere unos segundos");
 		lblMensajes.setForeground(new Color(0, 0, 0));
-		lblMensajes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMensajes.setFont(new Font("Trebuchet MS", Font.BOLD, 10));
 		lblMensajes.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMensajes.setBounds(53, 11, 313, 14);
+		lblMensajes.setBounds(3, 214, 295, 14);
 		contentPane.add(lblMensajes);
 
-		lblSpinner = new JLabel("");
-		lblSpinner.setIcon(new ImageIcon(FrmPreLoader.class.getResource("/img/Loading-2.gif")));
-		lblSpinner.setBounds(53, 54, 313, 229);
-		contentPane.add(lblSpinner);
+		ImageIcon logo = new ImageIcon(FrmPreLoader.class.getResource("/img/logo 90 x 90.png"));
+		lbllogo = new JLabel(logo);
+		lbllogo.setBounds(3, 266, 76, 77);
+		contentPane.add(lbllogo);
 		
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(FrmPreLoader.class.getResource("/img/WhatsApp Image 2023-04-21 at 12.36.57 AM.jpeg")));
-		lblNewLabel.setBounds(0, 0, 431, 284);
+		ImageIcon loading = new ImageIcon(FrmPreLoader.class.getResource("/img/logo3 180-180.gif"));
+		lblNewLabel = new JLabel(loading);
+		lblNewLabel.setBounds(104, 0, 180, 180);
 		contentPane.add(lblNewLabel);
+
+		ImageIcon gif = new ImageIcon(FrmPreLoader.class.getResource("/img/fondo blanco.png"));
+
+		lblSpinner = new JLabel(gif);
+		lblSpinner.setBounds(0, 0, gif.getIconWidth(), gif.getIconHeight());
+		contentPane.add(lblSpinner);
+
+		
 		// Metodo para iniciar el conteo en la barra de progreso
 		iniciarBarraProgreso();
 
