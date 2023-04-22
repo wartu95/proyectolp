@@ -3,6 +3,7 @@ package mantenimiento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
@@ -365,6 +366,44 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 			}
 		}
 		return lista;
+	}
+
+	@Override
+	public String IdUsuario() {
+		String cod = "U0001";
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		try {
+
+		con = MySQLConexion8.getConexion();
+
+		String sql = "select substring(max(id_usuario),3) from tb_usuario;";
+		pstm = con.prepareStatement(sql);
+		res = pstm.executeQuery();
+
+		if (res.next()) {
+				DecimalFormat df = new DecimalFormat("0000");
+				cod = "U" + df.format(Integer.parseInt(res.getString(1)) + 1);
+		}
+
+		} catch (Exception e) {
+			System.out.println("Error al generar el id de Usuario" + e.getMessage());
+		} finally {
+			try {
+				if (pstm != null)
+					pstm.close();
+				if (con != null)
+					con.close();
+				if (res != null)
+					res.close();
+
+			} catch (SQLException e2) {
+				System.out.println(">>>>>> Error al cerrar la base de datos" + e2.getMessage());
+			}
+
+		}
+		return cod;
 	}
 
 }

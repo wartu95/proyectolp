@@ -123,7 +123,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 		setTitle("Mantenimiento de Contrato");
 
-		setBounds(100, 100, 745, 554);
+		setBounds(100, 100, 721, 554);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -178,7 +178,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		panel2.add(lblEstado);
 
 		txtEstado = new JTextField();
-		txtEstado.setBounds(281, 46, 86, 20);
+		txtEstado.setBounds(281, 46, 104, 20);
 		panel2.add(txtEstado);
 		txtEstado.setColumns(10);
 
@@ -190,13 +190,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setBorder(new EmptyBorder(4,4,4,4));
 		JScrollPane scrollPaneDescripcion = new JScrollPane();
-		scrollPaneDescripcion.setBounds(10, 149, 270, 100);
+		scrollPaneDescripcion.setBounds(10, 149, 375, 100);
 		scrollPaneDescripcion.setViewportView(txtDescripcion);
 		panel2.add(scrollPaneDescripcion);
 
 		txtResolucion = new JTextField();
 		txtResolucion.setColumns(10);
-		txtResolucion.setBounds(217, 94, 109, 45);
+		txtResolucion.setBounds(217, 94, 168, 34);
 		panel2.add(txtResolucion);
 
 		lblResolucin = new JLabel("Resoluci\u00F3n  :");
@@ -225,13 +225,13 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 		btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/delete-contrato.png")));
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(561, 216, 41, 41);
+		btnNewButton.setBounds(589, 216, 41, 41);
 		contentPane.add(btnNewButton);
 
 		btnNewButton_1 = new JButton("");
 		btnNewButton_1.setIcon(new ImageIcon(FrmContrato.class.getResource("/img/new-document.png")));
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(626, 216, 41, 41);
+		btnNewButton_1.setBounds(640, 216, 41, 41);
 		contentPane.add(btnNewButton_1);
 
 		panel = new JPanel();
@@ -304,9 +304,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	private void limpiar() {
 		dcFecha.setDate(null);
 		txtDescripcion.setText("");
-		txtEstado.setText("EN REGISTRO");
-		txtIDcontrato.setEditable(false);
-		txtIDcontrato.setText(obtenercodContrato());
+		txtIDcontrato.setText("");
 		txtApellido.setText("");
 		txtNombre.setText("");
 		txtParticipante.setText("");
@@ -317,7 +315,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	}
 
 	private String obtenercodContrato() {
-		// TODO Auto-generated method stub
+		
 		return gCont.codContrato();
 	}
 
@@ -356,8 +354,10 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 	}
 
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
+		txtEstado.setText("Pendiente");
 		registrar();
 		cargarTabla();
+		limpiar();
 	}
 
 	private void registrar() {
@@ -530,6 +530,7 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 			} else {
 				Tool.mensajeExito(this, "Contrato Actualizado!");
 				cargarTabla();
+				limpiar();
 			}
 		}
 
@@ -542,6 +543,11 @@ public class FrmContrato extends JInternalFrame implements ActionListener, Mouse
 
 	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
 		limpiar();
+		txtEstado.enable(false);
+		txtIDcontrato.enable(false);
+		txtIDcontrato.setText(obtenercodContrato());
+		
+		
 	}
 
 	public void mouseClicked(MouseEvent e) {

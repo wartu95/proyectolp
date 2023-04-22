@@ -33,7 +33,7 @@ public class HiloTiempo extends Thread {
 			}
 			//System.out.println(i);
 		}
-		ventana.dispose();
+		this.ventana.dispose();
 	}
 
 	

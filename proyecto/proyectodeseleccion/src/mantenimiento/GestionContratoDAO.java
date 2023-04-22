@@ -281,12 +281,12 @@ public class GestionContratoDAO implements ContratoInterfaceDAO {
 			res = pstm.executeQuery();
 
 			if (res.next()) {
-				DecimalFormat df = new DecimalFormat("0000");
-				cod = "C" + df.format(Integer.parseInt(res.getString(1)) + 1);
+			DecimalFormat df = new DecimalFormat("0000");
+			cod = "C" + df.format(Integer.parseInt(res.getString(1)) + 1);
 			}
 
 		} catch (Exception e) {
-			System.out.println("Error al generar el codigo de contrato" + e.getMessage());
+			System.out.println("Error al generar el cod de contrato" + e.getMessage());
 		} finally {
 			try {
 				if (pstm != null)

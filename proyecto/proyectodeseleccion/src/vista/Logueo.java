@@ -185,7 +185,6 @@ public class Logueo extends JFrame implements WindowListener {
 		lblFondo.setBounds(0, 0, 414, 842);
 		contentPane.add(lblFondo);
 		
-		// metodo que se encarga de inciar con el proceso de conteo
 		// iniciarConteo();
 	}
 

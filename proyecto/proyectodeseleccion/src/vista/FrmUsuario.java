@@ -57,7 +57,6 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 
 	private JLabel lblCargo;
 	private JComboBox<Object> cboCargo;
-	private JButton btnBuscarCargo;
 	private JPasswordField txtClave;
 	private JButton btnNuevo;
 	private JButton btnActualizar;
@@ -130,19 +129,13 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		lblIdUsuario.setBounds(10, 6, 73, 14);
 		panel.add(lblIdUsuario);
 
-		btnBuscarCargo = new JButton("");
-		btnBuscarCargo.setBounds(98, 11, 47, 35);
-		panel.add(btnBuscarCargo);
-		btnBuscarCargo.addActionListener(this);
-		btnBuscarCargo.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/busca.png")));
-
 		txtNombre = new JTextField();
-		txtNombre.setBounds(155, 21, 135, 20);
+		txtNombre.setBounds(134, 21, 156, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		lblNombre = new JLabel("Nombres");
-		lblNombre.setBounds(158, 6, 73, 14);
+		lblNombre.setBounds(134, 6, 73, 14);
 		panel.add(lblNombre);
 
 		lblContrasena = new JLabel("Contrase\u00F1a");
@@ -214,15 +207,17 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		getContentPane().add(lblNewLabel);
 		btnRegistrar.addActionListener(this);
 
-		// Mostrar datos en la tabla
 		cargarDataUsuario();
-		// mostrar datos de baja de la tabla
-		mostrarData(0);
-		// mostrar datos del CBO
 		cargarTipoUsuario();
 		cargarPerfil();
+		
 
 	}
+    private String obteneridUsuario() {
+		
+		return gUser.IdUsuario();
+	}
+	
 
 	private void cargarTipoUsuario() {
 
@@ -239,7 +234,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		cboPerfil.setSelectedIndex(-1);
 		cboPerfil.addItem("Seleccione un perfil");
 		for (Perfil obj : new GestionPerfilDAO().listarPerfil()) {
-			cboPerfil.addItem(obj.getDescipPerfil());
+		cboPerfil.addItem(obj.getDescipPerfil());
 		}
 
 	}
@@ -290,20 +285,16 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 				}
 			}
 
-			// crear un arreglo
-			Object fila[] = { u.getUsuario(), u.getClave(), u.getNombre(), u.getApellido(), cargo, perfil
-
-			};
-			// a�adir la fila a la tabla
+			
+			
+			Object fila[] = { u.getUsuario(), u.getClave(), u.getNombre(), u.getApellido(), cargo, perfil};
+			
 			model.addRow(fila);
 		}
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBuscarCargo) {
-			actionPerformedBtnBuscarCargo(e);
-		}
 		if (e.getSource() == btnEliminar) {
 			actionPerformedBtnEliminar(e);
 		}
@@ -468,7 +459,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		} else if (txtIdUsuario.getText().trim().matches(Validaciones.USER_USUARIO)) {
 			user = txtIdUsuario.getText().trim();
 		} else {
-			mensajeError("Error en el formato.Ej U001 � u001");
+			mensajeError("Error en el formato.Ej U0001 ");
 			txtIdUsuario.setText("");
 			txtIdUsuario.requestFocus();
 
@@ -488,6 +479,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 
 	protected void actionPerformedBtnNuevo(ActionEvent e) {
 		nuevoUsuario();
+		txtIdUsuario.setText(obteneridUsuario());
 	}
 
 	private void nuevoUsuario() {
@@ -495,6 +487,9 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		txtClave.setText("");
 		txtNombre.setText("");
 		txtApellido.setText("");
+		cboCargo.setSelectedIndex(0);
+		cboPerfil.setSelectedIndex(0);
+		
 
 	}
 
@@ -534,6 +529,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 			} else {
 				mensajeExito("Actualizacion Exitiso");
 				cargarDataUsuario();
+				nuevoUsuario();
 			}
 		}
 
@@ -597,10 +593,6 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		int posFila = tbUsuarios.getSelectedRow();
 		// mostrar data
 		mostrarData(posFila);
-	}
-
-	protected void actionPerformedBtnBuscarCargo(ActionEvent e) {
-		buscarDatosUsuario();
 	}
 
 	private void buscarDatosUsuario() {

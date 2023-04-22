@@ -20,8 +20,8 @@ public interface UsuarioInterfaceDAO {
 	ArrayList<Usuario> listarUsuariosxCargo(int tipocargo);	
 	//validar el accesp al sistema
 	public Usuario ValidarAcceso(String user, String clave);
-	
+	//lista por perfil
 	public ArrayList<Usuario> listarUsuariosxPerfil(int perfil);
-	
-	//
+	////cod de contrato
+	public String IdUsuario();
 }
