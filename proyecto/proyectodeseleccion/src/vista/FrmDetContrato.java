@@ -8,9 +8,11 @@ import javax.swing.border.EmptyBorder;
 
 import clases.Contrato;
 import clases.DetalleContrato;
+import clases.TipoUsuario;
 import clases.Usuario;
 import mantenimiento.GestionContratoDAO;
 import mantenimiento.GestionDetalleContratoDAO;
+import mantenimiento.GestionTipoUsuarioDAO;
 import mantenimiento.GestionUsuarioDAO;
 import utils.Tool;
 
@@ -36,6 +38,7 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 	
 	private GestionContratoDAO gCon =new  GestionContratoDAO();
 	private GestionUsuarioDAO gUsu = new GestionUsuarioDAO();
+	private GestionTipoUsuarioDAO gtipUsu = new GestionTipoUsuarioDAO();
 	private JTextField txtItemVisado;
 	private JLabel lblItemVisado;
 
@@ -250,9 +253,9 @@ public class FrmDetContrato extends JDialog implements ActionListener {
 		cboIdCargo.addItem("SELECCIONE USUARIO");
 		cboIdCargo.setSelectedIndex(0);
 		
-		for (Usuario obj: gUsu.listarUsuarios() ) {
+		for (TipoUsuario obj: gtipUsu.listarTipoUsuarios() ) {
 			
-			cboIdCargo.addItem(obj.getUsuario());
+			cboIdCargo.addItem(obj.getDescripCargo());
 			
 		}
 		

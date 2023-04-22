@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.metal.MetalProgressBarUI;
 import javax.swing.event.ChangeEvent;
 
 public class FrmPreLoader  extends JFrame implements ChangeListener {
