@@ -3,6 +3,7 @@ package mantenimiento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
@@ -27,7 +28,7 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 
 			con = MySQLConexion8.getConexion();
 
-			String sql = "insert into tb_usuario values (?,?,?,?,?,null);";
+			String sql = "insert into tb_usuario values (?,?,?,?,?,?);";
 
 			pstm = con.prepareStatement(sql);
 
@@ -36,6 +37,7 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 			pstm.setString(3, u.getNombre());
 			pstm.setString(4, u.getApellido());
 			pstm.setInt(5, u.getCargo());
+			pstm.setInt(6,u.getPerfil());
 			
 
 			// paso 5:ejecutar la instruccion SQL
@@ -143,15 +145,15 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 			// paso 1 --> conexion a la base de datos
 			con = MySQLConexion8.getConexion();
 			// paso 2 --->establecer la instruccion SQL
-			String sql = "update tb_usuario set contraseÃ±a = ?, nombre = ?, apelido = ? where id_usuario = ? ";
+			String sql = "update tb_usuario set contraseña  = ?, nombre = ?, apelido = ? where id_usuario = ? ";
 			// paso 3 --> enviar la instruccion al objeto pstm --> para obtener los comandos
 			// SQL
 			// SQL
 			pstm = con.prepareStatement(sql);
 			// paso 4 --> obtener los parametro e
-			pstm.setString(1, u.getNombre());
-			pstm.setString(2, u.getApellido());
-			pstm.setString(3, u.getClave());
+			pstm.setString(1, u.getClave());
+			pstm.setString(2, u.getNombre());
+			pstm.setString(3, u.getApellido());
 			pstm.setString(4, u.getUsuario());
 			// paso 5 ---> ejecutar la instruccion SQL
 			res = pstm.executeUpdate();
@@ -261,6 +263,147 @@ public class GestionUsuarioDAO implements UsuarioInterfaceDAO {
 		}
 
 		return lista;
+	}
+
+	@Override
+	public ArrayList<Usuario> listarUsuariosxCargo(int tipocargo) {
+		ArrayList<Usuario> lista = new ArrayList<Usuario>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		Usuario user = null;
+		
+		try {
+			
+			con= MySQLConexion8.getConexion();
+			
+			String sql = "Select * from tb_usuario where id_cargo=?";
+			
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, tipocargo);
+			
+			res= pstm.executeQuery();
+			
+			while(res.next()) {
+				
+				    user = new Usuario();
+				 
+				    user.setUsuario(res.getString(1));
+					user.setClave(res.getString(2));
+					user.setNombre(res.getNString(3));
+					user.setApellido(res.getString(4));
+					user.setCargo(res.getInt(5));
+					user.setPerfil(res.getInt(6));
+					
+					lista.add(user);
+				 
+					
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en la instrucciï¿½n SQL - listar usuarios"+e.getMessage());
+		}finally {
+			try {
+				if(pstm != null)pstm.close();
+				if(res != null)res.close();
+				if(con != null)con.close();
+				
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar la base de datos"+e2.getMessage());
+			}
+		}
+		return lista;
+	}
+
+	@Override
+	public ArrayList<Usuario> listarUsuariosxPerfil(int perfil) {
+		// TODO Auto-generated method stub
+		ArrayList<Usuario> lista = new ArrayList<Usuario>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		Usuario user = null;
+		
+		try {
+			
+			con= MySQLConexion8.getConexion();
+			
+			String sql = "Select * from tb_usuario where id_perfil=?";
+			
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, perfil);
+			
+			res= pstm.executeQuery();
+			
+			while(res.next()) {
+				
+				    user = new Usuario();
+				 
+				    user.setUsuario(res.getString(1));
+					user.setClave(res.getString(2));
+					user.setNombre(res.getNString(3));
+					user.setApellido(res.getString(4));
+					user.setCargo(res.getInt(5));
+					user.setPerfil(res.getInt(6));
+					
+					lista.add(user);
+				 
+					
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en la instrucciï¿½n SQL - listar usuarios"+e.getMessage());
+		}finally {
+			try {
+				if(pstm != null)pstm.close();
+				if(res != null)res.close();
+				if(con != null)con.close();
+				
+			} catch (SQLException e2) {
+				System.out.println("Error al cerrar la base de datos"+e2.getMessage());
+			}
+		}
+		return lista;
+	}
+
+	@Override
+	public String IdUsuario() {
+		String cod = "U0001";
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		try {
+
+		con = MySQLConexion8.getConexion();
+
+		String sql = "select substring(max(id_usuario),3) from tb_usuario;";
+		pstm = con.prepareStatement(sql);
+		res = pstm.executeQuery();
+
+		if (res.next()) {
+				DecimalFormat df = new DecimalFormat("0000");
+				cod = "U" + df.format(Integer.parseInt(res.getString(1)) + 1);
+		}
+
+		} catch (Exception e) {
+			System.out.println("Error al generar el id de Usuario" + e.getMessage());
+		} finally {
+			try {
+				if (pstm != null)
+					pstm.close();
+				if (con != null)
+					con.close();
+				if (res != null)
+					res.close();
+
+			} catch (SQLException e2) {
+				System.out.println(">>>>>> Error al cerrar la base de datos" + e2.getMessage());
+			}
+
+		}
+		return cod;
 	}
 
 }

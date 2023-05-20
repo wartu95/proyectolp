@@ -71,7 +71,7 @@ public class FrmConsultaParticipante extends JInternalFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setFillsViewportHeight(true);
-		table.setBackground(Color.LIGHT_GRAY);
+		table.setBackground(new Color(192, 192, 192));
 		
 		model = new DefaultTableModel();
 		model.addColumn("ID PARTICIPANTE");

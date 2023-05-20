@@ -3,20 +3,26 @@ package vista;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSeparator;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JEditorPane;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
-public class FrmAyuda extends JFrame {
-
+	public class FrmAyuda extends JInternalFrame{
+		
 	private JPanel contentPane;
 	private JSeparator separator;
-	private JLabel lblPanel;
+	private JLabel  lblPanel;
 	private JLabel lblIntegrantes;
 	private JLabel lblIntegrantes1;
 	private JLabel lblIntegrantes3;
@@ -42,49 +48,52 @@ public class FrmAyuda extends JFrame {
 	 * Create the frame.
 	 */
 	public FrmAyuda() {
+		setClosable(true);
+		setEnabled(false);
+		setMaximizable(true);
+		setIconifiable(true);
 		setTitle("Ayuda");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 331);
+		setBounds(100, 100, 395, 331);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.scrollbar);
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		separator = new JSeparator();
-		separator.setBounds(10, 76, 414, 205);
+		separator.setBounds(58, 85, 266, 205);
 		contentPane.add(separator);
 		
 		lblPanel = new JLabel("PROYECTO  LP1");
 		lblPanel.setBackground(SystemColor.menu);
 		lblPanel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPanel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPanel.setBounds(10, 23, 414, 42);
+		lblPanel.setBounds(0, 23, 379, 42);
 		contentPane.add(lblPanel);
 		
 		lblIntegrantes = new JLabel("KLINSMANN SANTILLAN VALLES");
 		lblIntegrantes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblIntegrantes.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntegrantes.setBounds(98, 107, 221, 22);
+		lblIntegrantes.setBounds(70, 107, 221, 22);
 		contentPane.add(lblIntegrantes);
 		
 		lblIntegrantes1 = new JLabel("JUAN CARLOS MORALES FARCEQUE");
 		lblIntegrantes1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblIntegrantes1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntegrantes1.setBounds(98, 173, 221, 22);
+		lblIntegrantes1.setBounds(81, 173, 221, 22);
 		contentPane.add(lblIntegrantes1);
 		
 		lblIntegrantes3 = new JLabel("WILLINGTON JUNIOR ARMAS TUESTA");
 		lblIntegrantes3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblIntegrantes3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntegrantes3.setBounds(81, 140, 266, 22);
+		lblIntegrantes3.setBounds(58, 140, 266, 22);
 		contentPane.add(lblIntegrantes3);
 		
 		lblIntegrantes2 = new JLabel("FRANCISCO SIXTO MARTINEZ  CcALLO");
 		lblIntegrantes2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblIntegrantes2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIntegrantes2.setBounds(53, 203, 321, 22);
+		lblIntegrantes2.setBounds(36, 206, 321, 22);
 		contentPane.add(lblIntegrantes2);
 	}
 }

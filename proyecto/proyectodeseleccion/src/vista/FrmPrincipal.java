@@ -25,7 +25,7 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 
-public class FrmPrincipal extends JFrame implements ActionListener   {
+public class FrmPrincipal  extends JFrame implements ActionListener   {
 	private JMenuBar menuBar;
 	private JMenu mnArchivo;
 	private JMenuItem mniUsuario;
@@ -37,17 +37,17 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	private JMenuItem mniContrato;
 	private JMenuItem mniParticipante;
 	private JDesktopPane escritorio;
-	private JMenuItem mniContratoPendientes;
-	private JMenuItem mniTipoContratos;
 	private JMenu mnNewMenu;
 	private JMenuItem mniConsultaParticipante;
 	private JMenuItem mniConsultaContratos;
 	private JMenuItem mntmReporteContratos;
-	private JMenuItem mntmQuienesSomos;
+	private JMenuItem mntmAyuda;
 	private JLabel lblReloj;
 	private JLabel lblFondo;
 	private JMenuItem mntmReporteParticipantes;
 	private JMenuItem mntmReporteUsuario;
+	private JMenuItem mniDocumento;
+	private JMenuItem mntmNewMenuItem;
 	
 
 	/**
@@ -71,13 +71,16 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 	 * Create the frame.
 	 */
 	public FrmPrincipal() {
+		
+		setTitle(Logueo.usuario.getNombre()+ " "+Logueo.usuario.getApellido() + " - " + Logueo.usuario.getPerfil());
+		
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
 		} catch (Exception e) {
 			e.printStackTrace ();
 		}
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmPrincipal.class.getResource("/img/logo-smv.png")));
-		setTitle("SMV");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 975, 690);
 		
@@ -95,6 +98,11 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		
 		mniSalir = new JMenuItem("Salir");
 		mniSalir.addActionListener(this);
+		
+		mntmNewMenuItem = new JMenuItem("Cambiar usuario");
+		mntmNewMenuItem.addActionListener(this);
+		mntmNewMenuItem.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/man - 24px.png")));
+		mnArchivo.add(mntmNewMenuItem);
 		mniSalir.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/logout.png")));
 		mnArchivo.add(mniSalir);
 		
@@ -112,12 +120,6 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mniParticipante.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/diversity.png")));
 		mnMantenimiento.add(mniParticipante);
 		
-		mniContratoPendientes = new JMenuItem("Contratos Pendientes");
-		mnMantenimiento.add(mniContratoPendientes);
-		
-		mniTipoContratos = new JMenuItem("Tipo de Contratos");
-		mnMantenimiento.add(mniTipoContratos);
-		
 		mnNewMenu = new JMenu("Consulta");
 		mnNewMenu.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/query.png")));
 		menuBar.add(mnNewMenu);
@@ -134,14 +136,20 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnTransaccion.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/transaction.png")));
 		menuBar.add(mnTransaccion);
 		
+		mniDocumento = new JMenuItem("Documento visado");
+		mniDocumento.addActionListener(this);
+		mnTransaccion.add(mniDocumento);
+		
 		mnReporte = new JMenu("Reporte");
 		mnReporte.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/report.png")));
 		menuBar.add(mnReporte);
 		
 		mntmReporteContratos = new JMenuItem("Reporte Contratos");
+		mntmReporteContratos.addActionListener(this);
 		mnReporte.add(mntmReporteContratos);
 		
 		mntmReporteParticipantes = new JMenuItem("Reporte Participantes");
+		mntmReporteParticipantes.addActionListener(this);
 		mnReporte.add(mntmReporteParticipantes);
 		
 		mntmReporteUsuario = new JMenuItem("Reporte Usuario");
@@ -152,9 +160,9 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		mnAyuda.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/respect.png")));
 		menuBar.add(mnAyuda);
 		
-		mntmQuienesSomos = new JMenuItem("¿Quienes somos?");
-		mntmQuienesSomos.addActionListener(this);
-		mnAyuda.add(mntmQuienesSomos);
+		mntmAyuda = new JMenuItem("\u00BFQuienes somos?");
+		mntmAyuda.addActionListener(this);
+		mnAyuda.add(mntmAyuda);
 		
 		escritorio = new JDesktopPane();
 		escritorio.setBackground(new Color(192, 192, 192));
@@ -162,28 +170,68 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		
 		lblReloj = new JLabel("hh:mm:ss");
 		lblReloj.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblReloj.setForeground(Color.WHITE);
+		lblReloj.setForeground(new Color(0, 0, 0));
 		lblReloj.setBackground(Color.WHITE);
 		lblReloj.setBounds(815, 23, 134, 27);
 		escritorio.add(lblReloj);
 		
 		lblFondo = new JLabel("New label");
-		lblFondo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/Screenshot_20.png")));
-		lblFondo.setBounds(0, 0, 975, 628);
+		lblFondo.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/img/smv-logo-mod.png")));
+		lblFondo.setBounds(0, 0, 961, 628);
 		escritorio.add(lblFondo);
 		//mostrar hora
 		cargarHora();
+		restriccion();
+	}
+
+	private void restriccion() {
+		// TODO Auto-generated method stub
+		int cod_perfil = Logueo.usuario.getPerfil();
+		switch(cod_perfil){
+		case 1: // USUARIO
+			
+			// reportes y consultas
+			mnMantenimiento.setVisible(false);
+			mniUsuario.setVisible(false);
+			
+			break;
+		case 2: // TECNICO
+			
+			//	mantenimiento y reportes y consultas
+			mniUsuario.setVisible(false);
+			mnTransaccion.setVisible(false);
+			
+			break;
+		case 3: // ADMINISTRADOR
+			
+			// TODO
+			
+			
+			break;
+		default:
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-                      
-		if (e.getSource() == mntmQuienesSomos) {
-			actionPerformedQuienesSomos(e);
-             
+		if (e.getSource() == mntmNewMenuItem) {
+			actionPerformedMntmNewMenuItem(e);
+		}
+		if (e.getSource() == mntmReporteParticipantes) {
+			actionPerformedMntmReporteParticipantes(e);
+		}
+		if (e.getSource() == mntmAyuda) {
+			actionPerformedMntmAyuda(e);
+		}
+		if (e.getSource() == mniDocumento) {
+			actionPerformedMniDocumento(e);
+		}
+		if (e.getSource() == mntmReporteContratos) {
+			actionPerformedMntmReporteContratos(e);
+		}
 		if (e.getSource() == mntmReporteUsuario) {
 			actionPerformedMntmReporteUsuario(e);
-
+		}
 		if (e.getSource() == mniConsultaContratos) {
 			actionPerformedMniConsultaContratos(e);
 		}
@@ -201,8 +249,6 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		}
 		if (e.getSource() == mniContrato) {
 			actionPerformedMniContrato(e);
-		}
-		}
 		}
 		// TODO Auto-generated method stub
 		
@@ -267,18 +313,48 @@ public class FrmPrincipal extends JFrame implements ActionListener   {
 		escritorio.add(usuario).setLocation(0,0);
 		usuario.toFront();
 	}
-
-
-	protected void actionPerformedQuienesSomos(ActionEvent e) {
-		FrmAyuda ayuda = new FrmAyuda();
-		ayuda.setVisible(true);
-		escritorio.add(ayuda).setLocation(0,0);
-		ayuda.toFront();
-	}
 	protected void actionPerformedMntmReporteUsuario(ActionEvent e) {
 		FrmReporteUsuario RepUs = new FrmReporteUsuario();
 		RepUs .setVisible(true);
 		escritorio.add(RepUs).setLocation(0,0);
 		RepUs .toFront();
 	}
+	protected void actionPerformedMntmReporteContratos(ActionEvent e) {
+		FrmReporteContrato RepCn = new FrmReporteContrato();
+		RepCn .setVisible(true);
+		escritorio.add(RepCn).setLocation(0,0);
+		RepCn .toFront();
+	}
+	
+	//TRANSICIONES
+	protected void actionPerformedMniDocumento(ActionEvent e) {
+		FrmContratoVisado visa = new FrmContratoVisado();
+		visa.setVisible(true);
+		escritorio.add(visa).setLocation(0,0);
+		visa.toFront();
+	}
+	protected void actionPerformedMntmAyuda(ActionEvent e) {
+		FrmAyuda ayuda = new FrmAyuda();
+		ayuda.setVisible(true);
+		escritorio.add(ayuda).setLocation(0,0);
+		ayuda.toFront();
+	}
+	protected void actionPerformedMntmReporteParticipantes(ActionEvent e) {
+		FrmReporteParticipante part = new FrmReporteParticipante();
+		part.setVisible(true);
+		escritorio.add(part).setLocation(0,0);
+		part.toFront();
+	}
+	protected void actionPerformedMntmNewMenuItem(ActionEvent e) {
+		Logueo log = new Logueo();
+		log.setVisible(true);
+		log.setLocationRelativeTo(this);
+		this.dispose();
+		
+	}
 }
+
+
+
+
+

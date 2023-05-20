@@ -89,7 +89,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		table.setFillsViewportHeight(true);
-		table.setBackground(Color.LIGHT_GRAY);
+		table.setBackground(new Color(192, 192, 192));
 		table.setModel(model);
 		
 		lblEstadoContrato = new JLabel("ESTADO DE CONTRATO");
@@ -149,7 +149,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 					obj.getTiPoContrato(),
 					obj.getDescripcion(),
 					obj.getFecha(),
-					obj.getResulucion(),
+					obj.getResolucion(),
 					obj.getEstado()
 			};
 			model.addRow(x);
@@ -173,7 +173,7 @@ public class FrmConsultaContrato extends JInternalFrame implements ActionListene
 							obj.getTiPoContrato(),
 							obj.getDescripcion(),
 							obj.getFecha(),
-							obj.getResulucion(),
+							obj.getResolucion(),
 							obj.getEstado()
 					};
 					model.addRow(x);

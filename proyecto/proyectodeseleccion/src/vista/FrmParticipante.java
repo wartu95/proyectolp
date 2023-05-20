@@ -237,7 +237,7 @@ public class FrmParticipante extends JInternalFrame implements ActionListener, M
 		partDao = new GestionParticipanteDAO();
 		cargarTabla();
 		//mostrar datos en la tabla
-		mostrarData(0);
+		//mostrarData(0);
 		
 	}
 

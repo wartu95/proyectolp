@@ -23,8 +23,10 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import clases.Perfil;
 import clases.TipoUsuario;
 import clases.Usuario;
+import mantenimiento.GestionPerfilDAO;
 import mantenimiento.GestionTipoUsuarioDAO;
 import mantenimiento.GestionUsuarioDAO;
 import utils.Tool;
@@ -53,9 +55,8 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	GestionTipoUsuarioDAO gtipUser = new GestionTipoUsuarioDAO();
 	GestionUsuarioDAO gUser = new GestionUsuarioDAO();
 
-	private JLabel lblTipoUsuario;
-	private JComboBox<Object> cboTipoUsuario;
-	private JButton btnBuscarCargo;
+	private JLabel lblCargo;
+	private JComboBox<Object> cboCargo;
 	private JPasswordField txtClave;
 	private JButton btnNuevo;
 	private JButton btnActualizar;
@@ -63,7 +64,8 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	private JPanel panel;
 	private JPanel panel_1;
 	private JLabel lblNewLabel;
-	private JLabel lblMensaje;
+	private JComboBox cboPerfil;
+	private JLabel lblPerfil;
 
 	public static void main(String[] args) {
 
@@ -109,6 +111,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		model.addColumn("Nombre");
 		model.addColumn("Apellido");
 		model.addColumn("Cargo");
+		model.addColumn("Perfil");
 
 		tbUsuarios.setModel(model);
 
@@ -126,27 +129,21 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		lblIdUsuario.setBounds(10, 6, 73, 14);
 		panel.add(lblIdUsuario);
 
-		btnBuscarCargo = new JButton("");
-		btnBuscarCargo.setBounds(98, 11, 47, 35);
-		panel.add(btnBuscarCargo);
-		btnBuscarCargo.addActionListener(this);
-		btnBuscarCargo.setIcon(new ImageIcon(FrmUsuario.class.getResource("/img/busca.png")));
-
 		txtNombre = new JTextField();
-		txtNombre.setBounds(167, 77, 135, 20);
+		txtNombre.setBounds(134, 21, 156, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		lblNombre = new JLabel("Nombres");
-		lblNombre.setBounds(167, 52, 73, 14);
+		lblNombre.setBounds(134, 6, 73, 14);
 		panel.add(lblNombre);
 
 		lblContrasena = new JLabel("Contrase\u00F1a");
-		lblContrasena.setBounds(167, 6, 87, 14);
+		lblContrasena.setBounds(10, 52, 87, 14);
 		panel.add(lblContrasena);
 
 		txtClave = new JPasswordField();
-		txtClave.setBounds(167, 21, 73, 20);
+		txtClave.setBounds(10, 67, 73, 20);
 		panel.add(txtClave);
 
 		lblApellido = new JLabel("Apellidos");
@@ -158,17 +155,22 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		panel.add(txtApellido);
 		txtApellido.setColumns(10);
 
-		lblTipoUsuario = new JLabel("Tipo Usuario");
-		lblTipoUsuario.setBounds(314, 52, 73, 14);
-		panel.add(lblTipoUsuario);
+		lblCargo = new JLabel("CARGO");
+		lblCargo.setBounds(314, 52, 73, 14);
+		panel.add(lblCargo);
 
-		cboTipoUsuario = new JComboBox();
-		cboTipoUsuario.setBounds(312, 76, 156, 22);
-		panel.add(cboTipoUsuario);
-
-		lblMensaje = new JLabel("Esta ventana de cerrar\u00E1 en");
-		lblMensaje.setBounds(10, 108, 171, 14);
-		panel.add(lblMensaje);
+		cboCargo = new JComboBox();
+		cboCargo.setBounds(312, 76, 156, 22);
+		panel.add(cboCargo);
+		
+		cboPerfil = new JComboBox();
+		cboPerfil.setSelectedIndex(-1);
+		cboPerfil.setBounds(134, 76, 156, 22);
+		panel.add(cboPerfil);
+		
+		lblPerfil = new JLabel("PERFIL");
+		lblPerfil.setBounds(136, 52, 73, 14);
+		panel.add(lblPerfil);
 
 		panel_1 = new JPanel();
 		panel_1.setBounds(517, 12, 122, 134);
@@ -205,41 +207,57 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		getContentPane().add(lblNewLabel);
 		btnRegistrar.addActionListener(this);
 
-		// Mostrar datos en la tabla
 		cargarDataUsuario();
-		// mostrar datos de baja de la tabla
-		mostrarData(0);
-		// mostrar datos del CBO
 		cargarTipoUsuario();
+		cargarPerfil();
+		
 
 	}
+    private String obteneridUsuario() {
+		
+		return gUser.IdUsuario();
+	}
+	
 
 	private void cargarTipoUsuario() {
 
-		cboTipoUsuario.setSelectedIndex(-1);
-		cboTipoUsuario.addItem("Seleccione un cargo");
+		cboCargo.setSelectedIndex(-1);
+		cboCargo.addItem("Seleccione un cargo");
 		for (TipoUsuario obj : gtipUser.listarTipoUsuarios()) {
-			cboTipoUsuario.addItem(obj.getDescripCargo());
+			cboCargo.addItem(obj.getDescripCargo());
+		}
+
+	}
+	
+	private void cargarPerfil() {
+
+		cboPerfil.setSelectedIndex(-1);
+		cboPerfil.addItem("Seleccione un perfil");
+		for (Perfil obj : new GestionPerfilDAO().listarPerfil()) {
+		cboPerfil.addItem(obj.getDescipPerfil());
 		}
 
 	}
 
 	private void mostrarData(int posFila) {
 		// declarar variables
-		String user, pass, nomb, ape, carg;
+		String user, pass, nomb, ape, carg, perfil;
+		
 		// paso 1 : obtener los datos de la tabla
 		user = tbUsuarios.getValueAt(posFila, 0).toString();
 		pass = tbUsuarios.getValueAt(posFila, 1).toString();
 		nomb = tbUsuarios.getValueAt(posFila, 2).toString();
 		ape = tbUsuarios.getValueAt(posFila, 3).toString();
 		carg = tbUsuarios.getValueAt(posFila, 4).toString();
-
+		perfil = tbUsuarios.getValueAt(posFila,5).toString();
+		
 		// paso 2: eEnviar los datos de la tabla a la cajas de texto
 		txtIdUsuario.setText(user);
 		txtClave.setText(pass);
 		txtNombre.setText(nomb);
 		txtApellido.setText(ape);
-		cboTipoUsuario.setSelectedItem(carg);
+		cboCargo.setSelectedItem(carg);
+		cboPerfil.setSelectedItem(perfil);
 
 	}
 
@@ -253,27 +271,30 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		for (Usuario u : lista) {
 			// MOSTRAR VALOR DEL CBO EN CARGO
 			String cargo = null;
+			String perfil = null;
 
 			for (TipoUsuario obj : gtipUser.listarTipoUsuarios()) {
 				if (obj.getIdcargo() == u.getCargo()) {
 					cargo = obj.getDescripCargo();
 				}
 			}
+			
+			for (Perfil obj : new GestionPerfilDAO().listarPerfil()) {
+				if (obj.getIdperfil() == u.getPerfil()) {
+					perfil = obj.getDescipPerfil();
+				}
+			}
 
-			// crear un arreglo
-			Object fila[] = { u.getUsuario(), u.getClave(), u.getNombre(), u.getApellido(), cargo
-
-			};
-			// a�adir la fila a la tabla
+			
+			
+			Object fila[] = { u.getUsuario(), u.getClave(), u.getNombre(), u.getApellido(), cargo, perfil};
+			
 			model.addRow(fila);
 		}
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnBuscarCargo) {
-			actionPerformedBtnBuscarCargo(e);
-		}
 		if (e.getSource() == btnEliminar) {
 			actionPerformedBtnEliminar(e);
 		}
@@ -291,17 +312,18 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 	protected void actionPerformedBtnRegistrar(ActionEvent e) {
 		// variables
 		String user, pass, nomb, ape;
-		int carg;
+		int carg, perfil;
 		// entradas
 		user = getUsuario();
 		pass = getClave();
 		nomb = getNombre();
 		ape = getApellido();
 		carg = getCargo();
+		perfil = getPerfil();
 
 		// validar
 
-		if (user == null || pass == null || nomb == null || ape == null || carg == -1) {
+		if (user == null || pass == null || nomb == null || ape == null || carg == -1 || perfil == -1) {
 			return;
 		} else {
 			Usuario u = new Usuario();
@@ -312,16 +334,17 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 			u.setNombre(nomb);
 			u.setApellido(ape);
 			u.setCargo(carg);
+			u.setPerfil(perfil);
 
 			// Llamar al proceso --->> metodo registra que se encuentra en la clase
 			// "GestionUsuarioDAO"
 			int ok = gUser.registrar(u);
 			// validar el resultado del proceso de registro
 			if (ok == 0) {
-				mensajeError("Error en el registro");
+				Tool.mensajeError(this, "REGISTRO FALLIDO");
 
 			} else {
-				mensajeExito("Registro Exitiso");
+				Tool.mensajeExito(this,"REGISTRO EXITOSO");
 				cargarDataUsuario();
 			}
 		}
@@ -333,7 +356,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 
 	private int getCargo() {
 
-		return cboTipoUsuario.getSelectedIndex();
+		return cboCargo.getSelectedIndex();
 	}
 
 	private String getApellido() {
@@ -376,6 +399,15 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 
 		clave = encriptado(String.valueOf(txtClave.getPassword()));
 		return clave;
+	}
+	
+	private int getPerfil (){
+		
+		int res = -1;
+		
+		res = cboPerfil.getSelectedIndex();
+		
+		return res;
 	}
 
 	private String encriptado(String pass) {
@@ -427,7 +459,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		} else if (txtIdUsuario.getText().trim().matches(Validaciones.USER_USUARIO)) {
 			user = txtIdUsuario.getText().trim();
 		} else {
-			mensajeError("Error en el formato.Ej U001 � u001");
+			mensajeError("Error en el formato.Ej U0001 ");
 			txtIdUsuario.setText("");
 			txtIdUsuario.requestFocus();
 
@@ -447,6 +479,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 
 	protected void actionPerformedBtnNuevo(ActionEvent e) {
 		nuevoUsuario();
+		txtIdUsuario.setText(obteneridUsuario());
 	}
 
 	private void nuevoUsuario() {
@@ -454,6 +487,9 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		txtClave.setText("");
 		txtNombre.setText("");
 		txtApellido.setText("");
+		cboCargo.setSelectedIndex(0);
+		cboPerfil.setSelectedIndex(0);
+		
 
 	}
 
@@ -493,6 +529,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 			} else {
 				mensajeExito("Actualizacion Exitiso");
 				cargarDataUsuario();
+				nuevoUsuario();
 			}
 		}
 
@@ -558,10 +595,6 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 		mostrarData(posFila);
 	}
 
-	protected void actionPerformedBtnBuscarCargo(ActionEvent e) {
-		buscarDatosUsuario();
-	}
-
 	private void buscarDatosUsuario() {
 		String usuario;
 		// paso1 --> obtener el codigo ingresado
@@ -579,7 +612,7 @@ public class FrmUsuario extends JInternalFrame implements ActionListener, MouseL
 				txtClave.setText(user.getClave());
 				txtNombre.setText(user.getNombre());
 				txtApellido.setText(user.getApellido());
-				cboTipoUsuario.setSelectedIndex(user.getCargo());
+				cboCargo.setSelectedIndex(user.getCargo());
 
 			}
 		}

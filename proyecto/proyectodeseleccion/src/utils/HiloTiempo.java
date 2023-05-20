@@ -23,7 +23,7 @@ public class HiloTiempo extends Thread {
 	
 	@Override
 	public void run() {
-		for (int i = 10; i >= 0; i--) {
+		for (int i = 20; i >= 0; i--) {
 			lblTiempo1.setText(i + "s");
 			try {
 				Thread.sleep(1000);// pausa al proceso
@@ -33,7 +33,7 @@ public class HiloTiempo extends Thread {
 			}
 			//System.out.println(i);
 		}
-		ventana.dispose();
+		this.ventana.dispose();
 	}
 
 	
