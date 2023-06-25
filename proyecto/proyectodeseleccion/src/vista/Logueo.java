@@ -196,6 +196,8 @@ public class Logueo extends JFrame implements WindowListener {
 
 	protected void actionPerformedBtnAceptar(ActionEvent e) {
 		String user, clave;
+		String useee;
+		int a;
 		// Obtener los datos ingreados en la GUI
 		user = getUsuario();
 		clave = getClave();
